@@ -1,6 +1,41 @@
 h1 {
-	
 	font-size: 2.5em;
 	color: #FFFFFF
-	
+}
+
+h2 {
+	color: #FFFFFF
+}
+
+.container {
+	display: grid;
+	grid-template-rows: auto auto;
+	grid-template-columns: auto auto auto auto auto;
+}
+
+.grid {
+	padding: 15px 5px 15px 5px;
+}
+
+.grid-top {
+	background-color: #4d506a;
+}
+
+.grid-1 {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row: 1;
+}
+
+.grid-2 {
+	grid-column-start: 3;
+	grid-column-end: 3;
+	grid-row: 1;
+}
+
+.grid-3 {
+	grid-column-start: 4;
+	grid-column-end: 6;
+	grid-row: 1;
+	padding: 25px 5px 25px 5px;
 }
