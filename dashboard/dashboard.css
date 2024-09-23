@@ -36,3 +36,17 @@ h2 {
 .topmenu a.right:hover {
 	background-color: #000000;
 }
+
+.topmenu input[type=text] {
+	float: right;
+	padding: 6px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.topmenu .search  button{
+	float: right;
+	padding: 6px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
