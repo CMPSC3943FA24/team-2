@@ -1,3 +1,7 @@
+body {
+	background-color:#FFFFFF;
+	margin: 0;
+
 h1 {
 	font-size: 2.5em;
 	color: #FFFFFF
@@ -7,35 +11,28 @@ h2 {
 	color: #FFFFFF
 }
 
-.container {
-	display: grid;
-	grid-template-rows: auto auto;
-	grid-template-columns: auto auto auto auto auto;
+.topmenu {
+	background-color: #000000;
+	overflow: auto;
 }
 
-.grid {
-	padding: 15px 5px 15px 5px;
+.topmenu a {
+	float: left;
+	color: #FFFFFF;
+	font-size: 2em;
+	text-decoration: none;
+	text-align: center;
+	padding: 12px 15px 12px 15px;
 }
 
-.grid-top {
-	background-color: #4d506a;
+.topmenu a.right {
+	float: right;
 }
 
-.grid-1 {
-	grid-column-start: 1;
-	grid-column-end: 3;
-	grid-row: 1;
+.topmenu a:hover {
+	color: #888888;
 }
 
-.grid-2 {
-	grid-column-start: 3;
-	grid-column-end: 3;
-	grid-row: 1;
-}
-
-.grid-3 {
-	grid-column-start: 4;
-	grid-column-end: 6;
-	grid-row: 1;
-	padding: 25px 5px 25px 5px;
+.topmenu a.right:hover {
+	background-color: #000000;
 }
