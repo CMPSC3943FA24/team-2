@@ -2,24 +2,20 @@ body {
 	background-color:#FFFFFF;
 	margin: 0;
 
-h1 {
-	font-size: 2.5em;
-	color: #FFFFFF
-}
-
-h2 {
-	color: #FFFFFF
-}
-
 .topmenu {
 	background-color: #000000;
 	overflow: auto;
 }
 
+#main {
+	background-color: #AA0000;
+	font-size: 3em;
+}
+
 .topmenu a {
 	float: left;
 	color: #FFFFFF;
-	font-size: 2em;
+	font-size: 3em;
 	text-decoration: none;
 	text-align: center;
 	padding: 12px 15px 12px 15px;
@@ -30,7 +26,8 @@ h2 {
 }
 
 .topmenu a:hover {
-	color: #888888;
+	color: #777777;
+	background-color: #CCCCCC;
 }
 
 .topmenu a.right:hover {
