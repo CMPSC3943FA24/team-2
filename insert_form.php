@@ -1,7 +1,7 @@
 <?php
 // Fetch card sets from the database
 require 'db.php'; // Use this to connect to the database
-$cardSets = $pdo->query("SELECT game_id, gane_name FROM cards")->fetchAll();
+$cardSets = $pdo->query("SELECT game_id, game_name FROM cards")->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ $cardSets = $pdo->query("SELECT game_id, gane_name FROM cards")->fetchAll();
         <select id="card_set" name="card_game" required>
             <option value="">--Select a Game--</option>
             <?php foreach ($cardSets as $set): ?>
-                <option value="<?= $set['id'] ?>"><?= htmlspecialchars($set['name']) ?></option>
+                <option value="<?= $set['gmae_id'] ?>"><?= htmlspecialchars($set['game_name']) ?></option>
             <?php endforeach; ?>
         </select><br><br>
 

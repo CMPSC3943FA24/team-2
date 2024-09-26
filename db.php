@@ -6,6 +6,10 @@ $user = 'dev';
 $pass = 'dsVZ"^78/7S';
 $charset = 'utf8mb4';
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // DSN (Data Source Name)
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
