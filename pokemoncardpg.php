@@ -30,10 +30,10 @@ if (!$card_criteria && !$card_name) {
 
 <?php include "./topmenu.php"; ?>
 
-
+<?php
 echo "<h2>$card_name</h2>";
 echo "<h2>$card_criteria</h2>";
-
+?>
 <section class="section">
 </section>
 
