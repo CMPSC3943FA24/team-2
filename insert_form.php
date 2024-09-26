@@ -14,16 +14,16 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
 </head>
 <body>
     <?php include "./topmenu.php"; ?>
-    <h1 class="title">Insert New Card</h1>
     
     <!-- Add the 'columns' wrapper here -->
     <section class="section">
         <div class="columns">
             <!-- Empty column for spacing -->
             <div class="column is-one-quarter"></div>
-
+            
             <!-- Main form column -->
             <div class="column">
+                <h1 class="title">Insert New Card</h1>
                 <form action="insert_card.php" method="POST">
                     <label class="label" for="card_set">Game:</label>
                     <select class="select" id="card_set" name="card_game" required>
