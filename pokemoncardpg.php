@@ -4,7 +4,12 @@ require 'db.php'; // Use this to connect to the database
 
 // Fetch card details for card ID 1
 $cardId = 1; // Specify the card ID
-$query = $pdo->prepare("SELECT * FROM pokemon_criteria WHERE card_id = :card_id");
+$query = $pdo->prepare("
+    SELECT pc.*, c.card_name AS card_name, c.type AS card_type 
+    FROM pokemon_criteria pc 
+    JOIN cards c ON pc.card_id = c.card_id 
+    WHERE pc.card_id = :card_id
+");
 $query->execute(['card_id' => $cardId]);
 $card = $query->fetch(PDO::FETCH_ASSOC);
 
