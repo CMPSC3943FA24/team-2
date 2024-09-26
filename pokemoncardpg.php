@@ -55,7 +55,7 @@
 			<!-- Card Image -->
 			<div class="column">
 				<div class="card-image">
-					<img src="test.png" alt="Card Image">	<!-- Picture of Card -->
+					<img src="test_pkmn.png" alt="Card Image">	<!-- Picture of Card -->
 				</div>
 			</div>
 		</div>
