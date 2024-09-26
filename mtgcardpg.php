@@ -16,7 +16,7 @@
 			<!-- Card Image -->
 			<div class="column is-one-third">
 				<div class="card-image">
-					<img src="imagegohere.png" alt="Card Image"> <!-- Picture of Card -->
+					<img src="test.png" alt="Card Image"> <!-- Picture of Card -->
 				</div>
 			</div>
 			<!-- Card Details -->
