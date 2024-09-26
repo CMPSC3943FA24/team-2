@@ -1,7 +1,7 @@
 <?php
 // Fetch card sets from the database
 require 'db.php'; // Use this to connect to the database
-$cardSets = $pdo->query("SELECT id, name FROM cards")->fetchAll();
+$cardSets = $pdo->query("SELECT game_id, gane_name FROM cards")->fetchAll();
 ?>
 
 <!DOCTYPE html>
