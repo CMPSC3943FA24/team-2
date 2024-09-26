@@ -15,6 +15,7 @@
 		<div class="navbar-start">
 			<a href="/inventory.php" class="navbar-item">Inventory</a>
 			<a href="/decks.php" class="navbar-item">Decks</a>
+			<a href="/insert_form.php" class="navbar-item">Testing Form</a>
 		</div>
 
 		<div class="navbar-end">
