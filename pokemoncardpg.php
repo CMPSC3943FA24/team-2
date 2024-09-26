@@ -15,7 +15,7 @@
 <section class="section">
 	<div class="container card-info-wrapper">
 		<div class="columns">
-			<div class="column is-one-third"></div>
+			<div class="column is-one-fifth"></div>
 			<!-- Card Details -->
 			<div class="column is-one-third">
 				<div class="content">
