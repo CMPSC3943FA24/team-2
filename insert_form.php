@@ -1,8 +1,6 @@
 <?php
 // Fetch card sets from the database
 require 'db.php'; // Use this to connect to the database
-$cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
-
 session_start();
 
 // Check if the user is logged in
@@ -11,6 +9,8 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: app/login.php');
     exit();
 }
+$cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
