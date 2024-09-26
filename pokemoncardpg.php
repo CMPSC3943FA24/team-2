@@ -53,7 +53,7 @@
 				</div>
 			</div>
 			<!-- Card Image -->
-			<div class="column is-one-third">
+			<div class="column is-three-fifths">
 				<div class="card-image">
 					<img src="test.png" alt="Card Image">	<!-- Picture of Card -->
 				</div>
