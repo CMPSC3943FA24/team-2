@@ -11,7 +11,7 @@
 .card-image {
     display: flex;
     justify-content: center; /* Center the image in its column */
-    align-items: right; /* Center vertically */
+    align-items: center; /* Center vertically */
 }
 
 .card-image img {
