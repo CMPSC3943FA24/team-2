@@ -43,40 +43,44 @@ if (!$card_criteria && !$card_name) {
 					<h1><?= htmlspecialchars($card_name['name']) ?></h1>	
 					<!-- Card Type -->
 					<h2>Card Type</h2>
-					<p><?= htmlspecialchars($card_criteria['typings']) ?></p>
+						<p><?= htmlspecialchars($card_criteria['typings']) ?></p>
 					<!-- Form -->
 					<h2>Form</h2>
-					<p><?= htmlspecialchars($card_criteria['form']) ?></p>
+						<p><?= htmlspecialchars($card_criteria['form']) ?></p>
 					<!-- HP -->
 					<h2>HP</h2>
-					<p><?= htmlspecialchars($card_criteria['hp']) ?></p>
+						<p><?= htmlspecialchars($card_criteria['hp']) ?></p>
 					<!-- Typings -->
 					<h2>Typings</h2>
-					<p><?= htmlspecialchars($card_criteria['typings']) ?></p>
+						<p><?= htmlspecialchars($card_criteria['typings']) ?></p>
 					<!-- Card Text -->
 					<h2>Card Text</h2>
-					<p><?= htmlspecialchars($card_criteria['attack1']) ?></p>
-					<p><?= htmlspecialchars($card_criteria['attack1_desc']) ?></p>
-					<p><?= htmlspecialchars($card_criteria['attack1_cost']) ?></p>
-					<p><?= htmlspecialchars($card_criteria['attack1_type1']) ?></p>
-					<p><?= htmlspecialchars($card_criteria['attack1_type2']) ?></p>
-					<p><?= htmlspecialchars($card_criteria['attack1_type2']) ?></p>
-					<p><?= htmlspecialchars($card_criteria['attack1_power']) ?></p>
+						<h3>Attack</h3>
+							<p><?= htmlspecialchars($card_criteria['attack1']) ?></p>
+						<h3>Description</h3>
+							<p><?= htmlspecialchars($card_criteria['attack1_desc']) ?></p>
+						<h3>Cost</h3>
+							<p><?= htmlspecialchars($card_criteria['attack1_cost']) ?></p>
+						<h3>Type</h3>
+							<p><?= htmlspecialchars($card_criteria['attack1_type1']) ?></p>
+							<p><?= htmlspecialchars($card_criteria['attack1_type2']) ?></p>
+						<h3>Power</h3>
+							<p><?= htmlspecialchars($card_criteria['attack1_power']) ?></p>
 					<!-- Weakness -->
 					<h2>Weakness</h2>
-					<p><?= htmlspecialchars($card_criteria['weakness']) ?></p>
+						<p><?= htmlspecialchars($card_criteria['weakness']) ?></p>
 					<!-- Resistance -->
 					<h2>Resistance</h2>
-					<p><?= htmlspecialchars($card_criteria['resistance']) ?></p>
+						<p><?= htmlspecialchars($card_criteria['resistance']) ?></p>
 					<!-- Retreat Cost -->
 					<h2>Retreat Cost</h2>
-					<p><?= htmlspecialchars($card_criteria['retreat_cost']) ?></p>
+						<p><?= htmlspecialchars($card_criteria['retreat_cost']) ?></p>
 					<!-- Set -->
 					<h2>Set</h2>
-					<p><?= htmlspecialchars($card_criteria['set']) ?></p>
+						<p><?= htmlspecialchars($card_criteria['set']) ?></p>
 					<!-- Artist -->
 					<h2>Artist</h2>
-					<p><?= htmlspecialchars($card_criteria['artist']) ?></p>
+						<p><?= htmlspecialchars($card_criteria['artist']) ?></p>
 				</div>
 			</div>
 			<!-- Card Image -->
