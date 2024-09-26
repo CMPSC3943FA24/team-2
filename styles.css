@@ -17,7 +17,7 @@
 .card-image img {
     max-width: 100%; /* Responsive image */
     height: auto; /* Maintain aspect ratio */
-    max-height: 3in; /* Optional: Set a maximum height for the image */
+    max-height: 55%; /* Optional: Set a maximum height for the image */
 }
 
 /* Restrict the size of the div to 2 inches
