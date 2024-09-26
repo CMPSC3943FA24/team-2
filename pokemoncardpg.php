@@ -15,6 +15,7 @@
 <section class="section">
 	<div class="container card-info-wrapper">
 		<div class="columns">
+			<div class="is-one-fifths"></div>
 			<!-- Card Details -->
 			<div class="column is-two-fifths">
 				<div class="content">
@@ -53,7 +54,7 @@
 				</div>
 			</div>
 			<!-- Card Image -->
-			<div class="column is-three-fifths">
+			<div class="column is-two-fifths">
 				<div class="card-image">
 					<img src="test.png" alt="Card Image">	<!-- Picture of Card -->
 				</div>
