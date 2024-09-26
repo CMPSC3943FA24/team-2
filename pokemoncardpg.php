@@ -44,10 +44,10 @@ echo "<h2>$card_criteria</h2>";
 			<div class="column is-three-fifths">
 				<div class="content">
 					<!-- Card Name -->
-					<h1><?= htmlspecialchars($card_name['card_name']) ?></h1>	
+					<h1><?= htmlspecialchars($card_name['name']) ?></h1>	
 					<!-- Card Type -->
 					<h2>Card Type</h2>
-					<p><?= htmlspecialchars($card_criteria['type']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['typings']) ?></p>
 					<!-- Form -->
 					<h2>Form</h2>
 					<p><?= htmlspecialchars($card_criteria['form']) ?></p>
