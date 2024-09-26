@@ -15,6 +15,10 @@
 <section class="section">
 	<div class="container card-info-wrapper">
 		<div class="columns">
+			<table class="table">
+				<thead>
+					<tr>
+						<th><abbr title="Card Name">Card Name</abbr></th>
 			<!-- Card Details -->
 			<div class="column is-three-fifths">
 				<div class="content">
