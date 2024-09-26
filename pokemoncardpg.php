@@ -17,7 +17,7 @@
 		<div class="columns">
 			<div class="is-one-fifths"></div>
 			<!-- Card Details -->
-			<div class="column is-two-fifths">
+			<div class="column is-one-third">
 				<div class="content">
 					<!-- Card Name -->
 					<h1>Card Name</h1>	
@@ -54,7 +54,7 @@
 				</div>
 			</div>
 			<!-- Card Image -->
-			<div class="column is-two-fifths">
+			<div class="column">
 				<div class="card-image">
 					<img src="test.png" alt="Card Image">	<!-- Picture of Card -->
 				</div>
