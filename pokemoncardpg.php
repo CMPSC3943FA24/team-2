@@ -16,7 +16,7 @@
 	<div class="container card-info-wrapper">
 		<div class="columns">
 			<!-- Card Details -->
-			<div class="column is-two-thirds">
+			<div class="column is-two-fifths">
 				<div class="content">
 					<!-- Card Name -->
 					<h1>Card Name</h1>	
