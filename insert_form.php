@@ -11,6 +11,7 @@ $cardSets = $pdo->query("SELECT id, name FROM cards")->fetchAll();
     <title>Insert Card</title>
 </head>
 <body>
+    <?php include "./topmenu.php"; ?>
     <h1>Insert New Card</h1>
     <form action="insert_card.php" method="POST">
         <label for="card_set">Game:</label>

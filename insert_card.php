@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 
 // Include the database connection
 require 'db.php';
