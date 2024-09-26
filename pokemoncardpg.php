@@ -15,7 +15,7 @@
 <section class="section">
 	<div class="container card-info-wrapper">
 		<div class="columns">
-			<div class="is-one-fifths"></div>
+			<div class="is-two-fifths"></div>
 			<!-- Card Details -->
 			<div class="column is-one-third">
 				<div class="content">
