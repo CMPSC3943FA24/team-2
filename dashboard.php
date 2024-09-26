@@ -18,7 +18,7 @@
 					<a href="#" class="button is-fullwidth is-primary is-outlined">Magic</a>
 				</div>
 				<div class="column is-one-third has-text-centered">
-					<a href="#" class="button is-fullwidth is-warning is-outlined">Pok&eacute;mon</a>
+					<a href="/pokemoncardpg.php" class="button is-fullwidth is-warning is-outlined">Pok&eacute;mon</a>
 				</div>
 				<div class="column is-one-third has-text-centered">
 					<a href="#" class="button is-fullwidth is-danger is-outlined">Yu-Gi-Oh!</a>
