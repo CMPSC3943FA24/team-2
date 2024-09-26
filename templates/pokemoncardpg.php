@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 // Include database connection
-require 'db.php'; // Use this to connect to the database
+require '../db.php'; // Use this to connect to the database
 
 // Fetch card details for card ID 1
 $cardId = 1; // Specify the card ID
