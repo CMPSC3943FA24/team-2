@@ -16,7 +16,7 @@
 	<div class="container card-info-wrapper">
 		<div class="columns">
 			<!-- Card Details -->
-			<div class="column is-three-quarters">
+			<div class="column is-two-thirds">
 				<div class="content">
 					<!-- Card Name -->
 					<h1>Card Name</h1>	
@@ -53,7 +53,7 @@
 				</div>
 			</div>
 			<!-- Card Image -->
-			<div class="column is-one-quarter">
+			<div class="column is-one-third">
 				<div class="card-image">
 					<img src="test.png" alt="Card Image">	<!-- Picture of Card -->
 				</div>
