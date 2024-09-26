@@ -8,6 +8,8 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Insert Card</title>
 </head>
 <body>
