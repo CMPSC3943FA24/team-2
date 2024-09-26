@@ -17,7 +17,7 @@
 		<div class="columns">
 			<div class="column is-one-fifth"></div>
 			<!-- Card Details -->
-			<div class="column is-one-third">
+			<div class="column is-three-fifths">
 				<div class="content">
 					<!-- Card Name -->
 					<h1>Card Name</h1>	
