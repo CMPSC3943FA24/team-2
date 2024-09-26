@@ -4,14 +4,14 @@ require 'db.php'; // Use this to connect to the database
 
 // Fetch card details for card ID 1
 $cardId = 1; // Specify the card ID
-$query = $pdo->prepare("
-    SELECT pc.*, c.card_name AS card_name, c.type AS card_type 
-    FROM pokemon_criteria pc 
-    JOIN cards c ON pc.card_id = c.card_id 
-    WHERE pc.card_id = :card_id
-");
+$query = $pdo->prepare("SELECT * FROM pokemon_criteria WHERE card_id = :card_id");
 $query->execute(['card_id' => $cardId]);
-$card = $query->fetch(PDO::FETCH_ASSOC);
+$card_criterea = $query->fetch(PDO::FETCH_ASSOC);
+
+$query = $pdo->prepare("SELECT * FROM cards WHERE card_id = :card_id");
+$query->execute(['card_id' => $cardId]);
+$card_name = $query->fetch(PDO::FETCH_ASSOC);
+
 
 // Check if the card was found
 if (!$card) {
@@ -40,7 +40,7 @@ if (!$card) {
 			<div class="column is-three-fifths">
 				<div class="content">
 					<!-- Card Name -->
-					<h1><?= htmlspecialchars($card['card_name']) ?></h1>	
+					<h1><?= htmlspecialchars($card_name['card_name']) ?></h1>	
 					<!-- Card Type -->
 					<h2>Card Type</h2>
 					<p><?= htmlspecialchars($card['type']) ?></p>
