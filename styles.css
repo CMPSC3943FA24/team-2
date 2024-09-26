@@ -20,7 +20,7 @@
     max-height: 3in; /* Optional: Set a maximum height for the image */
 }
 
-/* Restrict the size of the div to 2 inches 
+/* Restrict the size of the div to 2 inches
 .card-image {
     width: 3in;
     overflow: hidden; /* Ensures the image does not overflow 
