@@ -14,7 +14,7 @@ $card_name = $query->fetch(PDO::FETCH_ASSOC);
 
 
 // Check if the card was found
-if (!$card) {
+if (!$card_criteria && !$card_name) {
     die("Card not found.");
 }
 ?>
