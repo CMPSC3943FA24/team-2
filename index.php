@@ -15,7 +15,7 @@
 			<!-- Game Selection Section -->
 			<div class="columns is-centered">
 				<div class="column is-one-third has-text-centered">
-					<a href="#" class="button is-fullwidth is-primary is-outlined">Magic</a>
+					<a href="/mtgcardpg.php" class="button is-fullwidth is-primary is-outlined">Magic</a>
 				</div>
 				<div class="column is-one-third has-text-centered">
 					<a href="/pokemoncardpg.php" class="button is-fullwidth is-warning is-outlined">Pok&eacute;mon</a>
