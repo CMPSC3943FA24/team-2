@@ -6,7 +6,7 @@ require 'db.php'; // Use this to connect to the database
 $cardId = 1; // Specify the card ID
 $query = $pdo->prepare("SELECT * FROM pokemon_criteria WHERE card_id = :card_id");
 $query->execute(['card_id' => $cardId]);
-$card_criterea = $query->fetch(PDO::FETCH_ASSOC);
+$card_criteria = $query->fetch(PDO::FETCH_ASSOC);
 
 $query = $pdo->prepare("SELECT * FROM cards WHERE card_id = :card_id");
 $query->execute(['card_id' => $cardId]);
@@ -30,6 +30,10 @@ if (!$card_criteria && !$card_name) {
 
 <?php include "./topmenu.php"; ?>
 
+
+echo "<h2>$card_name</h2>";
+echo "<h2>$card_criteria</h2>";
+
 <section class="section">
 </section>
 
@@ -43,7 +47,7 @@ if (!$card_criteria && !$card_name) {
 					<h1><?= htmlspecialchars($card_name['card_name']) ?></h1>	
 					<!-- Card Type -->
 					<h2>Card Type</h2>
-					<p><?= htmlspecialchars($card_criterea['type']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['type']) ?></p>
 					<!-- Form -->
 					<h2>Form</h2>
 					<p><?= htmlspecialchars($card_criteria['form']) ?></p>
@@ -52,25 +56,25 @@ if (!$card_criteria && !$card_name) {
 					<p><?= htmlspecialchars($card_criteria['hp']) ?></p>
 					<!-- Typings -->
 					<h2>Typings</h2>
-					<p><?= htmlspecialchars($card_criterea['typings']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['typings']) ?></p>
 					<!-- Card Text -->
 					<h2>Card Text</h2>
-					<p><?= htmlspecialchars($card_criterea['card_text']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['card_text']) ?></p>
 					<!-- Weakness -->
 					<h2>Weakness</h2>
-					<p><?= htmlspecialchars($card_criterea['weakness']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['weakness']) ?></p>
 					<!-- Resistance -->
 					<h2>Resistance</h2>
-					<p><?= htmlspecialchars($card_criterea['resistance']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['resistance']) ?></p>
 					<!-- Retreat Cost -->
 					<h2>Retreat Cost</h2>
-					<p><?= htmlspecialchars($card_criterea['retreat_cost']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['retreat_cost']) ?></p>
 					<!-- Set -->
 					<h2>Set</h2>
-					<p><?= htmlspecialchars($card_criterea['set']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['set']) ?></p>
 					<!-- Artist -->
 					<h2>Artist</h2>
-					<p><?= htmlspecialchars($card_criterea['artist']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['artist']) ?></p>
 				</div>
 			</div>
 			<!-- Card Image -->
