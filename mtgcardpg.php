@@ -1,68 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
 	<link rel="stylesheet" type="text/css" href="styles.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cardstock</title>
 </head>
-	
 <body>
-<h1>Card Name</h1>					<!--Name of Card e.g. "Siege Dragon" string-->
 
-<div class="container">
+<?php include "./topmenu.php"; ?>
 
-<div class="grid-1">
-<img src="imagegohere.png" alt="Card Image">		<!--Image of Card jpeg or png-->
-</div>
-					<!--Mana Cost  e.g. image of mana cost from top right corner of card-->
-<div class="grid-2">
-<h2>Mana Cost</h2>
-<p>info</p>
-</div>
-					<!--Mana Value e.g. integer value of the sum of the mana cost e.g. 4-->
-<div class="grid-3">
-<h2>Mana Value</h2>
-<p>info</p>
-</div>
-					<!--Type Text e.g. String of type of card e.g. instant, enchantment, creature - dragon-->
-<div class="grid-4">
-<h2>Type Text</h2>
-<p>info</p>
-</div>
-					<!--Card Body Text e.g. String of card effects and flavor text.-->
-<div class="grid-5">
-<h2>Card Body Text</h2>
-<p>info</p>
-</div>
-					<!--P/T e.g. integers or asterisks separated by a / e.g. 4/5 !!!!Only applicable to creature cards-->
-<div class="grid-6">
-<h2>Power/Toughness</h2>
-<p>info</p>
-</div>
-					<!--Expansion e.g. string representing the name of the expansion and a small image of the expansion emblem-->
-<div class="grid-7">
-<h2>Expansion</h2>
-<p>info</p>
-</div>
-					<!--Rarity e.g. String to describe rarity e.g. common, uncommon, rare, mythic-->
-<div class="grid-8">
-<h2>Rarity</h2>
-<p>info</p>
-</div>
-					<!--All Expansions e.g. images of all the expansion emblems that represent all the expansions that this card was printed in-->
-<div class="grid-9">
-<h2>All Expansions</h2>
-<p>info</p>
-</div>
-					<!--Card Number e.g. integer of this cards number in its expansion e.g. 27-->
-<div class="grid-10">
-<h2>Card Set Number</h2>
-<p>info</p>
-</div>
-					<!--Artist e.g. string text of artist name e.g. Arty McArt-->
-<div class="grid-11">
-<h2>Artist</h2>
-<p>info</p>
-</div>
-
+<section class="section">
+	<div class="container card-info-wrapper">
+		<div class="columns">
+			<!-- Card Image -->
+			<div class="column is-one-third">
+				<div class="card-image">
+					<img src="imagegohere.png" alt="Card Image"> <!-- Picture of Card -->
+				</div>
+			</div>
+			<!-- Card Details -->
+			<div class="column">
+				<h1 class="title">Card Name</h1>
+				<table class="table is-bordered is-striped is-narrow is-fullwidth">
+					<tbody>
+						<tr>
+							<th>Mana Cost</th>
+							<td>info</td>
+						</tr>
+						<tr>
+							<th>Mana Value</th>
+							<td>info</td>
+						</tr>
+						<tr>
+							<th>Type Text</th>
+							<td>info</td>
+						</tr>
+						<tr>
+							<th>Card Body Text</th>
+							<td>info</td>
+						</tr>
+						<tr>
+							<th>Power/Toughness</th>
+							<td>info</td>
+						</tr>
+						<tr>
+							<th>Expansion</th>
+							<td>info</td>
+						</tr>
+						<tr>
+							<th>Rarity</th>
+							<td>info</td>
+						</tr>
+						<tr>
+							<th>All Expansions</th>
+							<td>info</td>
+						</tr>
+						<tr>
+							<th>Card Set Number</th>
+							<td>info</td>
+						</tr>
+						<tr>
+							<th>Artist</th>
+							<td>info</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
 </body>
-
 </html>
