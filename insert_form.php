@@ -24,11 +24,38 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
             <?php endforeach; ?>
         </select><br><br>
 
-        <label class = "label" for="card_name">Card Name:</label>
+        <label class = "label" for="card_name">Card Name</label>
         <input class = "input" type="text" id="card_name" name="card_name" required><br><br>
 
-        <label class = "label" for="card_quantity">Card Quantity:</label>
-        <input class = "input" type="number" id="card_quantity" name="card_quantity" min="1" required><br><br>
+        <label class = "label" for="type">Type</label>
+        <input class = "input" type="text" id="type" name="type" min="1" required><br><br>
+
+        <label class = "label" for="Form">Form</label>
+        <input class = "input" type="text" id="form" name="form" min="1" required><br><br>
+
+        <label class = "label" for="hp">HP</label>
+        <input class = "input" type="text" id="hp" name="hp" min="1" required><br><br>
+
+        <label class = "label" for="typings">Typings</label>
+        <input class = "input" type="text" id="typings" name="typings" min="1" required><br><br>
+
+        <label class = "label" for="card_text">Card Text</label>
+        <input class = "input" type="text" id="card_text" name="card_text" min="1" required><br><br>
+
+        <label class = "label" for="weakness">Weakness</label>
+        <input class = "input" type="text" id="weakness" name="weakness" min="1" required><br><br>
+
+        <label class = "label" for="resistance">Resistance</label>
+        <input class = "input" type="text" id="resistance" name="resistance" min="1" required><br><br>
+
+        <label class = "label" for="retreat_cost">Retreat Cost</label>
+        <input class = "input" type="text" id="retreat_cost" name="retreat_cost" min="1" required><br><br>
+
+        <label class = "label" for="set">Set</label>
+        <input class = "input" type="text" id="set" name="set" min="1" required><br><br>
+
+        <label class = "label" for="artists">Artists</label>
+        <input class = "input" type="text" id="artists" name="artists" min="1" required><br><br>
 
         <input class = "button" type="submit" value="Submit">
     </form>
