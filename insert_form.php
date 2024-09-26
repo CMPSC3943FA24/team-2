@@ -24,6 +24,7 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
             <!-- Main form column -->
             <div class="column">
                 <h1 class="title">Insert New Card</h1>
+                <h2 class="Subtitle">Only Pokemon is implemented atm!</h2>
                 <form action="insert_card.php" method="POST">
                     <label class="label" for="card_set">Game:</label>
                     <select class="select" id="card_set" name="card_game" required>
@@ -36,38 +37,48 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
                     <label class="label" for="card_name">Card Name:</label>
                     <input class="input" type="text" id="card_name" name="card_name" required><br><br>
 
-                    <label class="label" for="type">Type:</label>
-                    <input class="input" type="text" id="type" name="type" required><br><br>
-
                     <label class="label" for="form">Form:</label>
                     <input class="input" type="text" id="form" name="form" required><br><br>
 
                     <label class="label" for="hp">HP:</label>
-                    <input class="input" type="text" id="hp" name="hp" required><br><br>
+                    <input class="input" type="number" id="hp" name="hp" required><br><br>
 
                     <label class="label" for="typings">Typings:</label>
                     <input class="input" type="text" id="typings" name="typings" required><br><br>
 
-                    <label class="label" for="card_text">Card Text:</label>
-                    <input class="input" type="text" id="card_text" name="card_text" required><br><br>
+                    <label class="label" for="attack1">Attack 1:</label>
+                    <input class="input" type="text" id="attack1" name="attack1" required><br><br>
+
+                    <label class="label" for="attack1_desc">Attack 1 Description:</label>
+                    <input class="input" type="text" id="attack1_desc" name="attack1_desc" required><br><br>
+
+                    <label class="label" for="attack1_cost">Attack 1 Cost:</label>
+                    <input class="input" type="text" id="attack1_cost" name="attack1_cost" required><br><br>
+
+                    <label class="label" for="attack1_type1">Attack 1 Type 1:</label>
+                    <input class="input" type="text" id="attack1_type1" name="attack1_type1" required><br><br>
+
+                    <label class="label" for="attack1_type2">Attack 1 Type 2:</label>
+                    <input class="input" type="text" id="attack1_type2" name="attack1_type2"><br><br>
+
+                    <label class="label" for="attack1_power">Attack 1 Power:</label>
+                    <input class="input" type="number" id="attack1_power" name="attack1_power"><br><br>
 
                     <label class="label" for="weakness">Weakness:</label>
                     <input class="input" type="text" id="weakness" name="weakness" required><br><br>
 
-                    <label class="label" for="resistance">Resistance:</label>
-                    <input class="input" type="text" id="resistance" name="resistance" required><br><br>
+                    <label class="label" for="retreat_cost_type">Retreat Cost Type:</label>
+                    <input class="input" type="text" id="retreat_cost_type" name="retreat_cost_type" required><br><br>
 
                     <label class="label" for="retreat_cost">Retreat Cost:</label>
-                    <input class="input" type="text" id="retreat_cost" name="retreat_cost" required><br><br>
-
-                    <label class="label" for="set">Set:</label>
-                    <input class="input" type="text" id="set" name="set" required><br><br>
+                    <input class="input" type="number" id="retreat_cost" name="retreat_cost" required><br><br>
 
                     <label class="label" for="artists">Artists:</label>
                     <input class="input" type="text" id="artists" name="artists" required><br><br>
 
                     <input class="button" type="submit" value="Submit">
                 </form>
+
             </div>
 
             <!-- Empty column for spacing -->
