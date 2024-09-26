@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // Include database connection
 require 'db.php'; // Use this to connect to the database
 
