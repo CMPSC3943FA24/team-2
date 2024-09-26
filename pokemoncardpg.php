@@ -55,7 +55,13 @@ if (!$card_criteria && !$card_name) {
 					<p><?= htmlspecialchars($card_criteria['typings']) ?></p>
 					<!-- Card Text -->
 					<h2>Card Text</h2>
-					<p><?= htmlspecialchars($card_criteria['card_text']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['attack1']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['attack1_desc']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['attack1_cost']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['attack1_type1']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['attack1_type2']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['attack1_type2']) ?></p>
+					<p><?= htmlspecialchars($card_criteria['attack1_power']) ?></p>
 					<!-- Weakness -->
 					<h2>Weakness</h2>
 					<p><?= htmlspecialchars($card_criteria['weakness']) ?></p>
