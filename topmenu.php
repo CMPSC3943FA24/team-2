@@ -1,7 +1,7 @@
 <!-- Navbar Section -->
 <nav class="navbar is-light">
 	<div class="navbar-brand">
-		<a href="#" class="navbar-item" id="main">
+		<a href="/dashboard.php" class="navbar-item" id="main">
 			<strong>CARDSTOCK</strong>
 		</a>
 		<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -13,8 +13,8 @@
 
 	<div id="navbarBasicExample" class="navbar-menu">
 		<div class="navbar-start">
-			<a href="#" class="navbar-item">Inventory</a>
-			<a href="#" class="navbar-item">Decks</a>
+			<a href="/inventory.php" class="navbar-item">Inventory</a>
+			<a href="/decks.php" class="navbar-item">Decks</a>
 		</div>
 
 		<div class="navbar-end">
