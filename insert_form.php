@@ -16,21 +16,21 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
     <?php include "./topmenu.php"; ?>
     <h1>Insert New Card</h1>
     <form action="insert_card.php" method="POST">
-        <label for="card_set">Game:</label>
-        <select id="card_set" name="card_game" required>
+        <label class = "label" for="card_set">Game:</label>
+        <select class = "select" id="card_set" name="card_game" required>
             <option value="">--Select a Game--</option>
             <?php foreach ($cardSets as $set): ?>
-                <option value="<?= $set['gmae_id'] ?>"><?= htmlspecialchars($set['game_name']) ?></option>
+                <option class = "input" value="<?= $set['game_id'] ?>"><?= htmlspecialchars($set['game_name']) ?></option>
             <?php endforeach; ?>
         </select><br><br>
 
-        <label for="card_name">Card Name:</label>
-        <input type="text" id="card_name" name="card_name" required><br><br>
+        <label class = "label" for="card_name">Card Name:</label>
+        <input class = "input" type="text" id="card_name" name="card_name" required><br><br>
 
-        <label for="card_quantity">Card Quantity:</label>
-        <input type="number" id="card_quantity" name="card_quantity" min="1" required><br><br>
+        <label class = "label" for="card_quantity">Card Quantity:</label>
+        <input class = "input" type="number" id="card_quantity" name="card_quantity" min="1" required><br><br>
 
-        <input type="submit" value="Submit">
+        <input class = "button" type="submit" value="Submit">
     </form>
 </body>
 </html>
