@@ -24,13 +24,13 @@ if (!$card_criteria && !$card_name) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="../styles.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Cardstock</title>
 </head>
 <body>
 
-<?php include "./topmenu.php"; ?>
+<?php include "../topmenu.php"; ?>
 
 <section class="section">
 </section>
