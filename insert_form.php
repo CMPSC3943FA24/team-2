@@ -15,18 +15,10 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
 <body>
     <?php include "./topmenu.php"; ?>
     <h1 class = "heading" >Insert New Card</h1>
+    <section class="section">
     <div class="column is-one-quarter"></div>
     
     <div class="column">
-        <form action="insert_card.php" method="POST">
-            <label class = "label" for="card_set">Game:</label>
-            <select class = "dropdown" id="card_set" name="card_game" required>
-                <option value="">--Select a Game--</option>
-                <?php foreach ($cardSets as $set): ?>
-                    <option class = "input" value="<?= $set['game_id'] ?>"><?= htmlspecialchars($set['game_name']) ?></option>
-                <?php endforeach; ?>
-            </select><br><br>
-
         <label class = "label" for="card_name">Card Name</label>
         <input class = "input" type="text" id="card_name" name="card_name" required><br><br>
        
@@ -77,5 +69,6 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
     </div>
 
     <div class="column is-one-quarter"></div>
+</section>
 </body>
 </html>
