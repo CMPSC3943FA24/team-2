@@ -11,13 +11,8 @@ require '../db.php';
 try {
     // Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Validate card_id
-        if (empty($card_id) || !is_numeric($card_id)) {
-            throw new Exception('Invalid Card ID. Please enter a valid number.');
-        }
-
         // Prepare the query
-        $query = $pdo->prepare("SELECT * FROM cards WHERE card_id = :card_id");
+        $query = $pdo->prepare("SELECT * FROM cards");
         // Bind the parameter to prevent SQL injection
         $query->execute(['card_id' => $card_id]);
         $card = $query->fetch(PDO::FETCH_ASSOC);
@@ -25,8 +20,6 @@ try {
         if (!$card) {
             throw new Exception('Card not found.');
         }
-
-        // Optionally process the card data here
 
         // Redirect back to the Print Card page
         header('Location: ../app/print_card.php'); // Update this to the correct path
