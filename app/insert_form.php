@@ -1,12 +1,12 @@
 <?php
 // Fetch card sets from the database
-require 'db.php'; // Use this to connect to the database
+require '../db.php'; // Use this to connect to the database
 session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     // User is not logged in, redirect to the login page
-    header('Location: app/login.php');
+    header('Location: login.php');
     exit();
 }
 $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
@@ -21,7 +21,7 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
     <title>Insert Card</title>
 </head>
 <body>
-    <?php include "./topmenu.php"; ?>
+    <?php include "../templates/navbar.php"; ?>
     
     <!-- Add the 'columns' wrapper here -->
     <section class="section">
@@ -33,7 +33,7 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
             <div class="column">
                 <h1 class="title">Insert New Card</h1>
                 <h2 class="Subtitle">Only Pokemon is implemented atm!</h2>
-                <form action="Scripts/insert_card.php" method="POST">
+                <form action="../Scripts/insert_card.php" method="POST">
                     <label class="label" for="card_set">Game:</label>
                     <select class="select" id="card_set" name="card_game" required>
                         <option value="">--Select a Game--</option>

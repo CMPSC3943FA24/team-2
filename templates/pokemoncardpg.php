@@ -30,7 +30,7 @@ if (!$card_criteria && !$card_name) {
 </head>
 <body>
 
-<?php include "../topmenu.php"; ?>
+<?php include "navbar.php"; ?>
 
 <section class="section">
 </section>
