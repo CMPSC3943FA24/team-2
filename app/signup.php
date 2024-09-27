@@ -6,22 +6,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Fetch user data from the database
+    // Check if the username already exists
     $query = $pdo->prepare('SELECT * FROM users WHERE username = :username');
     $query->execute(['username' => $username]);
-    $user = $query->fetch(PDO::FETCH_ASSOC);
+    $existingUser = $query->fetch(PDO::FETCH_ASSOC);
 
-    // Verify password (assuming you store passwords as hashes)
-    if ($user && password_verify($password, $user['password'])) {
-        // Set session variables
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-
-        // Redirect to a protected page
-        header('Location: dashboard.php');
-        exit();
+    if ($existingUser) {
+        echo 'Username already exists. Please choose a different one.';
     } else {
-        echo 'Invalid username or password.';
+        // Hash the password before storing it
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert the new user into the database
+        $query = $pdo->prepare('INSERT INTO users (username, password) VALUES (:username, :password)');
+        $query->execute(['username' => $username, 'password' => $hashedPassword]);
+
+        echo 'Sign-up successful! You can now <a href="login.php">log in</a>.';
     }
 }
 ?>
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
+    <title>Sign Up</title>
 </head>
 <body>
     <form method="POST">
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required>
         <br>
-        <button type="submit">Login</button> <button href="app/signup.php">sign up</button>
+        <button type="submit">Sign Up</button>
     </form>
 </body>
 </html>
