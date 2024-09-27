@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Include the database connection
-require 'db.php';
+require '../db.php';
 
 try {
     // Check if the form is submitted
