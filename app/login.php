@@ -1,9 +1,9 @@
 <?php
 session_set_cookie_params([
-    'lifetime' => 0,        // Session expires when the browser is closed
-    'path' => '/',          // Available across all directories
-    'secure' => false,      // Set to true if you're using HTTPS
-    'httponly' => true,     // Prevent JavaScript from accessing session cookies
+    'lifetime' => 0,
+    'path' => '/',
+    'secure' => false,
+    'httponly' => true,
 ]);
 session_start();
 require '../db.php'; // Include your database connection
@@ -17,13 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query->execute(['username' => $username]);
     $user = $query->fetch(PDO::FETCH_ASSOC);
     
-    // Verify password (assuming you store passwords as hashes)
+    // Debug output
+    var_dump($user); // Check user data
+
+    // Verify password
     if ($user && password_verify($password, $user['password'])) {
-        // Regenerate session ID to prevent session fixation
         session_regenerate_id(true);
-        // Set session variables
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
+
+        // Debug output for session variables
+        echo 'Session ID: ' . session_id();
+        echo 'User ID: ' . $_SESSION['user_id'];
+        echo 'Username: ' . $_SESSION['username'];
 
         // Redirect to a protected page
         header('Location: ../index.php');
@@ -33,22 +39,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <form method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username">
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password">
-        <br>
-        <button type="submit">Login</button> 
-    </form>
-    <a href="signup.php"><button>sign up</button></a>
-</body>
-</html>
