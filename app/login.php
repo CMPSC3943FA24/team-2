@@ -1,4 +1,10 @@
 <?php
+session_set_cookie_params([
+    'lifetime' => 0,        // Session expires when the browser is closed
+    'path' => '/',          // Available across all directories
+    'secure' => false,      // Set to true if you're using HTTPS
+    'httponly' => true,     // Prevent JavaScript from accessing session cookies
+]);
 session_start();
 require '../db.php'; // Include your database connection
 
