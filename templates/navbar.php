@@ -13,9 +13,10 @@
 
 	<div id="navbarBasicExample" class="navbar-menu">
 		<div class="navbar-start">
-			<a href="/inventory.php" class="navbar-item">Inventory</a>
-			<a href="/decks.php" class="navbar-item">Decks</a>
-			<a href="/insert_form.php" class="navbar-item">Card Input Form</a>
+			<a href="app/inventory.php" class="navbar-item">Inventory</a>
+			<a href="app/decks.php" class="navbar-item">Decks</a>
+			<a href="app/insert_form.php" class="navbar-item">Card Input Form</a>
+			<a href="app/print_card.php" class="navbar-item">Card Print</a>
 		</div>
 
 		<div class="navbar-end">
