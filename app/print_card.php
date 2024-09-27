@@ -40,6 +40,9 @@ unset($_SESSION['card_criteria']);
                     <input class="input" type="number" id="card_id" name="card_id" required><br><br>
                     <input class="button" type="submit" value="Submit">
                 </form>
+                <form action="../Scripts/return_all.php" method="POST">
+                    <input class="button" type="submit" value="Get All">
+                </form>
                 
                 <!-- Display card information if available -->
                 <?php if ($card): ?>
