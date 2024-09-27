@@ -69,10 +69,17 @@ unset($_SESSION['card_criteria']);
                     </ul>
                 <?php endif; ?>
                 <?php
-                if($card){unset($_SESSION['card']);}
-                if($card_criteria){unset($_SESSION['card_criteria']);}
-                if($card_all){unset($_SESSION)['card_all'];}
+                    if ($card) {
+                        unset($_SESSION['card']);
+                    }
+                    if ($card_criteria) {
+                        unset($_SESSION['card_criteria']);
+                    }
+                    if ($card_all) { 
+                        unset($_SESSION['card_all']); // Corrected syntax here
+                    }
                 ?>
+
             </div>
 
             <div class="column is-one-quarter"></div>
