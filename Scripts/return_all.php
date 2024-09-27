@@ -11,9 +11,6 @@ require '../db.php';
 try {
     // Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Collect data from the form
-        $card_id = $_POST['card_id']; // This is the card_id
-
         // Validate card_id
         if (empty($card_id) || !is_numeric($card_id)) {
             throw new Exception('Invalid Card ID. Please enter a valid number.');
