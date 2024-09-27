@@ -16,9 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = $pdo->prepare('SELECT * FROM users WHERE username = :username');
     $query->execute(['username' => $username]);
     $user = $query->fetch(PDO::FETCH_ASSOC);
-
+    
     // Verify password (assuming you store passwords as hashes)
     if ($user && password_verify($password, $user['password'])) {
+        // Regenerate session ID to prevent session fixation
+        session_regenerate_id(true);
         // Set session variables
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
