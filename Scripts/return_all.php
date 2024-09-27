@@ -14,7 +14,7 @@ try {
         // Prepare the query
         $query = $pdo->prepare("SELECT * FROM cards");
         // Bind the parameter to prevent SQL injection
-        $query->execute(['card_id' => $card]);
+        $query->execute();
         $card = $query->fetch(PDO::FETCH_ASSOC);
 
         if (!$card) {
