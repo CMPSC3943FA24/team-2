@@ -16,9 +16,6 @@
 			<a href="/inventory.php" class="navbar-item">Inventory</a>
 			<a href="/decks.php" class="navbar-item">Decks</a>
 			<a href="/insert_form.php" class="navbar-item">Card Input Form</a>
-			<p> <?php echo 'Session ID: ' . session_id(); echo 'User ID: ' . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Not set');
-echo 'Username: ' . (isset($_SESSION['username']) ? $_SESSION['username'] : 'Not set');
-?>?> </p>
 		</div>
 
 		<div class="navbar-end">
