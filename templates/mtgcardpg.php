@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<?php include "./topmenu.php"; ?>
+<?php include "navbar.php"; ?>
 
 <section class="section">
 	<div class="container card-info-wrapper">
