@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo 'Username: ' . $_SESSION['username'];
 
         // Redirect to a protected page
-        header('Location: ../index.php');
+        //header('Location: ../index.php');
         exit();
     } else {
         echo 'Invalid username or password.';
