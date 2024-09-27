@@ -34,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <form method="POST">
         <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
+        <input type="text" name="username" id="username">
         <br>
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
+        <input type="password" name="password" id="password">
         <br>
         <button type="submit">Login</button> <button href="app/signup.php">sign up</button>
     </form>
