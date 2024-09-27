@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 // Get the card data from the session if available
 $card = isset($_SESSION['card']) ? $_SESSION['card'] : null;
 $card_criteria = isset($_SESSION['card_criteria']) ? $_SESSION['card_criteria'] : null;
+$card_all = isset($_SESSION['card_all']) ? $_SESSION['card_all'] : [];
 
 // Clear the session data after retrieving
 unset($_SESSION['card']);
