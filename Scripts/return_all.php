@@ -27,4 +27,5 @@ try {
         header('Location: ../app/print_card.php'); // Update this to the correct path
         exit();
     }
+}
 ?>
