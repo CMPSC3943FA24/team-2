@@ -15,11 +15,10 @@ try {
         $query = $pdo->prepare("SELECT * FROM cards");
         // Bind the parameter to prevent SQL injection
         $query->execute();
-        $card_all = $query->fetch(PDO::FETCH_ASSOC);
+        $card_all = $query->fetchAll(PDO::FETCH_ASSOC); // Fetch all cards
 
-        if (!$card_all) {
-            throw new Exception('Card not found.');
-        }
+        // Store the result in the session
+        $_SESSION['card_all'] = $card_all;
 
         // Redirect back to the Print Card page
         header('Location: ../app/print_card.php'); // Update this to the correct path
