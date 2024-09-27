@@ -68,7 +68,9 @@ unset($_SESSION['card_criteria']);
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
+
                 <?php
+                    //clear session data
                     if ($card) {
                         unset($_SESSION['card']);
                     }
