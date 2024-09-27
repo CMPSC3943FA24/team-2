@@ -55,6 +55,10 @@ unset($_SESSION['card_criteria']);
                         <pre><?= htmlspecialchars(print_r($card_criteria, true)) ?></pre>
                     <?php endif; ?>
                 <?php endif; ?>
+                <?php if ($card_all): ?>
+                    <h2 class="subtitle">All cards:</h2>
+                    <p><strong>Card ID:</strong> <?= htmlspecialchars($card_all) ?></p>
+                <?php endif; ?>
             </div>
 
             <div class="column is-one-quarter"></div>

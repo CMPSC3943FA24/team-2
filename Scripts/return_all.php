@@ -15,9 +15,9 @@ try {
         $query = $pdo->prepare("SELECT * FROM cards");
         // Bind the parameter to prevent SQL injection
         $query->execute();
-        $card = $query->fetch(PDO::FETCH_ASSOC);
+        $card_all = $query->fetch(PDO::FETCH_ASSOC);
 
-        if (!$card) {
+        if (!$card_all) {
             throw new Exception('Card not found.');
         }
 
