@@ -56,8 +56,16 @@ unset($_SESSION['card_criteria']);
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if ($card_all): ?>
-                    <h2 class="subtitle">All cards:</h2>
-                    <p><strong>Card ID:</strong> <?= htmlspecialchars($card_all) ?></p>
+                    <h2 class="subtitle">All Cards:</h2>
+                    <ul>
+                        <?php foreach ($card_all as $card): ?>
+                            <li>
+                                <strong>Card ID:</strong> <?= htmlspecialchars($card['card_id']) ?><br>
+                                <strong>Name:</strong> <?= htmlspecialchars($card['name']) ?><br>
+                                <strong>Set ID:</strong> <?= htmlspecialchars($card['set_id']) ?><br>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
                 <?php endif; ?>
             </div>
 
