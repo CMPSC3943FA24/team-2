@@ -19,13 +19,24 @@ try {
             throw new Exception('Invalid Card ID. Please enter a valid number.');
         }
 
-        $query = $pdo->prepare("SELECT * FROM cards");
-        $query->execute(['card_id' => $card_id]); // Fixed variable name
+        // Prepare the query
+        $query = $pdo->prepare("SELECT * FROM cards WHERE card_id = :card_id");
+        // Bind the parameter to prevent SQL injection
+        $query->execute(['card_id' => $card_id]);
         $card = $query->fetch(PDO::FETCH_ASSOC);
+
+        if (!$card) {
+            throw new Exception('Card not found.');
+        }
+
+        // Optionally process the card data here
 
         // Redirect back to the Print Card page
         header('Location: ../app/print_card.php'); // Update this to the correct path
         exit();
     }
+} catch (Exception $e) {
+    // Display the error message
+    echo 'Error: ' . $e->getMessage();
 }
 ?>
