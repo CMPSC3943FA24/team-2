@@ -68,6 +68,11 @@ unset($_SESSION['card_criteria']);
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
+                <?php
+                unset($_SESSION['card']);
+                unset($_SESSION['card_criteria']);
+                unset($_SESSION)['card_all'];
+                ?>
             </div>
 
             <div class="column is-one-quarter"></div>
