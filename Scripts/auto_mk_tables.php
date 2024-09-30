@@ -5,7 +5,7 @@ $username = "dev";
 $password = 'dsVZ"^78/7S';
 $dbname = "cardstock_dev_0";
 global $columnname;
-global columntype;
+global $columntype;
 global $sql;
 global $sqlInt;
 global $sqlChar;
@@ -26,9 +26,9 @@ else {
   sleep(1);
   system("clear");
   sleep(.3);
-  echo "-------------------------\n");
-  echo "DB Connection Successful!\n");
-  echo "-------------------------\n");
+  echo "-------------------------\n";
+  echo "DB Connection Successful!\n";
+  echo "-------------------------\n";
   echo "\n";
   sleep(.4);
 }
@@ -46,8 +46,8 @@ class Menu {
     global $tablename;
 
     # Ask for the name of Table
-    system("clear);
-    $tablename = readline("Enter Table Name: );
+    system("clear");
+    $tablename = readline("Enter a table name: ");
     echo "\n";
     echo "Got it!\n";
     sleep(1);
@@ -76,7 +76,7 @@ class Menu {
         break;
       case 2:
         system("clear");
-        $columnname = readline("Enter Char COlumn Name: ";
+        $columnname = readline("Enter Char COlumn Name: ");
         echo "\n";
 
         global $sqlChar;
@@ -97,7 +97,7 @@ class Menu {
     system("clear");
     $sqlSTDin = readline("Enter Query: ");
     system("clear");
-    if ($result = $conn->query($sqlStDin)) {
+    if ($result = $conn->query($sqlSTDin)) {
       # Check to make sure syntax is correct then execute
       if ($result instanceof mysqli_result) {
         while ($row = $result->fetch_assoc()) {
@@ -138,7 +138,7 @@ while (TRUE) {
   switch ($tableinfo) {
     case 1:
       $clearscreen;
-      menu->one($tablename);
+      $menu->one();
       $clearscreen;
       break;
     case 2:
@@ -174,10 +174,9 @@ while (TRUE) {
       }
       break;
     case 0:
-      exit();
       break;
     default:
-      echo "Invalid Choice. Try again.\n");
+      echo "Invalid Choice. Try again.\n";
       break;
   }
 }
