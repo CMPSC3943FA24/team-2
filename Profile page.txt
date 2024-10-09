@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="profile page" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; 			/* this is the font of the profile page */
+            background-color: #d3d3d3; 				/* this is the background color of the page */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .profile-container {
+            background-color: white; 				/* background color of the little square where name/email */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+        h2 {
+            margin: 10px 0;
+        }
+        p {
+            color: #000000; 					/* this is the font color */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <img src="profile-pic.jpg" alt="Profile Picture"> 	<!-- this will show the profile image -->
+        <h2>Jose Aguilar</h2> 					<!-- this will show my name on the screen -->
+        <p>Email: aguilarj@example.com</p> 			<!-- this will show the email on the screen -->
+    </div>
+
+</body>
+</html>
+
