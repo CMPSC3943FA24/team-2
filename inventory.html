@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="styles.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	
+	<?php include "templates/navbar.php"; ?>
+
+	<p> <?php echo 'Session ID: ' . session_id(); echo 'User ID: ' . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Not set');
+echo 'Username: ' . (isset($_SESSION['username']) ? $_SESSION['username'] : 'Not set');
+?> </p>
+
+	<!-- Spacer -->
+		<section class="section">
+			<div class="container">
+			
+				<div class="is-size-2">
+					<p>Inventory</p>
+				</div>
+				
+				<br>
+				<br>
+			
+				<table class="table is-bordered is-striped is-fullwidth">
+					<tbody>
+						<tr>
+							<th>Card Name</th>
+							<td>Number Owned</td>
+							<td>Game</dt>
+							<td>Card Image</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+			
+			
+			
+
+</body>
+</html>
