@@ -71,7 +71,7 @@ try {
                         <?php foreach ($search_results as $result): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($result['card_id']); ?></td>
-                                <td><?php echo htmlspecialchars($result)['images']; ?></td>
+                                <td><?php echo htmlspecialchars($result['images']); ?></td>
                                 <td><?php echo htmlspecialchars($result['name']); ?></td>
                                 <td><?php echo htmlspecialchars($result['set_id']); ?></td>
                             </tr>
