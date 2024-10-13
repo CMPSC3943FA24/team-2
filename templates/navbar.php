@@ -18,26 +18,14 @@
 			<a href="app/insert_form.php" class="navbar-item">Card Input Form</a>
 			<a href="app/print_card.php" class="navbar-item">Card Print</a>
 		</div>
-
-		<div class="navbar-end">
-			<div class="navbar-item">
-				<div class="field is-grouped">
-					<p class="control">
-						<input class="input" type="text" placeholder="Search">
-					</p>
-					<p class="control">
-						<button class="button is-info" type="submit">Submit</button>
-					</p>
-				</div>
-			</div>
 			<!-- Search Box-->
-			<form action="search.php" method="GET" class="navbar-item">
+			<form action="/app/search_page.php" method="GET" class="navbar-item">
 				<div class="field has-addons">
 					<div class="control">
 						<input class="input" type="text" name="search_term" placeholder="Search..." required>
 					</div>
 					<div class="control">
-						<button class="button is-light" type="submit">Search</button>
+						<button class="button is-info" type="submit">Search</button>
 					</div>
 				</div>
 			</form>
