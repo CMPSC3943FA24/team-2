@@ -19,7 +19,7 @@ try {
         
         // Query the database
         $query = "
-            SELECT * FROM card
+            SELECT * FROM cards
             WHERE name LIKE '%$search_term%'
         ";
         $result = $conn->query($query);
