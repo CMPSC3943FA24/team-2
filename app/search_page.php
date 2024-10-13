@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Include the database connection file
-require '../db_mysqli.php'; // Ensure the correct path and filename
+require 'db_mysqli.php'; // Ensure the correct path and filename
 
 // Include the navbar (assuming your navbar is in a file like 'navbar.php')
 include "../templates/navbar.php"; 
