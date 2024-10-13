@@ -1,7 +1,11 @@
 <?php
+// Enable error reporting for PHP
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Include the database connection file
-include 'db.php';
-require '../db_mysqli.php'; /
+require '../db_mysqli.php'; // Ensure the correct path and filename
 
 // Include the navbar (assuming your navbar is in a file like 'navbar.php')
 include "../templates/navbar.php"; 
@@ -9,21 +13,31 @@ include "../templates/navbar.php";
 $search_results = [];
 $search_term = '';
 
-if (isset($_GET['search_term'])) {
-    $search_term = $conn->real_escape_string($_GET['search_term']);
-    
-    // Query the database
-    $query = "
-        SELECT * FROM card
-        WHERE name LIKE '%$search_term%'
-    ";
-    $result = $conn->query($query);
+try {
+    if (isset($_GET['search_term'])) {
+        $search_term = $conn->real_escape_string($_GET['search_term']);
+        
+        // Query the database
+        $query = "
+            SELECT * FROM card
+            WHERE name LIKE '%$search_term%'
+        ";
+        $result = $conn->query($query);
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $search_results[] = $row;
+        // Check for query errors
+        if (!$result) {
+            throw new Exception("Database Query Failed: " . $conn->error);
+        }
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $search_results[] = $row;
+            }
         }
     }
+} catch (Exception $e) {
+    // Display error message if query or connection fails
+    echo "<div class='notification is-danger'>Error: " . $e->getMessage() . "</div>";
 }
 ?>
 
