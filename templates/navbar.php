@@ -13,10 +13,10 @@
 
 	<div id="navbarBasicExample" class="navbar-menu">
 		<div class="navbar-start">
-			<a href="app/inventory.php" class="navbar-item">Inventory</a>
-			<a href="app/decks.php" class="navbar-item">Decks</a>
-			<a href="app/insert_form.php" class="navbar-item">Card Input Form</a>
-			<a href="app/print_card.php" class="navbar-item">Card Print</a>
+			<a href="/app/inventory.php" class="navbar-item">Inventory</a>
+			<a href="/app/decks.php" class="navbar-item">Decks</a>
+			<a href="/app/insert_form.php" class="navbar-item">Card Input Form</a>
+			<a href="/app/print_card.php" class="navbar-item">Card Print</a>
 		</div>
 			<!-- Search Box-->
 			<form action="/app/search_page.php" method="GET" class="navbar-item">
@@ -33,9 +33,9 @@
 
 			<div class="navbar-item">
 				<a href="#" class="navbar-item">
-					<img src="images/account.png" width="55px" height="40px">
+					<img src="/images/account.png" width="55px" height="40px">
 				</a>
-				<a href="Scripts/logout.php">Log Out</a>
+				<a href="/Scripts/logout.php">Log Out</a>
 			</div>
 		</div>
 	</div>
