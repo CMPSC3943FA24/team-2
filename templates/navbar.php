@@ -30,6 +30,18 @@
 					</p>
 				</div>
 			</div>
+			<!-- Search Box-->
+			<form action="search.php" method="GET" class="navbar-item">
+				<div class="field has-addons">
+					<div class="control">
+						<input class="input" type="text" name="search_term" placeholder="Search..." required>
+					</div>
+					<div class="control">
+						<button class="button is-light" type="submit">Search</button>
+					</div>
+				</div>
+			</form>
+
 
 			<div class="navbar-item">
 				<a href="#" class="navbar-item">
