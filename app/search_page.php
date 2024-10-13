@@ -62,16 +62,18 @@ try {
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Image</th>
                             <th>Name</th>
-                            <th>Description</th>
+                            <th>Set</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($search_results as $result): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($result['id']); ?></td>
+                                <td><?php echo htmlspecialchars($result['card_id']); ?></td>
+                                <td><?php echo htmlspecialchars($result)['images']; ?></td>
                                 <td><?php echo htmlspecialchars($result['name']); ?></td>
-                                <td><?php echo htmlspecialchars($result['description']); ?></td>
+                                <td><?php echo htmlspecialchars($result['set_id']); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
