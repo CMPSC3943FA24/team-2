@@ -26,7 +26,16 @@ $stmtUser = $conn->prepare($userQuery);
 $stmtUser->bind_param("i", $user_id);
 $stmtUser->execute();
 $userResult = $stmtUser->get_result();
-$userData = $userResult->fetch_assoc();
+
+// Bind username and profile picture to variables
+if ($userData = $userResult->fetch_assoc()) {
+    $username = $userData['username']; // Bind username to a variable
+    $profilePicture = $userData['profile_picture']; // Bind profile picture to a variable
+} else {
+    // Handle case where user data is not found
+    $username = 'N/A';
+    $profilePicture = 'default.jpg'; // Or set to a default profile picture
+}
 
 // Query to get total cards and decks owned
 $totalCardsQuery = "SELECT COUNT(*) AS total_cards FROM cards WHERE owner = ?";
@@ -57,11 +66,6 @@ $stmtDecks = $conn->prepare($decksQuery);
 $stmtDecks->bind_param("i", $user_id);
 $stmtDecks->execute();
 $decksResult = $stmtDecks->get_result();
-
-echo "<pre>";
-var_dump($userData['username']);
-echo "</pre>";
-
 ?>
 
 <!DOCTYPE html>
@@ -76,17 +80,15 @@ echo "</pre>";
 
     <div class="container">
         <div class="columns">
-        <!-- User Info Column -->
-        <div class="column is-one-third">
-            <h1 class="title">User Information</h1>
-            <img src="<?php echo htmlspecialchars("../" . ($userData['profile_picture'] ?? 'default.jpg')); ?>" alt="Profile Picture" class="image is-128x128">
-            <p><strong>Username:</strong> <?php echo htmlspecialchars($userData['profile_picture'] ?? 'N/A'); ?></p>
-            <p><?php $userData['username'];?></p>
-            <p><strong>Total Cards:</strong> <?php echo htmlspecialchars($totalCards); ?></p>
-            <p><strong>Total Decks:</strong> <?php echo htmlspecialchars($totalDecks); ?></p>
-            <button class="button is-primary">Edit Profile</button>
-        </div>
-
+            <!-- User Info Column -->
+            <div class="column is-one-third">
+                <h1 class="title">User Information</h1>
+                <img src="<?php echo htmlspecialchars("../" . ($profilePicture ?? 'default.jpg')); ?>" alt="Profile Picture" class="image is-128x128">
+                <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
+                <p><strong>Total Cards:</strong> <?php echo htmlspecialchars($totalCards); ?></p>
+                <p><strong>Total Decks:</strong> <?php echo htmlspecialchars($totalDecks); ?></p>
+                <button class="button is-primary">Edit Profile</button>
+            </div>
 
             <!-- Tabs Column -->
             <div class="column">
@@ -130,7 +132,7 @@ echo "</pre>";
                         <tbody>
                             <?php while ($row = $decksResult->fetch_assoc()): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($row['name']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['deck_name']); ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
