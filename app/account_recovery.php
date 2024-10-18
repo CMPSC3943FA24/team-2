@@ -7,7 +7,7 @@ session_set_cookie_params([
     'httponly' => true, //Security flag that when set to true means cookie cannot be accessed via javascript, used for preventing XSS attacks.
 ]);
 session_start(); //Inisitalisez/resumes a session. Allowing use of the global $_SESSION variable to store and retrieve data from
-require 'config.php';// Include config.php which contains the db config
+require 'config.php';// Include config.php which contains the db config - the $conn variable is what we'll use to facilitate our conversation with the DB
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') { //Checks if the HHTTP request method is POST. Code in this block only runs when a form is submitted using POST.
     $username = $_PSOT['username']; //Form data retrieved from the HTTP form
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { //Checks if the HHTTP request method
         $hashed_password = password_hash($password, PASSWORD_DEFAULT); //Hashes the password using the default method (Currently BCRYPT). Required to store passwords in the database.
 
         //Prepare the query
-        $stmt = $mysqli->prepare('UPDATE users SET password = ? WHERE username = ?'); //A prepared SQL statement, where ? is placemholders to bind to in the next comand.
+        $stmt = $conn->prepare('UPDATE users SET password = ? WHERE username = ?'); //A prepared SQL statement, where ? is placemholders to bind to in the next comand.
         $stmt->bind_param('ss', $hashed_password, $username); //bind parameters to the prepared statement to prevent sql injection. The 'ss' argument indicates that both hashed_password and username are strings (s stands for string).
 
         if($stmt->execute()){ //Executes prepared statement
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { //Checks if the HHTTP request method
             $error = 'Error occured while resettign the password.'; //Sets error message if error in query
         }
         $stmt->close(); //Close the statement freeing up memort and resources asociated with it
-        $mysqli->close();  //close the db connection. Ensures we don't have free hanging connections to the DB and accidentally reach the connection limit with empty connections.
+        $conn->close();  //close the db connection. Ensures we don't have free hanging connections to the DB and accidentally reach the connection limit with empty connections.
     }
 }
 

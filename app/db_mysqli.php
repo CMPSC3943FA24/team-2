@@ -1,5 +1,5 @@
 <?php
-// db.php
+// db_mysqli.php
 
 // Database connection details
 $host = 'localhost';

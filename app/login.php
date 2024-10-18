@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-$mysqli->close(); // Close the connection if it was successfully created
+$conn->close(); // Close the connection if it was successfully created
 ?>
 
 <!DOCTYPE html>
