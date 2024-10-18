@@ -1,6 +1,6 @@
 <!-- Navbar Section -->
  <?php
- include_once '../app/config.php';
+include_once __DIR__ . '/../app/config.php';
  ?>
 <nav class="navbar is-light">
 	<div class="navbar-brand">
