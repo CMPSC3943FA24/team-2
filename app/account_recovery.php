@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { //Checks if the HHTTP request method
     $confirm_password = $_POST['confirm_password']; //^^
 
     if($password !== $confirm_password) { //Check if the password was typed correctly twice
-        $error = 'Passwords don\'t match!'; //Little tidbit - using a ' inside a statement with '' is possible with use a backslash
+        $error = 'Passwords don\'t match!' . htmlspecialchars($passweord) . htmlspecialchars($confirm_password); //Little tidbit - using a ' inside a statement with '' is possible with use a backslash
     } else {
         //Hash the pass
         $hashed_password = password_hash($password, PASSWORD_DEFAULT); //Hashes the password using the default method (Currently BCRYPT). Required to store passwords in the database.
