@@ -1,9 +1,10 @@
 <?php
-//display error
+// Enable error reporting
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Session settings
 session_set_cookie_params([
     'lifetime' => 0,
     'path' => '/',
@@ -12,12 +13,8 @@ session_set_cookie_params([
 ]);
 session_start();
 
-require 'config.php';
-
-// Check for any database connection errors
-if ($mysqli->connect_error) {
-    die("Database connection failed: " . $mysqli->connect_error);
-}
+// Include the database connection file
+require '/path/to/db_mysqli.php'; // Ensure this path is correct
 
 $error = ''; // Initialize error message
 
@@ -52,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-$mysqli->close();
+$mysqli->close(); // Close the connection if it was successfully created
 ?>
 
 <!DOCTYPE html>
