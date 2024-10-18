@@ -7,6 +7,10 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// Enable error reporting for debugging purposes
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     // User is not logged in, redirect to the login page
@@ -23,16 +27,31 @@ $totalDecksQuery = "SELECT COUNT(*) AS total_decks FROM decks WHERE owner = ?";
 
 // Prepare and execute the queries
 $stmtTotalCards = $conn->prepare($totalCardsQuery);
+if (!$stmtTotalCards) {
+    die("Prepare failed for total cards: " . $conn->error);
+}
 $stmtUniqueCards = $conn->prepare($uniqueCardsQuery);
+if (!$stmtUniqueCards) {
+    die("Prepare failed for unique cards: " . $conn->error);
+}
 $stmtTotalDecks = $conn->prepare($totalDecksQuery);
+if (!$stmtTotalDecks) {
+    die("Prepare failed for total decks: " . $conn->error);
+}
 
 $stmtTotalCards->bind_param("i", $user_id);
 $stmtUniqueCards->bind_param("i", $user_id);
-$stmtTotalDecks->bind_param("i", $user_id);
+stmtTotalDecks->bind_param("i", $user_id);
 
-$stmtTotalCards->execute();
-$stmtUniqueCards->execute();
-$stmtTotalDecks->execute();
+if (!$stmtTotalCards->execute()) {
+    die("Execution failed for total cards: " . $stmtTotalCards->error);
+}
+if (!$stmtUniqueCards->execute()) {
+    die("Execution failed for unique cards: " . $stmtUniqueCards->error);
+}
+if (!$stmtTotalDecks->execute()) {
+    die("Execution failed for total decks: " . $stmtTotalDecks->error);
+}
 
 $totalCardsResult = $stmtTotalCards->get_result();
 $uniqueCardsResult = $stmtUniqueCards->get_result();
@@ -47,8 +66,15 @@ $inventoryQuery = "SELECT name AS card_name, number_owned, set_id AS game, image
 
 // Prepare and execute the inventory query
 $stmtInventory = $conn->prepare($inventoryQuery);
+if (!$stmtInventory) {
+    die("Prepare failed for inventory: " . $conn->error);
+}
+
 $stmtInventory->bind_param("i", $user_id);
-$stmtInventory->execute();
+if (!$stmtInventory->execute()) {
+    die("Execution failed for inventory: " . $stmtInventory->error);
+}
+
 $inventoryResult = $stmtInventory->get_result();
 ?>
 
