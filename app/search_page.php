@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 require 'db_mysqli.php'; // Ensure the correct path and filename
 
 // Include the navbar (assuming your navbar is in a file like 'navbar.php')
-include "../templates/navbar.php"; 
+include "/templates/navbar.php"; 
 
 $search_results = [];
 $search_term = '';

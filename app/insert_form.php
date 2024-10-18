@@ -20,12 +20,12 @@ $cardSets = $result->fetch_all(MYSQLI_ASSOC); // Fetch all results as an associa
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Insert Card</title>
 </head>
 <body>
-    <?php include "../templates/navbar.php"; ?>
+    <?php include "/templates/navbar.php"; ?>
     
     <!-- Add the 'columns' wrapper here -->
     <section class="section">
@@ -37,7 +37,7 @@ $cardSets = $result->fetch_all(MYSQLI_ASSOC); // Fetch all results as an associa
             <div class="column">
                 <h1 class="title">Insert New Card</h1>
                 <h2 class="subtitle">Only Pokemon is implemented atm!</h2>
-                <form action="../Scripts/insert_card.php" method="POST">
+                <form action="/Scripts/insert_card.php" method="POST">
                     <label class="label" for="card_set">Game:</label>
                     <select class="select" id="card_set" name="card_game" required>
                         <option value="">--Select a Game--</option>

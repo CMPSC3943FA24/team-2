@@ -1,6 +1,6 @@
 <?php
 // Fetch card sets from the database
-require '../db.php'; // Use this to connect to the database
+require '/db.php'; // Use this to connect to the database
 session_start();
 
 // Check if the user is logged in
@@ -28,7 +28,7 @@ unset($_SESSION['card_criteria']);
     <title>Get Card</title>
 </head>
 <body>
-    <?php include "../templates/navbar.php"; ?>
+    <?php include "/templates/navbar.php"; ?>
     
     <section class="section">
         <div class="columns">
@@ -36,12 +36,12 @@ unset($_SESSION['card_criteria']);
             
             <div class="column">
                 <h1 class="title">Get Card by ID (Testing)</h1>
-                <form action="../Scripts/get_card.php" method="POST">
+                <form action="/Scripts/get_card.php" method="POST">
                     <label class="label" for="card_id">Card ID</label>
                     <input class="input" type="number" id="card_id" name="card_id" required><br><br>
                     <input class="button" type="submit" value="Submit">
                 </form>
-                <form action="../Scripts/return_all.php" method="POST">
+                <form action="/Scripts/return_all.php" method="POST">
                     <input class="button" type="submit" value="Get All">
                 </form>
                 
