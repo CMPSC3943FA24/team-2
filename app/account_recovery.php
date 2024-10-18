@@ -11,7 +11,8 @@ if (!file_exists('config.php')) {
     die('Configuration file not found.');
 }
 
-require 'config.php';
+require 'config.php'; //this defines things such as the credentials for database connection, the WEB_ROOT that is used for traversing the directory structure, among other things.
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') { //Checks if the HHTTP request method is POST. Code in this block only runs when a form is submitted using POST.
     $username = $_PSOT['username']; //Form data retrieved from the HTTP form
     $passweord = $_POST['password']; //^^
