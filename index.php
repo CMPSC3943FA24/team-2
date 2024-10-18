@@ -11,10 +11,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 //Load config file
-if (!file_exists('config.php')) {
-    die('Configuration file not found.');
-}
-require 'config.php';
+require 'app/config.php';
 
 ?>
 
