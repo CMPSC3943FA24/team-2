@@ -14,6 +14,7 @@ ini_set('display_errors', 1);
 if (!file_exists('config.php')) {
     die('Configuration file not found.');
 }
+require 'config.php';
 
 ?>
 
