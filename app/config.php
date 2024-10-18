@@ -1,6 +1,11 @@
 <?php
 //define webroot
 define('WEB_ROOT', '/home/crowellm/php/app');
+//create url based on web root
+function url($path) {
+    return rtrim(WEB_ROOT, '/') . '/' . ltrim($path, '/');
+}
+
 // db_mysqli.php
 
 // Database connection details

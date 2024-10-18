@@ -16,10 +16,10 @@ include_once __DIR__ . '/../app/config.php';
 
 	<div id="navbarBasicExample" class="navbar-menu">
 		<div class="navbar-start">
-			<a href="<?php echo WEB_ROOT; ?>/app/inventory.php" class="navbar-item">Inventory</a>
-			<a href="<?php echo WEB_ROOT; ?>/app/decks.php" class="navbar-item">Decks</a>
-			<a href="<?php echo WEB_ROOT; ?>/app/insert_form.php" class="navbar-item">Card Input Form</a>
-			<a href="<?php echo WEB_ROOT; ?>/app/print_card.php" class="navbar-item">Card Print</a>
+		<a href="<?php echo url('inventory.php'); ?>" class="navbar-item">Inventory</a>
+            <a href="<?php echo url('decks.php'); ?>" class="navbar-item">Decks</a>
+            <a href="<?php echo url('insert_form.php'); ?>" class="navbar-item">Card Input Form</a>
+            <a href="<?php echo url('print_card.php'); ?>" class="navbar-item">Card Print</a>
 		</div>
 		<!-- Search Box -->
 		<form action="<?php echo WEB_ROOT; ?>/app/search_page.php" method="GET" class="navbar-item">
