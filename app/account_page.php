@@ -80,7 +80,7 @@ echo "</pre>";
         <div class="column is-one-third">
             <h1 class="title">User Information</h1>
             <img src="<?php echo htmlspecialchars("../" . ($userData['profile_picture'] ?? 'default.jpg')); ?>" alt="Profile Picture" class="image is-128x128">
-            <p><strong>Username:</strong> <?php echo htmlspecialchars($userData['username'] ?? 'N/A'); ?></p>
+            <p><strong>Username:</strong> <?php echo htmlspecialchars($userData["username"] ?? 'N/A'); ?></p>
             <p><strong>Total Cards:</strong> <?php echo htmlspecialchars($totalCards); ?></p>
             <p><strong>Total Decks:</strong> <?php echo htmlspecialchars($totalDecks); ?></p>
             <button class="button is-primary">Edit Profile</button>
