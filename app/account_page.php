@@ -59,7 +59,7 @@ $stmtDecks->execute();
 $decksResult = $stmtDecks->get_result();
 
 echo "<pre>";
-var_dump($userData);
+var_dump(gettype($userData));
 echo "</pre>";
 
 ?>
