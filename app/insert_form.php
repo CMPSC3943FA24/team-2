@@ -12,7 +12,7 @@ require 'config.php';
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     // User is not logged in, redirect to the login page
-    header('Location: /app/login.php');
+    header('Location: login.php');
     exit();
 }
 

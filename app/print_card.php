@@ -3,13 +3,13 @@
 if (!file_exists('config.php')) {
     die('Configuration file not found.');
 }
-require 'config.php';// Use this to connect to the database
 session_start();
+require 'config.php';// Use this to connect to the database
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     // User is not logged in, redirect to the login page
-    header('Location: /app/login.php');
+    header('Location: login.php');
     exit();
 }
 

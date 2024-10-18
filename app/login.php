@@ -7,10 +7,6 @@ session_set_cookie_params([
 ]);
 session_start();
 
-// Include your database connection
-if (!file_exists('config.php')) {
-    die('Configuration file not found.');
-}
 require 'config.php';
 
 // Check for any database connection errors
