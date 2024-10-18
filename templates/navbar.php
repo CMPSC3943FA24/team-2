@@ -1,8 +1,8 @@
 <?php
-session_start();
 require __DIR__ . '/../app/config.php';
 
 $profilePicture = '/images/account.png'; //default account image
+echo 'Current directory: ' . $_SESSION['profile_picture'];
 
 //Check if user is logged in
 if (isset($_SESSION['user_id'])){
