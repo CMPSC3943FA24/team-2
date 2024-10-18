@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     // Prepare and execute query to fetch user data
-    if ($stmt = $mysqli->prepare('SELECT * FROM users WHERE username = ?')) {
+    if ($stmt = $conn->prepare('SELECT * FROM users WHERE username = ?')) {
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->close();
     } else {
         // Handle statement preparation error
-        $error = 'Query preparation failed: ' . $mysqli->error;
+        $error = 'Query preparation failed: ' . $conn->error;
     }
 }
 
