@@ -1,8 +1,4 @@
 <?php
-//define webroot
-define('WEB_ROOT', '/home/crowellm/php');
-// db_mysqli.php
-
 // Database connection details
 $host = 'localhost';
 $user = 'dev';
