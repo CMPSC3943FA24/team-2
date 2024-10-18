@@ -83,7 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </form>
 
                         <div class="has-text-centered">
-                            <a href="signup.php">Don't have an account? Sign up</a>
+                            <a href="/app/signup.php">Don't have an account? Sign up</a><br>
+                            <a href="/app/account_recovery.php">Forgot your password?</a>
                         </div>
                     </div>
                 </div>

@@ -35,6 +35,7 @@
 				<a href="#" class="navbar-item">
 					<img src="/images/account.png" width="55px" height="40px">
 				</a>
+				<a href="/app/login.php">Log In</a>
 				<a href="/Scripts/logout.php">Log Out</a>
 			</div>
 		</div>
