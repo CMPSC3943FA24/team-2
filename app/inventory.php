@@ -1,6 +1,6 @@
 <?php
 // Include your database connection file
-include "config.php"; // adjust the path to your database connection file
+require "config.php"; // adjust the path to your database connection file
 
 // Start session (if not already started)
 if (session_status() == PHP_SESSION_NONE) {
