@@ -1,6 +1,9 @@
 <?php
 // Fetch card sets from the database
-require '/db.php'; // Use this to connect to the database
+if (!file_exists('config.php')) {
+    die('Configuration file not found.');
+}
+require 'config.php';// Use this to connect to the database
 session_start();
 
 // Check if the user is logged in

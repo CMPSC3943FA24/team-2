@@ -8,7 +8,10 @@ session_set_cookie_params([
 session_start();
 
 // Include your database connection
-require '/app/db_mysqli.php'; 
+if (!file_exists('config.php')) {
+    die('Configuration file not found.');
+}
+require 'config.php';
 
 // Check for any database connection errors
 if ($mysqli->connect_error) {

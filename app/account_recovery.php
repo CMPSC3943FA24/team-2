@@ -7,8 +7,11 @@ session_set_cookie_params([
     'httponly' => true, //Security flag that when set to true means cookie cannot be accessed via javascript, used for preventing XSS attacks.
 ]);
 session_start(); //Inisitalisez/resumes a session. Allowing use of the global $_SESSION variable to store and retrieve data from
-require '/app/db_mysqli.php'; // Include your database connection details
+if (!file_exists('config.php')) {
+    die('Configuration file not found.');
+}
 
+require 'config.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') { //Checks if the HHTTP request method is POST. Code in this block only runs when a form is submitted using POST.
     $username = $_PSOT['username']; //Form data retrieved from the HTTP form
     $passweord = $_POST['password']; //^^

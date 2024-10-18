@@ -5,7 +5,10 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Include the database connection file
-require '/app/db_mysqli.php';
+if (!file_exists('config.php')) {
+    die('Configuration file not found.');
+}
+require 'config.php';
 
 include "/templates/navbar.php"; 
 
