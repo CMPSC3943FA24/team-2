@@ -57,6 +57,11 @@ $stmtDecks = $conn->prepare($decksQuery);
 $stmtDecks->bind_param("i", $user_id);
 $stmtDecks->execute();
 $decksResult = $stmtDecks->get_result();
+
+echo "<pre>";
+var_dump($userData);
+echo "</pre>";
+
 ?>
 
 <!DOCTYPE html>
