@@ -1,4 +1,7 @@
 <!-- Navbar Section -->
+ <?php
+ require '../app/config.php'
+ ?>
 <nav class="navbar is-light">
 	<div class="navbar-brand">
 		<a href="<?php echo WEB_ROOT; ?>" class="navbar-item" id="main">
