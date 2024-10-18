@@ -46,20 +46,23 @@ $stmtTotalDecks->bind_param("i", $user_id);
 if (!$stmtTotalCards->execute()) {
     die("Execution failed for total cards: " . $stmtTotalCards->error);
 }
+$totalCardsResult = $stmtTotalCards->get_result();
+$totalCards = $totalCardsResult->fetch_assoc()['total_cards'];
+$stmtTotalCards->free_result(); // Free result after fetching
+
 if (!$stmtUniqueCards->execute()) {
     die("Execution failed for unique cards: " . $stmtUniqueCards->error);
 }
+$uniqueCardsResult = $stmtUniqueCards->get_result();
+$uniqueCards = $uniqueCardsResult->fetch_assoc()['unique_cards'];
+$stmtUniqueCards->free_result(); // Free result after fetching
+
 if (!$stmtTotalDecks->execute()) {
     die("Execution failed for total decks: " . $stmtTotalDecks->error);
 }
-
-$totalCardsResult = $stmtTotalCards->get_result();
-$uniqueCardsResult = $stmtUniqueCards->get_result();
 $totalDecksResult = $stmtTotalDecks->get_result();
-
-$totalCards = $totalCardsResult->fetch_assoc()['total_cards'];
-$uniqueCards = $uniqueCardsResult->fetch_assoc()['unique_cards'];
 $totalDecks = $totalDecksResult->fetch_assoc()['total_decks'];
+$stmtTotalDecks->free_result(); // Free result after fetching
 
 // Query to get the card inventory
 $inventoryQuery = "SELECT name AS card_name, number_owned, set_id AS game, images AS card_image FROM cards WHERE owner = ?";
