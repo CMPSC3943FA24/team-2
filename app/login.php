@@ -6,35 +6,49 @@ session_set_cookie_params([
     'httponly' => true,
 ]);
 session_start();
-require '/app/db_mysqli.php'; // Include your database connection
+
+// Include your database connection
+require '/app/db_mysqli.php'; 
+
+// Check for any database connection errors
+if ($mysqli->connect_error) {
+    die("Database connection failed: " . $mysqli->connect_error);
+}
+
+$error = ''; // Initialize error message
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
     // Prepare and execute query to fetch user data
-    $stmt = $mysqli->prepare('SELECT * FROM users WHERE username = ?');
-    $stmt->bind_param('s', $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+    if ($stmt = $mysqli->prepare('SELECT * FROM users WHERE username = ?')) {
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
 
-    // Verify password
-    if ($user && password_verify($password, $user['password'])) {
-        session_regenerate_id(true);
-        $_SESSION['user_id'] = $user['user_id'];
-        $_SESSION['username'] = $user['username'];
+        // Verify password
+        if ($user && password_verify($password, $user['password'])) {
+            session_regenerate_id(true);
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['username'] = $user['username'];
 
-        // Redirect to a protected page
-        header('Location: /index.php');
-        exit();
+            // Redirect to a protected page
+            header('Location: /index.php');
+            exit();
+        } else {
+            $error = 'Invalid username or password.';
+        }
+
+        $stmt->close();
     } else {
-        $error = 'Invalid username or password.';
+        // Handle statement preparation error
+        $error = 'Query preparation failed: ' . $mysqli->error;
     }
-
-    $stmt->close();
-    $mysqli->close();
 }
+
+$mysqli->close();
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <!-- Display error message if login fails -->
                         <?php if (!empty($error)): ?>
                             <div class="notification is-danger">
-                                <?php echo $error; ?>
+                                <?php echo htmlspecialchars($error); ?>
                             </div>
                         <?php endif; ?>
 
