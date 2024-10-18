@@ -5,7 +5,6 @@ session_set_cookie_params([
     'secure' => false,      // Set to true if you're using HTTPS
     'httponly' => true,     // Prevent JavaScript from accessing session cookies
 ]);
-session_start();
 // Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
