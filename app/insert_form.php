@@ -4,9 +4,6 @@ require '/app/db_mysqli.php'; // Use this to connect to the database
 session_start();
 
 //Load config file
-if (!file_exists('config.php')) {
-    die('Configuration file not found.');
-}
 require 'config.php';
 
 // Check if the user is logged in
