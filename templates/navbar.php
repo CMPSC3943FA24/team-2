@@ -4,7 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start(); // Start a new session if one is not already started
 }
 $profilePicture = '/images/account.png'; //default account image
-echo 'Current directory: ' . $_SESSION['profile_picture'];
 
 //Check if user is logged in
 if (isset($_SESSION['user_id'])){
