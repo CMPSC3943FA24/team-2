@@ -31,13 +31,14 @@
 			</form>
 
 
-			<div class="navbar-item">
-				<a href="#" class="navbar-item">
-					<img src="/images/account.png" width="55px" height="40px">
-				</a>
-				<a href="/app/login.php">Log In</a>
-				<a href="/Scripts/logout.php">Log Out</a>
-			</div>
+		<div class="navbar-item">
+    		<a href="/app/account_page.php" class="navbar-item">
+       			<img src="/images/account.png" width="55px" height="40px" alt="Account">
+    		</a>
+    		<a href="/app/login.php">Log In</a>
+    		<a href="/Scripts/logout.php">Log Out</a>
+		</div>
+
 		</div>
 	</div>
 </nav>

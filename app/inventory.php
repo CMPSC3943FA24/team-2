@@ -131,14 +131,15 @@ $inventoryResult = $stmtInventory->get_result();
                 <table class="table is-bordered is-striped is-fullwidth">
                     <tbody>
                         <tr>
+                            <th>Card Image</th>
                             <th>Card Name</th>
                             <th>Number Owned</th>
                             <th>Game</th>
-                            <th>Card Image</th>
                         </tr>
                         
                         <?php while ($row = $inventoryResult->fetch_assoc()): ?>
                         <tr>
+                            <td><img src="<?php echo htmlspecialchars($row['card_image']); ?>" alt="Card Image" width="50"></td>
                             <td>
                                 <a href="card_page.php?card_id=<?php echo htmlspecialchars($row['card_id']); ?>">
                                     <?php echo htmlspecialchars($row['card_name']); ?>
@@ -146,7 +147,6 @@ $inventoryResult = $stmtInventory->get_result();
                             </td>
                             <td><?php echo htmlspecialchars($row['number_owned']); ?></td>
                             <td><?php echo htmlspecialchars($row['game']); ?></td>
-                            <td><img src="<?php echo htmlspecialchars($row['card_image']); ?>" alt="Card Image" width="50"></td>
                         </tr>
                         <?php endwhile; ?>
                     </tbody>
