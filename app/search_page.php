@@ -5,9 +5,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Include the database connection file
-require 'db_mysqli.php'; // Ensure the correct path and filename
+require '/app/db_mysqli.php';
 
-// Include the navbar (assuming your navbar is in a file like 'navbar.php')
 include "/templates/navbar.php"; 
 
 $search_results = [];
@@ -47,7 +46,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Page</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
