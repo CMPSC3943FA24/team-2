@@ -52,7 +52,7 @@ $stmtCards->execute();
 $cardsResult = $stmtCards->get_result();
 
 // Query to get the user's decks
-$decksQuery = "SELECT name FROM decks WHERE owner = ?";
+$decksQuery = "SELECT deck_name FROM decks WHERE owner = ?";
 $stmtDecks = $conn->prepare($decksQuery);
 $stmtDecks->bind_param("i", $user_id);
 $stmtDecks->execute();
