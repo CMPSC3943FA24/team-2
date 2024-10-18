@@ -6,19 +6,18 @@ session_set_cookie_params([
     'httponly' => true,
 ]);
 session_start();
-require '../db.php'; // Include your database connection
+require '/app/db_mysqli.php'; // Include your database connection
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Fetch user data from the database
-    $query = $pdo->prepare('SELECT * FROM users WHERE username = :username');
-    $query->execute(['username' => $username]);
-    $user = $query->fetch(PDO::FETCH_ASSOC);
-    
-    // Debug output
-    var_dump($user); // Check user data
+    // Prepare and execute query to fetch user data
+    $stmt = $mysqli->prepare('SELECT * FROM users WHERE username = ?');
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
     // Verify password
     if ($user && password_verify($password, $user['password'])) {
@@ -26,36 +25,70 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $user['username'];
 
-        // Debug output for session variables
-        echo 'Session ID: ' . session_id();
-        echo 'User ID: ' . $_SESSION['user_id'];
-        echo 'Username: ' . $_SESSION['username'];
-
         // Redirect to a protected page
-        header('Location: ../index.php');
+        header('Location: /index.php');
         exit();
     } else {
-        echo 'Invalid username or password.';
+        $error = 'Invalid username or password.';
     }
+
+    $stmt->close();
+    $mysqli->close();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <form method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username">
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password">
-        <br>
-        <button type="submit">Login</button> 
-    </form>
-    <a href="signup.php"><button>sign up</button></a>
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-one-third">
+                    <div class="box">
+                        <h2 class="title has-text-centered">Login</h2>
+
+                        <!-- Display error message if login fails -->
+                        <?php if (!empty($error)): ?>
+                            <div class="notification is-danger">
+                                <?php echo $error; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <form method="POST" action="">
+                            <div class="field">
+                                <label class="label" for="username">Username:</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="username" id="username" required>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for="password">Password:</label>
+                                <div class="control">
+                                    <input class="input" type="password" name="password" id="password" required>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-success is-fullwidth" type="submit">Login</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="has-text-centered">
+                            <a href="signup.php">Don't have an account? Sign up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
