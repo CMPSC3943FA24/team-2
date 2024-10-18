@@ -1,10 +1,9 @@
 <?php
 // Include the database connection file
-require '/app/db_mysqli.php'; // Use this to connect to the database
+require 'config.php';
+
 session_start();
 
-//Load config file
-require 'config.php';
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -28,7 +27,7 @@ $cardSets = $result->fetch_all(MYSQLI_ASSOC); // Fetch all results as an associa
     <title>Insert Card</title>
 </head>
 <body>
-    <?php include "/templates/navbar.php"; ?>
+    <?php include "../templates/navbar.php"; ?>
     
     <!-- Add the 'columns' wrapper here -->
     <section class="section">
@@ -40,7 +39,7 @@ $cardSets = $result->fetch_all(MYSQLI_ASSOC); // Fetch all results as an associa
             <div class="column">
                 <h1 class="title">Insert New Card</h1>
                 <h2 class="subtitle">Only Pokemon is implemented atm!</h2>
-                <form action="/Scripts/insert_card.php" method="POST">
+                <form action="../Scripts/insert_card.php" method="POST">
                     <label class="label" for="card_set">Game:</label>
                     <select class="select" id="card_set" name="card_game" required>
                         <option value="">--Select a Game--</option>
