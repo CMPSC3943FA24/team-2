@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id'])){
 	$stmtUser->execute();
 	$userResult = $stmtUser->get_result();
 
-	if {$userResult->num_rows > 0}{
+	if (userResult->num_rows > 0){
 		$userData = $userResult->fetch_assoc();
 		$profilePicture = htmlspecialchars($userData['profile_picture']);
 		$_SESSION['profile_picture'] = $profilePicture; // Set session variable
