@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo 'Current directory: ' . getcwd(); 
 require "../app/config.php";
 
 $profilePicture = '/images/account.png'; //default account image
