@@ -14,7 +14,7 @@ session_set_cookie_params([
 session_start();
 
 // Include the database connection file
-require '/path/to/db_mysqli.php'; // Ensure this path is correct
+require 'db_mysqli.php'; // Ensure this path is correct
 
 $error = ''; // Initialize error message
 
