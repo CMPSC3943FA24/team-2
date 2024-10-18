@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../app/config.php";
+require "../app/config.php";
 
 $profilePicture = '/images/account.png'; //default account image
 
