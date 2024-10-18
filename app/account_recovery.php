@@ -14,7 +14,7 @@ $success = ''; // Initialize success message
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') { //Checks if the HHTTP request method is POST. Code in this block only runs when a form is submitted using POST.
     $username = $_POST['username']; //Form data retrieved from the HTTP form
-    $passweord = $_POST['password']; //^^
+    $password = $_POST['password']; //^^
     $confirm_password = $_POST['confirm_password']; //^^
 
     if($password !== $confirm_password) { //Check if the password was typed correctly twice
