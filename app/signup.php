@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start a new session if one is not already started
+}
 require '../db.php'; // Include your database connection
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

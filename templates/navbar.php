@@ -1,6 +1,8 @@
 <?php
 require __DIR__ . '/../app/config.php';
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start a new session if one is not already started
+}
 $profilePicture = '/images/account.png'; //default account image
 echo 'Current directory: ' . $_SESSION['profile_picture'];
 

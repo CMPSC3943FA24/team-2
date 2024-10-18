@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start a new session if one is not already started
+}
 
 // Include the database connection
 require '../app/db_mysqli.php';

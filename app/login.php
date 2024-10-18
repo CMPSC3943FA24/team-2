@@ -11,7 +11,9 @@ session_set_cookie_params([
     'secure' => false,
     'httponly' => true,
 ]);
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start a new session if one is not already started
+}
 
 // Include the database connection file
 require 'db_mysqli.php'; // Ensure this path is correct

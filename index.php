@@ -8,7 +8,9 @@ session_set_cookie_params([
 // Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start a new session if one is not already started
+}
 //Load config file
 require 'app/config.php';
 

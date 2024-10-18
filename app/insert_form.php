@@ -2,7 +2,9 @@
 // Include the database connection file
 require 'config.php';
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start a new session if one is not already started
+}
 
 
 // Check if the user is logged in
