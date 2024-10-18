@@ -65,7 +65,7 @@ $totalDecks = $totalDecksResult->fetch_assoc()['total_decks'];
 $stmtTotalDecks->free_result(); // Free result after fetching
 
 // Query to get the card inventory
-$inventoryQuery = "SELECT name AS card_name, number_owned, set_id AS game, images AS card_image FROM cards WHERE owner = ?";
+$inventoryQuery = "SELECT card_id, name AS card_name, number_owned, set_id AS game, images AS card_image FROM cards WHERE owner = ?";
 
 // Prepare and execute the inventory query
 $stmtInventory = $conn->prepare($inventoryQuery);
@@ -84,72 +84,76 @@ $inventoryResult = $stmtInventory->get_result();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" href="../styles.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	
-	<?php include "../templates/navbar.php"; ?>
+    
+    <?php include "../templates/navbar.php"; ?>
 
-	<p>
-		<?php
-		echo 'Session ID: ' . session_id();
-		echo 'User ID: ' . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Not set');
-		echo 'Username: ' . (isset($_SESSION['username']) ? $_SESSION['username'] : 'Not set');
-		?>
-	</p>
+    <p>
+        <?php
+        echo 'Session ID: ' . session_id();
+        echo 'User ID: ' . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Not set');
+        echo 'Username: ' . (isset($_SESSION['username']) ? $_SESSION['username'] : 'Not set');
+        ?>
+    </p>
 
-	<!-- Spacer -->
-	<section class="section">
-		<div class="container columns is-8">
-			<!-- Left table for totals -->
-			<div class="column is-narrow">
-				<table class="table is-bordered is-striped is-fullwidth">
-					<tbody>
-						<tr>
-							<th>Total Cards</th>
-							<td><?php echo $totalCards; ?></td>
-						</tr>
-						<tr>
-							<th>Unique Cards</th>
-							<td><?php echo $uniqueCards; ?></td>
-						</tr>
-						<tr>
-							<th>Total Decks</th>
-							<td><?php echo $totalDecks; ?></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			
-			<!-- Right table for inventory -->
-			<div class="column">
-				<div class="is-size-2">
-					<p>Inventory</p>
-				</div>
-				<br><br>
-				<table class="table is-bordered is-striped is-fullwidth">
-					<tbody>
-						<tr>
-							<th>Card Name</th>
-							<th>Number Owned</th>
-							<th>Game</th>
-							<th>Card Image</th>
-						</tr>
-						
-						<?php while ($row = $inventoryResult->fetch_assoc()): ?>
-						<tr>
-							<td><?php echo htmlspecialchars($row['card_name']); ?></td>
-							<td><?php echo htmlspecialchars($row['number_owned']); ?></td>
-							<td><?php echo htmlspecialchars($row['game']); ?></td>
-							<td><img src="<?php echo htmlspecialchars($row['card_image']); ?>" alt="Card Image" width="50"></td>
-						</tr>
-						<?php endwhile; ?>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</section>
+    <!-- Spacer -->
+    <section class="section">
+        <div class="container columns is-8">
+            <!-- Left table for totals -->
+            <div class="column is-narrow">
+                <table class="table is-bordered is-striped is-fullwidth">
+                    <tbody>
+                        <tr>
+                            <th>Total Cards</th>
+                            <td><?php echo $totalCards; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Unique Cards</th>
+                            <td><?php echo $uniqueCards; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Total Decks</th>
+                            <td><?php echo $totalDecks; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Right table for inventory -->
+            <div class="column">
+                <div class="is-size-2">
+                    <p>Inventory</p>
+                </div>
+                <br><br>
+                <table class="table is-bordered is-striped is-fullwidth">
+                    <tbody>
+                        <tr>
+                            <th>Card Name</th>
+                            <th>Number Owned</th>
+                            <th>Game</th>
+                            <th>Card Image</th>
+                        </tr>
+                        
+                        <?php while ($row = $inventoryResult->fetch_assoc()): ?>
+                        <tr>
+                            <td>
+                                <a href="card_page.php?card_id=<?php echo htmlspecialchars($row['card_id']); ?>">
+                                    <?php echo htmlspecialchars($row['card_name']); ?>
+                                </a>
+                            </td>
+                            <td><?php echo htmlspecialchars($row['number_owned']); ?></td>
+                            <td><?php echo htmlspecialchars($row['game']); ?></td>
+                            <td><img src="<?php echo htmlspecialchars($row['card_image']); ?>" alt="Card Image" width="50"></td>
+                        </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
 </body>
 </html>
