@@ -90,6 +90,9 @@ $cardSets = $result->fetch_all(MYSQLI_ASSOC); // Fetch all results as an associa
                     <label class="label" for="artists">Artists:</label>
                     <input class="input" type="text" id="artists" name="artists" required><br><br>
 
+                    <label class="label" for="owner">Owner user_id:</label>
+                    <input class="input" type="number" id="owner" name="owner" required><br><br>
+
                     <input class="button" type="submit" value="Submit">
                 </form>
 

@@ -2,7 +2,7 @@
 session_start();
 
 // Include the database connection
-require '/app/db_mysqli.php';
+require '../app/db_mysqli.php';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,14 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $retreat_cost_type = $_POST['retreat_cost_type'];
     $retreat_cost = $_POST['retreat_cost'];
     $artist = $_POST['artists'];
+    $owner = $_POST['owner'];
 
     // Start a transaction
     $conn->begin_transaction();
 
     try {
         // Insert into the cards table
-        $stmt = $conn->prepare("INSERT INTO cards (set_id, name) VALUES (?, ?)");
-        $stmt->bind_param("is", $card_game, $card_name);
+        $stmt = $conn->prepare("INSERT INTO cards (set_id, name, owner) VALUES (?, ?, ?)");
+        $stmt->bind_param("isi", $card_game, $card_name, $owner);
         $stmt->execute();
 
         // Get the last inserted card_id
@@ -54,3 +55,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
