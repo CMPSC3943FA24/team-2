@@ -59,7 +59,7 @@ if (isset($_SESSION['user_id'])){
 
 		<div class="navbar-item">
             <a href="/app/account_page.php" class="navbar-item">
-                <img src="<?php echo $profilePicture; ?>" width="55px" height="40px" alt="Account">
+                <img src="/<?php echo $profilePicture; ?>" width="55px" height="40px" alt="Account">
             </a>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <a href="/app/account_page.php">Account</a>
