@@ -14,31 +14,49 @@ echo 'Username: ' . (isset($_SESSION['username']) ? $_SESSION['username'] : 'Not
 
 	<!-- Spacer -->
 		<section class="section">
-			<div class="container">
+			<div class="container columns is-8">
 			
-				<div class="is-size-2">
-					<p>Inventory</p>
+				<div class="column is-narrow">
+					<table class="table is-bordered is-striped is fullwidth">
+						<tbody>
+							<tr>
+								<th>Total Cards</th>
+							</tr>
+							<tr>
+								<th>Unique Cards</th>
+							</tr>
+							<tr>
+								<th>Total Decks</th>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				
-				<br>
-				<br>
 			
-				<table class="table is-bordered is-striped is-fullwidth">
-					<tbody>
-						<tr>
-							<th>Card Name</th>
-							<td>Number Owned</td>
-							<td>Game</dt>
-							<td>Card Image</td>
-						</tr>
-						<tr>
-							<th></th>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="column">
+					<div class="is-size-2">
+						<p>Inventory</p>
+					</div>
+				
+					<br>
+					<br>
+			
+					<table class="table is-bordered is-striped is-fullwidth">
+						<tbody>
+							<tr>
+								<th>Card Name</th>
+								<td>Number Owned</td>
+								<td>Game</dt>
+								<td>Card Image</td>
+							</tr>
+							<tr>
+								<th></th>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</section>
 			
