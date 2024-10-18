@@ -41,7 +41,7 @@ if (!$stmtTotalDecks) {
 
 $stmtTotalCards->bind_param("i", $user_id);
 $stmtUniqueCards->bind_param("i", $user_id);
-stmtTotalDecks->bind_param("i", $user_id);
+$stmtTotalDecks->bind_param("i", $user_id);
 
 if (!$stmtTotalCards->execute()) {
     die("Execution failed for total cards: " . $stmtTotalCards->error);
