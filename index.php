@@ -25,7 +25,8 @@ require 'app/config.php';
 </head>
 <body>
 	
-	
+	<?php include "templates/navbar.php"; ?>
+
 	<p> <?php echo 'Session ID: ' . session_id(); echo 'User ID: ' . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Not set');
 echo 'Username: ' . (isset($_SESSION['username']) ? $_SESSION['username'] : 'Not set');
 ?> </p>
@@ -33,7 +34,6 @@ echo 'Username: ' . (isset($_SESSION['username']) ? $_SESSION['username'] : 'Not
 	<!-- Spacer -->
 	<section class="section">
 		<div class="container">
-			<?php include "templates/navbar.php"; ?>
 			<!-- Game Selection Section -->
 			<div class="columns is-centered">
 				<div class="column is-one-third has-text-centered">
