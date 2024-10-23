@@ -76,7 +76,7 @@ try {
                                 <td><?php echo htmlspecialchars($result['card_id']); ?></td>
                                 <td><?php echo htmlspecialchars($result['images']); ?></td>
                                 <td><?php echo htmlspecialchars($result['name']); ?></td>
-                                <td><?php echo htmlspecialchars($result['set_id']); ?></td>
+                                <td><?php echo htmlspecialchars($result['game_name']); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
