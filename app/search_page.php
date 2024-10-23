@@ -88,16 +88,25 @@ echo $search_term;
             
             <form method="GET" action="">
                 <h2>Search</h2>
-            <div class="field has-addons">
-                <div class="control is-expanded">
-                    <input class="input" type="text" name="search_term" placeholder="Search" value="<?php echo htmlspecialchars($search_term); ?>">
-                </div>
-                <div class="control">
-                    <button class="button is-info">
-                        Search
-                    </button>
-                </div>
-            </div>
+                <section class="section">
+                    <div class="container">
+                        <div class="columns is-centered">
+                            <div class="column is-three-fifths">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input class="input" type="text" name="search_term" placeholder="Search" value="<?php echo htmlspecialchars($search_term); ?>">
+                                    </div>
+                                    <div class="control">
+                                        <button class="button is-info">
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                     <h1 class="title">Search Results</h1>
                 <div class="field">
                     <label class="label">Filter by Game:</label>
