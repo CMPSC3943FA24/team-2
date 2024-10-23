@@ -5,25 +5,51 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Include the database connection file
-require 'db_mysqli.php'; // Ensure the correct path and filename
+require 'config.php'; // Ensure the correct path and filename
 
 // Include the navbar (assuming your navbar is in a file like 'navbar.php')
 include "../templates/navbar.php"; 
 
 $search_results = [];
 $search_term = '';
+$game_filter = '';
+$name_filter = '';
+$games = [];
+
+// Fetch games for filtering
+$games_query = "SELECT game_id, game_name FROM games";
+$games_result = $conn->query($games_query);
+if ($games_result && $games_result->num_rows > 0) {
+    while ($game = $games_result->fetch_assoc()) {
+        $games[] = $game;
+    }
+}
 
 try {
     if (isset($_GET['search_term'])) {
         $search_term = $conn->real_escape_string($_GET['search_term']);
-        
+        $game_filter = isset($_GET['game_filter']) ? $conn->real_escape_string($_GET['game_filter']) : '';
+        $name_filter = isset($_GET['name_filter']) ? $conn->real_escape_string($_GET['name_filter']) : '';
+
         // Query the database
         $query = "
-         SELECT c.card_id, c.images, c.name, g.game_name 
-        FROM cards c
-        LEFT JOIN games g ON c.set_id = g.game_id
-        WHERE c.name LIKE '%$search_term%'
+            SELECT c.card_id, c.images, c.name, g.game_name 
+            FROM cards c
+            LEFT JOIN games g ON c.set_id = g.game_id
+            WHERE 1=1
         ";
+
+        if (!empty($search_term)) {
+            $query .= " AND c.name LIKE '%$search_term%'";
+        }
+
+        if (!empty($game_filter)) {
+            $query .= " AND c.set_id = '$game_filter'";
+        }
+
+        if (!empty($name_filter)) {
+            $query .= " AND c.name LIKE '%$name_filter%'";
+        }
         
         $result = $conn->query($query);
 
@@ -59,6 +85,37 @@ try {
     <section class="section">
         <div class="container">
             <h1 class="title">Search Results</h1>
+
+            <form method="GET" action="">
+                <div class="field">
+                    <label class="label">Filter by Game:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="game_filter">
+                                <option value="">All Games</option>
+                                <?php foreach ($games as $game): ?>
+                                    <option value="<?php echo htmlspecialchars($game['game_id']); ?>" <?php echo isset($_GET['game_filter']) && $_GET['game_filter'] == $game['game_id'] ? 'selected' : ''; ?>>
+                                        <?php echo htmlspecialchars($game['game_name']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Filter by Card Name:</label>
+                    <div class="control">
+                        <input class="input" type="text" name="name_filter" placeholder="Enter card name" value="<?php echo htmlspecialchars($name_filter); ?>">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary" type="submit">Apply Filters</button>
+                    </div>
+                </div>
+            </form>
 
             <?php if (!empty($search_results)): ?>
                 <table class="table is-striped is-fullwidth">
