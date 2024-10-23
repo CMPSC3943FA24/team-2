@@ -74,7 +74,7 @@ $recentDecksQuery = "
     SELECT d.deck_name AS name, COUNT(dc.card_id) AS card_count, d.created_at
     FROM decks d
     LEFT JOIN deck_cards dc ON d.deck_id = dc.deck_id
-    WHERE d.owner_id = ?
+    WHERE d.owner = ?
     GROUP BY d.deck_id
     ORDER BY d.created_at DESC
     LIMIT 5";
