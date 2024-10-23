@@ -66,6 +66,13 @@ $recentCardsQuery = "
     ORDER BY c.created_at DESC 
     LIMIT 5
 ";
+
+if (!isset($_SESSION['user_id'])) {
+    $userId = null; // Set to null to indicate no specific user
+} else {
+    $userId = $_SESSION['user_id'];
+}
+
 $stmt = $conn->prepare($recentCardsQuery);
 $stmt->bind_param('ii', $userId, $userId); // Bind both parameters
 $stmt->execute();
