@@ -56,9 +56,15 @@ $activeDecks = $result->fetch_assoc()['active'];
 $stmt->close();
 
 // Fetch recent cards
-$recentCardsQuery = "SELECT name AS name, created_at, card_type AS type FROM cards WHERE owner = ? ORDER BY created_at DESC LIMIT 5";
+$recentCardsQuery = "
+    SELECT name AS name, created_at 
+    FROM cards 
+    WHERE (? IS NULL OR owner = ?) 
+    ORDER BY created_at DESC 
+    LIMIT 5
+";
 $stmt = $conn->prepare($recentCardsQuery);
-$stmt->bind_param('i', $userId);
+$stmt->bind_param('ii', $userId, $userId); // Bind both parameters
 $stmt->execute();
 $recentCards = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
