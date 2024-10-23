@@ -11,26 +11,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     // Check if the username already exists
-    $query = $pdo->prepare('SELECT * FROM users WHERE username = :username');
-    $query->execute(['username' => $username]);
-    $existingUser = $query->fetch(PDO::FETCH_ASSOC);
+    $query = "SELECT * FROM users WHERE username = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('s',$username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $existingUser = $result->fetch_assoc();
 
-    if ($existingUser) {
-        $error = 'Username already exists. Please choose a different one.';
+    if($existingUser){
+        $error = "Username already exists. Please choose a different one."
     } else {
-        // Hash the password before storing it
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        //Hash the password
+        $hashedPassword = password_hasg($password, PASSWORD_DEFAULT);
 
-        // Insert the new user into the database
-        $query = $pdo->prepare('INSERT INTO users (username, password) VALUES (:username, :password)');
-        $query->execute(['username' => $username, 'password' => $hashedPassword]);
+        //Insert user into the database
+        $query = "INSERT INTO users (username, password) VALUES (?,?)";
+        $stmt = $conn->prepare($query)
+        $stmt->bind_param($username, $password);
+        $stmt->execute();
 
-        // Set success message in session and redirect to login page
+        //Set success message in session and redirect to login
         $_SESSION['signup_success'] = 'Sign up successful! You can now log in.';
         header('Location: login.php');
         exit(); // Prevent further processing
     }
-}
 ?>
 
 <!DOCTYPE html>
