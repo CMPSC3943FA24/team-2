@@ -67,20 +67,27 @@ try {
                             <th>ID</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Set</th>
+                            <th>Game</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($search_results as $result): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($result['card_id']); ?></td>
-                                <td><?php echo htmlspecialchars($result['images']); ?></td>
-                                <td><?php echo htmlspecialchars($result['name']); ?></td>
+                                <td>
+                                    <img src="<?php echo htmlspecialchars($result['images']); ?>" alt="Card Image" width="50">
+                                </td>
+                                <td>
+                                    <a href="card_page.php?card_id=<?php echo htmlspecialchars($result['card_id']); ?>">
+                                        <?php echo htmlspecialchars($result['name']); ?>
+                                    </a>
+                                </td>
                                 <td><?php echo htmlspecialchars($result['game_name']); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+
             <?php elseif (isset($_GET['search_term'])): ?>
                 <p>No results found for "<?php echo htmlspecialchars($search_term); ?>"</p>
             <?php endif; ?>
