@@ -66,13 +66,6 @@ $recentCardsQuery = "
     ORDER BY c.created_at DESC 
     LIMIT 5
 ";
-
-if (!isset($_SESSION['user_id'])) {
-    $userId = null; // Set to null to indicate no specific user
-} else {
-    $userId = $_SESSION['user_id'];
-}
-
 $stmt = $conn->prepare($recentCardsQuery);
 $stmt->bind_param('ii', $userId, $userId); // Bind both parameters
 $stmt->execute();
@@ -188,7 +181,7 @@ $stmt->close();
               <tbody>
                 <?php foreach($recentCards as $card): ?>
                   <tr>
-                    <td><?= $card['name']; ?></td>
+                    <td><?= $card['card_name']; ?></td>
                     <td><?= $card['created_at']; ?></td>
                     <td><?= $card['game_name']; ?></td>
                   </tr>
