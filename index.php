@@ -5,23 +5,26 @@ session_set_cookie_params([
     'secure' => false,      // Set to true if you're using HTTPS
     'httponly' => true,     // Prevent JavaScript from accessing session cookies
 ]);
+
 // Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start(); // Start a new session if one is not already started
 }
-//Load config file
+
+// Load config file
 require 'app/config.php';
 
+// Determine user ID
+$userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null; // Use null if no user is logged in
+
 // Fetch total cards
-$totalCardsQuery = "SELECT COUNT(*) AS total FROM cards WHERE owner = ?";
+$totalCardsQuery = "SELECT COUNT(*) AS total FROM cards" . ($userId !== null ? " WHERE owner = ?" : "");
 $stmt = $conn->prepare($totalCardsQuery);
-$stmt->bind_param('i', $userId);
-if (!isset($_SESSION['user_id'])) {
-    $userId = "*"; // Set to null to indicate no specific user
-} else {
-    $userId = $_SESSION['user_id'];
+if ($userId !== null) {
+    $stmt->bind_param('i', $userId); // Bind user ID if it exists
 }
 $stmt->execute();
 $result = $stmt->get_result();
@@ -29,27 +32,33 @@ $totalCards = $result->fetch_assoc()['total'];
 $stmt->close();
 
 // Fetch unique cards
-$uniqueCardsQuery = "SELECT COUNT(DISTINCT name) AS unique_count FROM cards WHERE owner = ?";
+$uniqueCardsQuery = "SELECT COUNT(DISTINCT name) AS unique_count FROM cards" . ($userId !== null ? " WHERE owner = ?" : "");
 $stmt = $conn->prepare($uniqueCardsQuery);
-$stmt->bind_param('i', $userId);
+if ($userId !== null) {
+    $stmt->bind_param('i', $userId); // Bind user ID if it exists
+}
 $stmt->execute();
 $result = $stmt->get_result();
 $uniqueCards = $result->fetch_assoc()['unique_count'];
 $stmt->close();
 
 // Fetch total decks
-$totalDecksQuery = "SELECT COUNT(*) AS total FROM decks WHERE owner = ?";
+$totalDecksQuery = "SELECT COUNT(*) AS total FROM decks" . ($userId !== null ? " WHERE owner = ?" : "");
 $stmt = $conn->prepare($totalDecksQuery);
-$stmt->bind_param('i', $userId);
+if ($userId !== null) {
+    $stmt->bind_param('i', $userId); // Bind user ID if it exists
+}
 $stmt->execute();
 $result = $stmt->get_result();
 $totalDecks = $result->fetch_assoc()['total'];
 $stmt->close();
 
 // Fetch active decks (you can define 'active' as needed)
-$activeDecksQuery = "SELECT COUNT(*) AS active FROM decks WHERE owner = ? AND is_active = 1";
+$activeDecksQuery = "SELECT COUNT(*) AS active FROM decks" . ($userId !== null ? " WHERE owner = ? AND is_active = 1" : "");
 $stmt = $conn->prepare($activeDecksQuery);
-$stmt->bind_param('i', $userId);
+if ($userId !== null) {
+    $stmt->bind_param('i', $userId); // Bind user ID if it exists
+}
 $stmt->execute();
 $result = $stmt->get_result();
 $activeDecks = $result->fetch_assoc()['active'];
@@ -62,32 +71,38 @@ $recentCardsQuery = "
            g.game_name AS game_name 
     FROM cards c
     LEFT JOIN games g ON c.set_id = g.game_id
-    WHERE (? IS NULL OR c.owner = ?)
+" . ($userId !== null ? " WHERE c.owner = ?" : "") . "
     ORDER BY c.created_at DESC 
     LIMIT 5
 ";
 $stmt = $conn->prepare($recentCardsQuery);
-$stmt->bind_param('ii', $userId, $userId); // Bind both parameters
+if ($userId !== null) {
+    $stmt->bind_param('i', $userId); // Bind user ID if it exists
+}
 $stmt->execute();
 $recentCards = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 
-//Fetch recent decks
+// Fetch recent decks
 $recentDecksQuery = "
     SELECT d.deck_name AS name, COUNT(dc.card_id) AS card_count, d.created_at
     FROM decks d
     LEFT JOIN deck_cards dc ON d.deck_id = dc.deck_id
-    WHERE d.owner = ?
+" . ($userId !== null ? " WHERE d.owner = ?" : "") . "
     GROUP BY d.deck_id
     ORDER BY d.created_at DESC
     LIMIT 5";
     
 $stmt = $conn->prepare($recentDecksQuery);
-$stmt->bind_param('i', $userId);
+if ($userId !== null) {
+    $stmt->bind_param('i', $userId); // Bind user ID if it exists
+}
 $stmt->execute();
 $recentDecks = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
