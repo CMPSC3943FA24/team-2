@@ -87,10 +87,10 @@ echo $search_term;
         <div class="container">
             
             <form method="GET" action="">
-                <h2>Search</h2>
+                <h2 class="title">Search</h2>
                 <section class="section">
                     <div class="container">
-                        <div class="columns is-centered">
+                        <div class="columns is-left">
                             <div class="column is-three-fifths">
                                 <div class="field has-addons">
                                     <div class="control is-expanded">
@@ -110,6 +110,7 @@ echo $search_term;
                     <h1 class="title">Search Results</h1>
                 <div class="field">
                     <label class="label">Filter by Game:</label>
+                    
                     <div class="control">
                         <div class="select">
                             <select name="game_filter">
@@ -124,12 +125,22 @@ echo $search_term;
                     </div>
                 </div>
                 
-                <div class="field">
-                    <label class="label">Filter by Card Name:</label>
-                    <div class="control">
-                        <input class="input" type="text" name="name_filter" placeholder="Enter card name" value="<?php echo htmlspecialchars($name_filter); ?>">
+                <section class="section">
+                    <div class="container">
+                        <div class="columns is-left">
+                            <div class="column is-three-fifths">
+                            <div class="field">
+                                <label class="label">Filter by Card Name:</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="name_filter" placeholder="Enter card name" value="<?php echo htmlspecialchars($name_filter); ?>">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </section>
+
+                
 
                 <div class="field">
                     <div class="control">
