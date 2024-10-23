@@ -85,10 +85,19 @@ echo $search_term;
 
     <section class="section">
         <div class="container">
-            <h1 class="title">Search Results</h1>
-
+            
             <form method="GET" action="">
-                <input class="input" type="text" name="search_term" placeholder="Enter card name" value="<?php echo htmlspecialchars($search_term); ?>">
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input class="input" type="text" name="search_term" placeholder="Enter card name" value="<?php echo htmlspecialchars($search_term); ?>">
+                </div>
+                <div class="control">
+                    <button class="button is-info">
+                        Search
+                    </button>
+                </div>
+            </div>
+                    <h1 class="title">Search Results</h1>
                 <div class="field">
                     <label class="label">Filter by Game:</label>
                     <div class="control">

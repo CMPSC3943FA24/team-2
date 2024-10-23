@@ -48,7 +48,7 @@ if (isset($_SESSION['user_id'])){
         <form action="/app/search_page.php" method="GET" class="navbar-item">
             <div class="field has-addons">
                 <div class="control">
-                    <input class="input" type="text" name="search_term" placeholder="Search..." required>
+                    <input class="input" type="text" name="search_term" placeholder="Search" required>
                 </div>
                 <div class="control">
                     <button class="button is-info" type="submit">Search</button>
