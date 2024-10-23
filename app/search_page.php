@@ -108,46 +108,51 @@ echo $search_term;
                 </section>
 
                     <h1 class="title">Search Results</h1>
-                <div class="field">
-                    <label class="label">Filter by Game:</label>
-                    
-                    <div class="control">
-                        <div class="select">
-                            <select name="game_filter">
-                                <option value="">All Games</option>
-                                <?php foreach ($games as $game): ?>
-                                    <option value="<?php echo htmlspecialchars($game['game_id']); ?>" <?php echo $game_filter == $game['game_id'] ? 'selected' : ''; ?>>
-                                        <?php echo htmlspecialchars($game['game_name']); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <section class="section">
+
+
+            <section class="section">
                     <div class="container">
                         <div class="columns is-left">
                             <div class="column is-three-fifths">
+                                <!--STUFF GO HERE-->
+                                <div class="field">
+                                <label class="label">Filter by Game:</label>
+                                
+                                <div class="control">
+                                    <div class="select">
+                                        <select name="game_filter">
+                                            <option value="">All Games</option>
+                                            <?php foreach ($games as $game): ?>
+                                                <option value="<?php echo htmlspecialchars($game['game_id']); ?>" <?php echo $game_filter == $game['game_id'] ? 'selected' : ''; ?>>
+                                                    <?php echo htmlspecialchars($game['game_name']); ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
                             <div class="field">
                                 <label class="label">Filter by Card Name:</label>
                                 <div class="control">
                                     <input class="input" type="text" name="name_filter" placeholder="Enter card name" value="<?php echo htmlspecialchars($name_filter); ?>">
                                 </div>
                             </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-primary" type="submit">Apply Filters</button>
+                                </div>
                             </div>
+                        </form>
                         </div>
                     </div>
-                </section>
-
-                
-
-                <div class="field">
-                    <div class="control">
-                        <button class="button is-primary" type="submit">Apply Filters</button>
-                    </div>
                 </div>
-            </form>
+            </section>
+
+
+
 
             <?php if (!empty($search_results)): ?>
                 <table class="table is-striped is-fullwidth">
