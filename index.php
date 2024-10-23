@@ -19,7 +19,7 @@ $totalCardsQuery = "SELECT COUNT(*) AS total FROM cards WHERE owner = ?";
 $stmt = $conn->prepare($totalCardsQuery);
 $stmt->bind_param('i', $userId);
 if (!isset($_SESSION['user_id'])) {
-	$userId = *;
+	$userId = 1;
 }else{
 	$userId = $_SESSION['user_id'];
 }
