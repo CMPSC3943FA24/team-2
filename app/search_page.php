@@ -19,9 +19,12 @@ try {
         
         // Query the database
         $query = "
-            SELECT * FROM cards
-            WHERE name LIKE '%$search_term%'
+         SELECT c.card_id, c.images, c.name, g.game_name 
+        FROM cards c
+        LEFT JOIN games g ON c.set_id = g.game_id
+        HERE c.name LIKE '%$search_term%'
         ";
+        
         $result = $conn->query($query);
 
         // Check for query errors
