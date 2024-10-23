@@ -82,60 +82,70 @@ echo $search_term;
 <body>
     <section class="section">
         <div class="container">
-            <!-- Filtering Options -->
-            <form method="GET" action="">
-                <h2 class="title">Search</h2>
-                <section class="section">
-                    <div class="container">
-                        <div class="columns is-left">
-                            <div class="column is-three-fifths">
-                                <!-- Search -->
-                                <div class="field has-addons">
-                                    <div class="control is-expanded">
-                                        <input class="input" type="text" name="search_term" placeholder="Search" value="<?php echo htmlspecialchars($search_term); ?>">
-                                    </div>
-                                    <div class="control">
-                                        <button class="button is-info">
-                                            Search
-                                        </button>
-                                    </div>
-                                </div>
-                                <!-- Filter By Game Dropdown -->
-                                <div class="field">
-                                    <label class="label">Filter by Game:</label>
-                                    <div class="control">
-                                        <div class="select">
-                                            <select name="game_filter">
-                                                <option value="">All Games</option>
-                                                <?php foreach ($games as $game): ?>
-                                                    <option value="<?php echo htmlspecialchars($game['game_id']); ?>" <?php echo $game_filter == $game['game_id'] ? 'selected' : ''; ?>>
-                                                        <?php echo htmlspecialchars($game['game_name']); ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            </select>
+
+        <div class="box" id="searchBox">
+            <h2 class="title is-4 has-text-centered">
+                <a href="#" id="toggleSearchBox">Search</a>
+            </h2>
+            <div id="searchContent" style="display: none;">
+
+                <!-- Filtering Options -->
+                <form method="GET" action="">
+                    <h2 class="title">Search</h2>
+                    <section class="section">
+                        <div class="container">
+                            <div class="columns is-left">
+                                <div class="column is-three-fifths">
+                                    <!-- Search -->
+                                    <div class="field has-addons">
+                                        <div class="control is-expanded">
+                                            <input class="input" type="text" name="search_term" placeholder="Search" value="<?php echo htmlspecialchars($search_term); ?>">
+                                        </div>
+                                        <div class="control">
+                                            <button class="button is-info">
+                                                Search
+                                            </button>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- Filter By Card Name -->
-                                <div class="field">
-                                    <label class="label">Filter by Card Name:</label>
-                                    <div class="control">
-                                        <input class="input" type="text" name="name_filter" placeholder="Enter card name" value="<?php echo htmlspecialchars($name_filter); ?>">
+                                    <!-- Filter By Game Dropdown -->
+                                    <div class="field">
+                                        <label class="label">Filter by Game:</label>
+                                        <div class="control">
+                                            <div class="select">
+                                                <select name="game_filter">
+                                                    <option value="">All Games</option>
+                                                    <?php foreach ($games as $game): ?>
+                                                        <option value="<?php echo htmlspecialchars($game['game_id']); ?>" <?php echo $game_filter == $game['game_id'] ? 'selected' : ''; ?>>
+                                                            <?php echo htmlspecialchars($game['game_name']); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <!-- Apply Filters Button -->
-                                <div class="field">
-                                    <div class="control">
-                                        <button class="button is-primary" type="submit">Apply Filters</button>
+                                    <!-- Filter By Card Name -->
+                                    <div class="field">
+                                        <label class="label">Filter by Card Name:</label>
+                                        <div class="control">
+                                            <input class="input" type="text" name="name_filter" placeholder="Enter card name" value="<?php echo htmlspecialchars($name_filter); ?>">
+                                        </div>
+                                    </div>
+
+                                    <!-- Apply Filters Button -->
+                                    <div class="field">
+                                        <div class="control">
+                                            <button class="button is-primary" type="submit">Apply Filters</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-            </form>     
+                    </section>
+                </form> 
+            </div>
+        </div>
+            
             <!-- Search Results Table -->
             <h1 class="title">Search Results</h1>
             <?php if (!empty($search_results)): ?>
