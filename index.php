@@ -18,7 +18,11 @@ require 'app/config.php';
 $totalCardsQuery = "SELECT COUNT(*) AS total FROM cards WHERE owner = ?";
 $stmt = $conn->prepare($totalCardsQuery);
 $stmt->bind_param('i', $userId);
-$userId = $_SESSION['user_id']; // Replace with the current user ID
+if (!isset($_SESSION['user_id'])) {
+	$userId = *;
+}else{
+	$userId = $_SESSION['user_id'];
+}
 $stmt->execute();
 $result = $stmt->get_result();
 $totalCards = $result->fetch_assoc()['total'];
