@@ -183,7 +183,7 @@ $stmt->close();
                   <tr>
                     <td><?= $card['name']; ?></td>
                     <td><?= $card['created_at']; ?></td>
-                    <td><?= $card['set']; ?></td>
+                    <td><?= $card['game_name']; ?></td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
