@@ -68,7 +68,6 @@ try {
     // Display error message if query or connection fails
     echo "<div class='notification is-danger'>Error: " . $e->getMessage() . "</div>";
 }
-echo $search_term;
 ?>
 
 <!DOCTYPE html>
