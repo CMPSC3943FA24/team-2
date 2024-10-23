@@ -19,9 +19,9 @@ $totalCardsQuery = "SELECT COUNT(*) AS total FROM cards WHERE owner = ?";
 $stmt = $conn->prepare($totalCardsQuery);
 $stmt->bind_param('i', $userId);
 if (!isset($_SESSION['user_id'])) {
-	$userId = 1;
-}else{
-	$userId = $_SESSION['user_id'];
+    $userId = null; // Set to null to indicate no specific user
+} else {
+    $userId = $_SESSION['user_id'];
 }
 $stmt->execute();
 $result = $stmt->get_result();
@@ -29,7 +29,7 @@ $totalCards = $result->fetch_assoc()['total'];
 $stmt->close();
 
 // Fetch unique cards
-$uniqueCardsQuery = "SELECT COUNT(DISTINCT card_name) AS unique_count FROM cards WHERE owner = ?";
+$uniqueCardsQuery = "SELECT COUNT(DISTINCT name) AS unique_count FROM cards WHERE owner = ?";
 $stmt = $conn->prepare($uniqueCardsQuery);
 $stmt->bind_param('i', $userId);
 $stmt->execute();
@@ -56,7 +56,7 @@ $activeDecks = $result->fetch_assoc()['active'];
 $stmt->close();
 
 // Fetch recent cards
-$recentCardsQuery = "SELECT card_name AS name, created_at, card_type AS type FROM cards WHERE owner = ? ORDER BY created_at DESC LIMIT 5";
+$recentCardsQuery = "SELECT name AS name, created_at, card_type AS type FROM cards WHERE owner = ? ORDER BY created_at DESC LIMIT 5";
 $stmt = $conn->prepare($recentCardsQuery);
 $stmt->bind_param('i', $userId);
 $stmt->execute();
