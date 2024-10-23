@@ -109,19 +109,19 @@ $conn->close(); // Close the connection if it was successfully created
         </div>
     </section>
      <!-- Toast Notification -->
-     <?php if (isset($_SESSION['signup_success'])): ?>
-        <div class="toast">
-            <?php echo htmlspecialchars($_SESSION['signup_success']); ?>
-        </div>
-        <?php unset($_SESSION['signup_success']); // Clear the message after displaying ?>
-        <script>
-            // Show the toast notification and hide it after a few seconds
-            const toast = document.querySelector('.toast');
-            toast.style.display = 'block';
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 5000); // Display for 5 seconds
-        </script>
-    <?php endif; ?>
+    <?php if (isset($_SESSION['signup_success'])): ?>
+    <div class="notification is-success toast" style="display: none;">
+        <?php echo htmlspecialchars($_SESSION['signup_success']); ?>
+    </div>
+    <?php unset($_SESSION['signup_success']); // Clear the message after displaying ?>
+    <script>
+        // Show the toast notification and hide it after a few seconds
+        const toast = document.querySelector('.toast');
+        toast.style.display = 'block';
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 5000); // Display for 5 seconds
+    </script>
+<?php endif; ?>
 </body>
 </html>
