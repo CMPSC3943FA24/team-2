@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start(); // Start a new session if one is not already started
 }
-require '../db.php'; // Include your database connection
+require 'config.php'; // Include your database connection
 
 $error = ''; // Initialize error message
 
@@ -25,8 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query = $pdo->prepare('INSERT INTO users (username, password) VALUES (:username, :password)');
         $query->execute(['username' => $username, 'password' => $hashedPassword]);
 
-        // Redirect or show success message
-        echo 'Sign-up successful! You can now <a href="login.php">log in</a>.';
+        // Set success message in session and redirect to login page
+        $_SESSION['signup_success'] = 'Sign up successful! You can now log in.';
+        header('Location: login.php');
         exit(); // Prevent further processing
     }
 }
