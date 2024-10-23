@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
 require 'app/config.php';
 
 // Fetch total cards
-$totalCardsQuery = "SELECT COUNT(*) AS total FROM cards WHERE owner_id = ?";
+$totalCardsQuery = "SELECT COUNT(*) AS total FROM cards WHERE owner = ?";
 $stmt = $conn->prepare($totalCardsQuery);
 $stmt->bind_param('i', $userId);
 $userId = $_SESSION['user_id']; // Replace with the current user ID
@@ -25,7 +25,7 @@ $totalCards = $result->fetch_assoc()['total'];
 $stmt->close();
 
 // Fetch unique cards
-$uniqueCardsQuery = "SELECT COUNT(DISTINCT card_name) AS unique_count FROM cards WHERE owner_id = ?";
+$uniqueCardsQuery = "SELECT COUNT(DISTINCT card_name) AS unique_count FROM cards WHERE owner = ?";
 $stmt = $conn->prepare($uniqueCardsQuery);
 $stmt->bind_param('i', $userId);
 $stmt->execute();
@@ -34,7 +34,7 @@ $uniqueCards = $result->fetch_assoc()['unique_count'];
 $stmt->close();
 
 // Fetch total decks
-$totalDecksQuery = "SELECT COUNT(*) AS total FROM decks WHERE owner_id = ?";
+$totalDecksQuery = "SELECT COUNT(*) AS total FROM decks WHERE owner = ?";
 $stmt = $conn->prepare($totalDecksQuery);
 $stmt->bind_param('i', $userId);
 $stmt->execute();
@@ -43,7 +43,7 @@ $totalDecks = $result->fetch_assoc()['total'];
 $stmt->close();
 
 // Fetch active decks (you can define 'active' as needed)
-$activeDecksQuery = "SELECT COUNT(*) AS active FROM decks WHERE owner_id = ? AND is_active = 1";
+$activeDecksQuery = "SELECT COUNT(*) AS active FROM decks WHERE owner = ? AND is_active = 1";
 $stmt = $conn->prepare($activeDecksQuery);
 $stmt->bind_param('i', $userId);
 $stmt->execute();
@@ -52,7 +52,7 @@ $activeDecks = $result->fetch_assoc()['active'];
 $stmt->close();
 
 // Fetch recent cards
-$recentCardsQuery = "SELECT card_name AS name, created_at, card_type AS type FROM cards WHERE owner_id = ? ORDER BY created_at DESC LIMIT 5";
+$recentCardsQuery = "SELECT card_name AS name, created_at, card_type AS type FROM cards WHERE owner = ? ORDER BY created_at DESC LIMIT 5";
 $stmt = $conn->prepare($recentCardsQuery);
 $stmt->bind_param('i', $userId);
 $stmt->execute();
