@@ -87,9 +87,10 @@ echo $search_term;
         <div class="container">
             
             <form method="GET" action="">
+                <h2>Search</h2>
             <div class="field has-addons">
                 <div class="control is-expanded">
-                    <input class="input" type="text" name="search_term" placeholder="Enter card name" value="<?php echo htmlspecialchars($search_term); ?>">
+                    <input class="input" type="text" name="search_term" placeholder="Search" value="<?php echo htmlspecialchars($search_term); ?>">
                 </div>
                 <div class="control">
                     <button class="button is-info">
