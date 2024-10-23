@@ -57,10 +57,13 @@ $stmt->close();
 
 // Fetch recent cards
 $recentCardsQuery = "
-    SELECT name AS name, created_at 
-    FROM cards 
-    WHERE (? IS NULL OR owner = ?) 
-    ORDER BY created_at DESC 
+    SELECT c.name AS card_name, 
+           c.created_at, 
+           g.game_name AS game_name 
+    FROM cards c
+    LEFT JOIN games g ON c.set_id = g.game_id
+    WHERE (? IS NULL OR c.owner = ?)
+    ORDER BY c.created_at DESC 
     LIMIT 5
 ";
 $stmt = $conn->prepare($recentCardsQuery);
@@ -179,8 +182,8 @@ $stmt->close();
                 <?php foreach($recentCards as $card): ?>
                   <tr>
                     <td><?= $card['name']; ?></td>
-                    <td><?= $card['date_added']; ?></td>
-                    <td><?= $card['type']; ?></td>
+                    <td><?= $card['created_at']; ?></td>
+                    <td><?= $card['set']; ?></td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
@@ -209,7 +212,7 @@ $stmt->close();
                   <tr>
                     <td><?= $deck['name']; ?></td>
                     <td><?= $deck['card_count']; ?></td>
-                    <td><?= $deck['date_created']; ?></td>
+                    <td><?= $deck['created_at']; ?></td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
