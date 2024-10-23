@@ -101,16 +101,20 @@ $stmt->close();
 <section class="hero is-primary">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title"> <?php if (isset($_SESSION['username'])){
-		echo"Welcome back, " . htmlspecialchars($_SESSION['username']);
-	  }else{
-		echo"Welcome! Log in to see personal stats.";
-	  }
-	  htmlspecialchars($) ?></h1>
+      <h1 class="title"> 
+        <?php 
+          if (isset($_SESSION['username'])) {
+            echo "Welcome back, " . htmlspecialchars($_SESSION['username']);
+          } else {
+            echo "Welcome! Log in to see personal stats.";
+          }
+        ?>
+      </h1>
       <h2 class="subtitle">Here’s an overview of your card collection.</h2>
     </div>
   </div>
 </section>
+
 
 <!-- Stats Section -->
 <section class="section">
