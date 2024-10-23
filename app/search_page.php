@@ -88,6 +88,7 @@ echo $search_term;
             <h1 class="title">Search Results</h1>
 
             <form method="GET" action="">
+                <input class="input" type="text" name="search_term" placeholder="Enter card name" value="<?php echo htmlspecialchars($search_term); ?>">
                 <div class="field">
                     <label class="label">Filter by Game:</label>
                     <div class="control">
@@ -95,7 +96,7 @@ echo $search_term;
                             <select name="game_filter">
                                 <option value="">All Games</option>
                                 <?php foreach ($games as $game): ?>
-                                    <option value="<?php echo htmlspecialchars($game['game_id']); ?>" <?php echo isset($_GET['game_filter']) && $_GET['game_filter'] == $game['game_id'] ? 'selected' : ''; ?>>
+                                    <option value="<?php echo htmlspecialchars($game['game_id']); ?>" <?php echo $game_filter == $game['game_id'] ? 'selected' : ''; ?>>
                                         <?php echo htmlspecialchars($game['game_name']); ?>
                                     </option>
                                 <?php endforeach; ?>
