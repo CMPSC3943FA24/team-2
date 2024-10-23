@@ -23,15 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $existingUser = $result->fetch_assoc();
 
     if($existingUser){
-        $error = "Username already exists. Please choose a different one."
+        $error = "Username already exists. Please choose a different one.";
     } else {
         //Hash the password
-        $hashedPassword = password_hasg($password, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         //Insert user into the database
         $query = "INSERT INTO users (username, password) VALUES (?,?)";
-        $stmt = $conn->prepare($query)
-        $stmt->bind_param($username, $password);
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param($username, $hashedPassword);
         $stmt->execute();
 
         //Set success message in session and redirect to login
