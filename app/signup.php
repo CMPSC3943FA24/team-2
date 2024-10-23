@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //Insert user into the database
         $query = "INSERT INTO users (username, password) VALUES (?,?)";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param($username, $hashedPassword);
+        $stmt->bind_param('ss', $username, $hashedPassword);
         $stmt->execute();
 
         //Set success message in session and redirect to login
