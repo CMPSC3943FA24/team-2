@@ -95,6 +95,8 @@ $stmt->close();
 </head>
 <body>
 
+<?php include "../templates/navbar.php"; ?>
+
 <!-- Header Section -->
 <section class="hero is-primary">
   <div class="hero-body">
