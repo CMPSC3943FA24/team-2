@@ -117,7 +117,7 @@ $bg = rand(1, 9);
 
 <style>
   body {
-          background-image: url('../images/dash/<?php>echo bg?>.jpg'); 
+          background-image: url('images/dash/<?php>echo bg?>.jpg'); 
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
