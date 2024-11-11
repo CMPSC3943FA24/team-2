@@ -131,7 +131,7 @@ $bg = rand(1, 9);
 
 <!-- Header Section -->
 <section class="hero is-primary">
-  <!--<div class="hero-body">-->
+  <div class="hero-body">
     <div class="container">
       <h1 class="title"> 
         <?php 
@@ -144,13 +144,13 @@ $bg = rand(1, 9);
       </h1>
       <h2 class="subtitle">Here’s an overview of your card collection.</h2>
     </div>
-  <!--</div>-->
+  </div>
 </section>
 
 
 <!-- Stats Section -->
 <section class="section">
-  <div class="container">
+  <!--<div class="container">-->
     <div class="columns">
       <div class="column is-one-quarter">
         <div class="card">
@@ -185,7 +185,7 @@ $bg = rand(1, 9);
         </div>
       </div>
     </div>
-  </div>
+  <!--</div>-->
 </section>
 
 <!-- Recent Cards and Decks Section -->
