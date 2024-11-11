@@ -85,7 +85,7 @@ $conn->close(); // Close the connection if it was successfully created
         <div class="container">
             <div class="columns is-centered">
                 <div class="column is-one-third">
-                    <div class="box">
+                    <div>
                         <h2 class="title has-text-centered">Login</h2>
 
                         <!-- Display error message if login fails -->
