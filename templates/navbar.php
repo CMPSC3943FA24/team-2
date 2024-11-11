@@ -57,9 +57,11 @@ if (isset($_SESSION['user_id'])){
         </form>
 
 		<div class="navbar-item">
-            <a href="/app/account_page.php" class="navbar-item">
-                <img src="/<?php echo $profilePicture; ?>" width="55px" height="55px" alt="Profile Picture">
-            </a>
+        <a href="/app/account_page.php" class="navbar-item">
+            <figure class="image is-64x64">
+                <img src="/<?php echo $profilePicture; ?>" class="is-rounded" alt="Profile Picture">
+            </figure>
+        </a>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <a href="/app/account_page.php">Account</a>
                 <a href="/Scripts/logout.php">Log Out</a>
