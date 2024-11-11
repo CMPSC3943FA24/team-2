@@ -72,6 +72,12 @@ $conn->close(); // Close the connection if it was successfully created
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
+
+        html, body {
+        height: 100%; /* Ensures the background covers the full viewport height */
+        margin: 0;    /* Removes any default margin */
+        padding: 0;   /* Removes any default padding */
+}
     </style>
 
 <body>
