@@ -23,7 +23,7 @@ try {
                    m.power, m.toughness, m.expansion, m.rarity, m.card_number, m.artist, 
                    c.images AS image_path
             FROM cards c
-            JOIN mtg_criteria m ON c.card_id = m.card_id
+            JOIN magic_criteria m ON c.card_id = m.card_id
             WHERE c.card_id = ?
         ");
 
