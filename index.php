@@ -100,6 +100,8 @@ if ($userId !== null) {
 $stmt->execute();
 $recentDecks = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
+//Generate # for background
+$bg = rand(1, 9);
 ?>
 
 
@@ -112,6 +114,18 @@ $stmt->close();
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<style>
+  body {
+          background-image: url('../images/dash/<?php>echo bg?>.jpg'); 
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          }
+
+
+</style>
 
 <?php include "templates/navbar.php"; ?>
 
