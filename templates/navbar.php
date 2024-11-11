@@ -58,10 +58,9 @@ if (isset($_SESSION['user_id'])){
 
 		<div class="navbar-item">
         <a href="/app/account_page.php" class="navbar-item">
-            <figure class="image is-48x48">
-                <img src="/<?php echo $profilePicture; ?>" class="is-rounded" alt="Profile Picture" style="object-fit: cover; width: 100%; height: 100%;">
-            </figure>
-        </a>
+    <img src="/<?php echo $profilePicture; ?>" alt="Profile Picture" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;">
+</a>
+
 
             <?php if (isset($_SESSION['user_id'])): ?>
                 <a href="/app/account_page.php">Account</a>
