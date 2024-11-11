@@ -102,7 +102,6 @@ $recentDecks = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 //Generate # for background
 $bg = rand(1, 9);
-echo $bg;
 ?>
 
 
