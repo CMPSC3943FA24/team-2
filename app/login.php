@@ -78,6 +78,12 @@ $conn->close(); // Close the connection if it was successfully created
         margin: 0;    /* Removes any default margin */
         padding: 0;   /* Removes any default padding */
     }
+    .box {
+        background-color: rgba(255, 255, 255, 0.9); /* Adjust opacity */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 </style>
 
 <body>
@@ -85,7 +91,7 @@ $conn->close(); // Close the connection if it was successfully created
         <div class="container">
             <div class="columns is-centered">
                 <div class="column is-one-third">
-                    <div>
+                    <div class="box">
                         <h2 class="title has-text-centered">Login</h2>
 
                         <!-- Display error message if login fails -->
