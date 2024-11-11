@@ -117,12 +117,12 @@ $bg = rand(1, 9);
 
 <style>
   body {
-          background-image: url('images/dash/<?php>echo $bg;?>.jpg'); 
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-          }
+    background-image: url('images/dash/<?php echo $bg; ?>.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
 
 
 </style>
@@ -150,7 +150,7 @@ $bg = rand(1, 9);
 
 <!-- Stats Section -->
 <section class="section">
-  <!--<div class="container">-->
+  <div class="container">
     <div class="columns">
       <div class="column is-one-quarter">
         <div class="card">
@@ -185,7 +185,7 @@ $bg = rand(1, 9);
         </div>
       </div>
     </div>
-  <!--</div>-->
+  </div>
 </section>
 
 <!-- Recent Cards and Decks Section -->
