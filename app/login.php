@@ -77,6 +77,13 @@ $conn->close(); // Close the connection if it was successfully created
         height: 100%; /* Ensures the background covers the full viewport height */
         margin: 0;    /* Removes any default margin */
         padding: 0;   /* Removes any default padding */
+        /*Semi-Transparent on the Login Screen*/
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Adjust opacity */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
     </style>
 
