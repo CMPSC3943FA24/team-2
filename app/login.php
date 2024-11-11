@@ -79,7 +79,7 @@ $conn->close(); // Close the connection if it was successfully created
         padding: 0;   /* Removes any default padding */
         /*Semi-Transparent on the Login Screen*/
         
-        .container {
+        form {
             background-color: rgba(255, 255, 255, 0.9); /* Adjust opacity */
             padding: 20px;
             border-radius: 8px;
