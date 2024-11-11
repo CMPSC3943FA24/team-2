@@ -62,6 +62,18 @@ $conn->close(); // Close the connection if it was successfully created
     <title>Login Page</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
+
+<style>
+        /* New background image */
+        body {
+            background-image: url('../images/login.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+
 <body>
     <section class="section">
         <div class="container">
