@@ -48,6 +48,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { //Checks if the HHTTP request method
     <title>Password Reset</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
+
+<style>
+    /* New background image */
+    body {
+        background-image: url('../images/password.jpg'); 
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        }
+
+    html, body {
+        height: 100%; /* Ensures the background covers the full viewport height */
+        margin: 0;    /* Removes any default margin */
+        padding: 0;   /* Removes any default padding */
+    }
+    .box {
+        background-color: rgba(255, 255, 255, 0.9); /* Adjust opacity */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
 <body>
     <section class="section">
         <div class="container">
