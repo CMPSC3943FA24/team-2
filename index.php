@@ -117,15 +117,14 @@ $bg = rand(1, 9);
 
 <style>
   body {
-    background-image: url('images/dash/<?php echo $bg; ?>.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-image: url('images/dash/<?php echo $bg; ?>.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
   }
-
-
 </style>
+
 
 <?php include "templates/navbar.php"; ?>
 
