@@ -87,7 +87,7 @@ $decksResult = $stmtDecks->get_result();
                 <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
                 <p><strong>Total Cards:</strong> <?php echo htmlspecialchars($totalCards); ?></p>
                 <p><strong>Total Decks:</strong> <?php echo htmlspecialchars($totalDecks); ?></p>
-                <button class="button is-primary">Edit Profile</button>
+                <a href="edit_profile.php" ><button class="button is-primary">Edit Profile</button></a>
             </div>
 
             <!-- Tabs Column -->
