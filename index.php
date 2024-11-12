@@ -148,7 +148,7 @@ $bg = rand(1, 9);
     <div class="container">
       <h1 class="title"> 
         <?php 
-          if (isset($_SESSION['name'])) {
+          if (isset($_SESSION['userId'])) {
             echo "Welcome back, " . htmlspecialchars($name);
           } else {
             echo "Welcome! Log in to see personal stats.";
