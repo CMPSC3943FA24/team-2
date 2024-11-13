@@ -58,9 +58,10 @@ echo($_SESSION['profile_picture']);
         </form>
 
 		<div class="navbar-item">
-        <a href="/app/account_page.php" style="width: 48px; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
-        </a>
+        <a href="/app/account_page.php" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+    <img src="<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 50%;">
+</a>
+
 
 
 
