@@ -57,12 +57,11 @@ echo($_SESSION['profile_picture']);
             </div>
         </form>
 
-		<div>
-        <a href="/app/account_page.php" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-            <img src="<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
-        </a>
+        <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+            <a href="/app/account_page.php" style="width: 100%; height: 100%; display: block; position: relative;">
+                <img src="<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center; position: absolute;">
+            </a>
         </div>
-
         <div class="navbar-item">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <a href="/app/account_page.php">Account</a>
