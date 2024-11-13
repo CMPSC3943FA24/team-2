@@ -13,7 +13,7 @@ $error = ''; // Initialize error message
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $name = $_POST['name']
+    $name = $_POST['name'];
 
     // Check if the username already exists
     $query = "SELECT * FROM users WHERE username = ?";
