@@ -22,6 +22,7 @@ if (isset($_SESSION['user_id'])){
 		$_SESSION['profile_picture'] = $profilePicture; // Set session variable
 	}
 }
+echo($_SESSION['profile_picture']);
 ?>
 
 <!-- Navbar Section -->
