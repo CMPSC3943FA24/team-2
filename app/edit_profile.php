@@ -2,25 +2,34 @@
 // Database connection
 require_once 'config.php';
 
+$error = $success = '';  // Initialize error and success messages
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handling the username change
     if (isset($_POST['username'])) {
         $username = $_POST['username'];
         $stmt = $mysqli->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
         $stmt->bind_param('s', $username);
-        $stmt->execute();
-        $stmt->bind_result($count);
-        $stmt->fetch();
-        $stmt->close();
         
-        if ($count > 0) {
-            $error = 'Username already taken.';
-        } else {
-            $stmt = $mysqli->prepare("UPDATE users SET username = ? WHERE user_id = ?");
-            $stmt->bind_param('si', $username, $_SESSION['user_id']);
-            $stmt->execute();
+        if ($stmt->execute()) {
+            $stmt->bind_result($count);
+            $stmt->fetch();
             $stmt->close();
-            $success = 'Username updated successfully.';
+            
+            if ($count > 0) {
+                $error = 'Username already taken.';
+            } else {
+                $stmt = $mysqli->prepare("UPDATE users SET username = ? WHERE user_id = ?");
+                $stmt->bind_param('si', $username, $_SESSION['user_id']);
+                if ($stmt->execute()) {
+                    $success = 'Username updated successfully.';
+                } else {
+                    $error = 'Error updating username.';
+                }
+                $stmt->close();
+            }
+        } else {
+            $error = 'Error checking username availability.';
         }
     }
 
@@ -29,29 +38,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $name = $_POST['name'];
         $stmt = $mysqli->prepare("UPDATE users SET name = ? WHERE user_id = ?");
         $stmt->bind_param('si', $name, $_SESSION['user_id']);
-        $stmt->execute();
+        
+        if ($stmt->execute()) {
+            $success = 'Name updated successfully.';
+        } else {
+            $error = 'Error updating name.';
+        }
         $stmt->close();
-        $success = 'Name updated successfully.';
     }
 
     // Handling image upload and resizing
     if (isset($_FILES['profile_picture'])) {
         $file = $_FILES['profile_picture'];
-        if ($file['error'] == 0) {
-            $image = imagecreatefromstring(file_get_contents($file['tmp_name']));
-            $resized_image = imagescale($image, 128, 128);
-            $new_image_path = '/uploads/' . $_SESSION['user_id'] . '_profile.jpg';
-            imagejpeg($resized_image, $new_image_path);
-            imagedestroy($image);
-            imagedestroy($resized_image);
 
-            $stmt = $mysqli->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
-            $stmt->bind_param('si', $new_image_path, $_SESSION['user_id']);
-            $stmt->execute();
-            $stmt->close();
-            $success = 'Profile picture updated successfully.';
+        // Validate file size and type
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if ($file['error'] == 0 && in_array($file['type'], $allowedTypes) && $file['size'] <= 2 * 1024 * 1024) {
+            $image = imagecreatefromstring(file_get_contents($file['tmp_name']));
+            if ($image) {
+                // Resize and save the image
+                $resized_image = imagescale($image, 128, 128);
+                $new_image_path = $_SERVER['DOCUMENT_ROOT'] . '/uploads/' . $_SESSION['user_id'] . '_profile.jpg';
+                
+                if (imagejpeg($resized_image, $new_image_path)) {
+                    imagedestroy($image);
+                    imagedestroy($resized_image);
+                    
+                    // Update the database with the new profile picture path
+                    $relative_path = '/uploads/' . $_SESSION['user_id'] . '_profile.jpg';
+                    $stmt = $mysqli->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
+                    $stmt->bind_param('si', $relative_path, $_SESSION['user_id']);
+                    
+                    if ($stmt->execute()) {
+                        $success = 'Profile picture updated successfully.';
+                    } else {
+                        $error = 'Error updating profile picture in database.';
+                    }
+                    $stmt->close();
+                } else {
+                    $error = 'Error saving resized image.';
+                }
+            } else {
+                $error = 'Error processing image file.';
+            }
         } else {
-            $error = 'Error uploading image.';
+            $error = 'Invalid file type or file too large (max 2MB).';
         }
     }
 }
@@ -71,14 +102,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="column is-half">
                 <h1 class="title is-3 has-text-centered">Edit Profile</h1>
 
-                <?php if (isset($error)): ?>
+                <?php if ($error): ?>
                     <div class="notification is-danger is-light">
                         <button class="delete"></button>
                         <?= htmlspecialchars($error) ?>
                     </div>
                 <?php endif; ?>
 
-                <?php if (isset($success)): ?>
+                <?php if ($success): ?>
                     <div class="notification is-success is-light">
                         <button class="delete"></button>
                         <?= htmlspecialchars($success) ?>
@@ -92,22 +123,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <!-- Username Field -->
                         <div class="field">
                             <label class="label">Username</label>
-                            <div class="control has-icons-left">
+                            <div class="control">
                                 <input class="input" type="text" name="username" value="<?= htmlspecialchars($current_username) ?>">
-                                <span class="icon is-left">
-                                    <i class="fas fa-user"></i>
-                                </span>
                             </div>
                         </div>
 
                         <!-- Name Field -->
                         <div class="field">
                             <label class="label">Name</label>
-                            <div class="control has-icons-left">
+                            <div class="control">
                                 <input class="input" type="text" name="name" value="<?= htmlspecialchars($current_name) ?>">
-                                <span class="icon is-left">
-                                    <i class="fas fa-id-card"></i>
-                                </span>
                             </div>
                         </div>
 
@@ -118,9 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label class="file-label">
                                     <input class="file-input" type="file" name="profile_picture" accept="image/*">
                                     <span class="file-cta">
-                                        <span class="icon">
-                                            <i class="fas fa-upload"></i>
-                                        </span>
                                         <span>Choose a file…</span>
                                     </span>
                                     <span class="file-name">
@@ -146,7 +168,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>

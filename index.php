@@ -142,7 +142,7 @@ $bg = rand(1, 9);
 </style>
 
 
-<?php include "templates/navbar.php"; ?>
+<?php include "templates/navbar.php"; echo ($_SERVER['DOCUMENT_ROOT']);?>
 
 <!-- Header Section -->
 <section class="hero is-primary">
