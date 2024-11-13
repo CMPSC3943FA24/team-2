@@ -31,7 +31,7 @@ if ($userId !== null) {
     $stmt->close();
 
     // Store user's name in session if needed
-    $_SESSION['name'] = $userName;
+    $_SESSION['name'] = $name;
 }
 
 // Fetch total cards
