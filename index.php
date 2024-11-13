@@ -33,6 +33,8 @@ if ($userId !== null) {
   $_SESSION['name'] = $name;  // Store $name in the session
 }
 
+//Grab Users Background
+
 
 // Fetch total cards
 $totalCardsQuery = "SELECT COUNT(*) AS total FROM cards" . ($userId !== null ? " WHERE owner = ?" : "");
@@ -131,7 +133,7 @@ $bg = rand(1, 9);
 
 <style>
   body {
-    background-image: url('images/dash/<?php echo $bg; ?>.jpg') !important;
+    background-image: url('images/dash/<?php echo $bg; ?>.jpg') !important; <!-- I want this to switch between preset and custom backgrounds-->
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;

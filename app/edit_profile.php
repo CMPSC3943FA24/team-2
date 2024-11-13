@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($file['error'] == 0) {
             $image = imagecreatefromstring(file_get_contents($file['tmp_name']));
             $resized_image = imagescale($image, 128, 128);
-            $new_image_path = 'uploads/' . $_SESSION['user_id'] . '_profile.jpg';
+            $new_image_path = '/uploads/' . $_SESSION['user_id'] . '_profile.jpg';
             imagejpeg($resized_image, $new_image_path);
             imagedestroy($image);
             imagedestroy($resized_image);
@@ -63,66 +63,90 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <div class="container">
-        <h1 class="title is-3">Edit Profile</h1>
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <h1 class="title is-3 has-text-centered">Edit Profile</h1>
 
-        <?php if (isset($error)): ?>
-            <div class="notification is-danger">
-                <button class="delete"></button>
-                <?= htmlspecialchars($error) ?>
-            </div>
-        <?php endif; ?>
+                <?php if (isset($error)): ?>
+                    <div class="notification is-danger is-light">
+                        <button class="delete"></button>
+                        <?= htmlspecialchars($error) ?>
+                    </div>
+                <?php endif; ?>
 
-        <?php if (isset($success)): ?>
-            <div class="notification is-success">
-                <button class="delete"></button>
-                <?= htmlspecialchars($success) ?>
-            </div>
-        <?php endif; ?>
+                <?php if (isset($success)): ?>
+                    <div class="notification is-success is-light">
+                        <button class="delete"></button>
+                        <?= htmlspecialchars($success) ?>
+                    </div>
+                <?php endif; ?>
 
-        <!-- Username Change Form -->
-        <form action="edit_profile.php" method="post" enctype="multipart/form-data">
-            <div class="field">
-                <label class="label">Username</label>
-                <div class="control">
-                    <input class="input" type="text" name="username" value="<?= htmlspecialchars($current_username) ?>" required>
+                <!-- Profile Edit Form -->
+                <div class="box">
+                    <form action="edit_profile.php" method="post" enctype="multipart/form-data">
+                        
+                        <!-- Username Field -->
+                        <div class="field">
+                            <label class="label">Username</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" name="username" value="<?= htmlspecialchars($current_username) ?>">
+                                <span class="icon is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Name Field -->
+                        <div class="field">
+                            <label class="label">Name</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" name="name" value="<?= htmlspecialchars($current_name) ?>">
+                                <span class="icon is-left">
+                                    <i class="fas fa-id-card"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Profile Picture Upload -->
+                        <div class="field">
+                            <label class="label">Profile Picture</label>
+                            <div class="file has-name is-fullwidth">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" name="profile_picture" accept="image/*">
+                                    <span class="file-cta">
+                                        <span class="icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span>Choose a file…</span>
+                                    </span>
+                                    <span class="file-name">
+                                        <?= isset($file['name']) ? htmlspecialchars($file['name']) : 'No file uploaded' ?>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-primary is-fullwidth" type="submit">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
 
-            <!-- Name Change Form -->
-            <div class="field">
-                <label class="label">Name</label>
-                <div class="control">
-                    <input class="input" type="text" name="name" value="<?= htmlspecialchars($current_name) ?>" required>
+                <!-- Password Reset Link -->
+                <div class="field has-text-centered">
+                    <a href="/app/account_recovery.php" class="button is-link is-light">Reset Password</a>
                 </div>
-            </div>
-
-            <!-- Profile Picture Upload Form -->
-            <div class="field">
-                <label class="label">Profile Picture</label>
-                <div class="control">
-                    <input class="input" type="file" name="profile_picture" accept="image/*">
-                </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    <button class="button is-primary" type="submit">Save Changes</button>
-                </div>
-            </div>
-        </form>
-
-        <!-- Password Reset Link -->
-        <div class="field">
-            <div class="control">
-                <a href="/app/account_recovery.php" class="button is-link">Reset Password</a>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bulma@0.9.4/js/bulma.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
