@@ -56,11 +56,19 @@ if (isset($_SESSION['user_id'])){
             </div>
         </form>
     </div>
+
     <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; padding-top: 5px;">
         <a href="/app/account_page.php" style="width: 100%; height: 100%; display: block;">
-            <img src="<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+            <?php
+                if (isset($_SESSION['profile_picture'])) {
+                    echo('<img src="' . htmlspecialchars($_SESSION['profile_picture']) . '" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">');
+                } else {
+                    echo('<img src="/images/account.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">');
+                }
+            ?>
         </a>
     </div>
+
     <div class="navbar-item">
         <?php if (isset($_SESSION['user_id'])): ?>
             <a href="/app/account_page.php">Account</a>
