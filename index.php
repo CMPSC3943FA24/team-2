@@ -116,6 +116,7 @@ $recentDecks = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 //Generate # for background
 $bg = rand(1, 9);
+echo $name;
 ?>
 
 
@@ -149,7 +150,7 @@ $bg = rand(1, 9);
       <h1 class="title"> 
         <?php 
           if (isset($_SESSION['username'])) {
-            echo "Welcome back, " . htmlspecialchars($name);
+            echo "Welcome back, " . echo($name);
           } else {
             echo "Welcome! Log in to see personal stats.";
           }
