@@ -90,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         mkdir($upload_dir, 0755, true);
                     }
                     $new_image_path = $upload_dir . $_SESSION['user_id'] . '_profile.jpg';
+                    $correct_iamge_path = "/uploads/" . $_SESSION['user_id'] . '_profile.jpg';
 
                     // Move the uploaded file
                     if (!move_uploaded_file($file['tmp_name'], $new_image_path)) {
@@ -105,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             // Update the database with the new image path
                             $stmt = $conn->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
-                            $stmt->bind_param('si', $new_image_path, $_SESSION['user_id']);
+                            $stmt->bind_param('si', $correct_image_path, $_SESSION['user_id']);
                             $stmt->execute();
                             $stmt->close();
                             $success = 'Profile picture updated successfully.';
