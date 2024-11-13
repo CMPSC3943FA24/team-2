@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="field">
                             <label class="label">New Username</label>
                             <div class="control">
-                                <input class="input" type="text" name="username" value="<?= htmlspecialchars($_SESSION['username']) ?>" >
+                                <input class="input" type="text" name="username" >
                             </div>
                         </div>
 
@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="field">
                             <label class="label">New Name</label>
                             <div class="control">
-                                <input class="input" type="text" name="name" value="<?= htmlspecialchars($_SESSION['name']) ?>">
+                                <input class="input" type="text" name="name">
                             </div>
                         </div>
 
