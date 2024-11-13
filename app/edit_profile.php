@@ -76,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $error = 'File size exceeds the 2MB limit.';
                 } else {
                     // Move the uploaded file to the desired directory
-                    $upload_dir = 'uploads/';
-                    $new_image_path = $upload_dir . $_SESSION['user_id'] . '_profile.jpg';
+                    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/';
+                    $new_image_path = $upload_dir . $_SESSION['user_id'] . '_profile.jpg';                    
                     
                     if (!move_uploaded_file($file['tmp_name'], $new_image_path)) {
                         $error = 'Failed to move the uploaded file.';
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="field">
                             <label class="label">Username</label>
                             <div class="control">
-                                <input class="input" type="text" name="username" value="<?= htmlspecialchars($current_username) ?>" required>
+                                <input class="input" type="text" name="username" value="<?= htmlspecialchars($current_username) ?>" >
                             </div>
                         </div>
 
@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="field">
                             <label class="label">Name</label>
                             <div class="control">
-                                <input class="input" type="text" name="name" value="<?= htmlspecialchars($current_name) ?>" required>
+                                <input class="input" type="text" name="name" value="<?= htmlspecialchars($current_name) ?>">
                             </div>
                         </div>
 
