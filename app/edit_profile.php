@@ -156,17 +156,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         
                         <!-- Username Field -->
                         <div class="field">
-                            <label class="label">Username</label>
+                            <label class="label">New Username</label>
                             <div class="control">
-                                <input class="input" type="text" name="username" value="<?= htmlspecialchars($current_username) ?>" >
+                                <input class="input" type="text" name="username" value="<?= htmlspecialchars($_SESSION['username']) ?>" >
                             </div>
                         </div>
 
                         <!-- Name Field -->
                         <div class="field">
-                            <label class="label">Name</label>
+                            <label class="label">New Name</label>
                             <div class="control">
-                                <input class="input" type="text" name="name" value="<?= htmlspecialchars($current_name) ?>">
+                                <input class="input" type="text" name="name" value="<?= htmlspecialchars($_SESSION['name']) ?>">
                             </div>
                         </div>
 
