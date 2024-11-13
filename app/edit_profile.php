@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         mkdir($upload_dir, 0755, true);
                     }
                     $new_image_path = $upload_dir . $_SESSION['user_id'] . '_profile.jpg';
-                    $correct_iamge_path = "/uploads/" . $_SESSION['user_id'] . '_profile.jpg';
+                    $correct_image_path = "/uploads/" . $_SESSION['user_id'] . '_profile.jpg';
 
                     // Move the uploaded file
                     if (!move_uploaded_file($file['tmp_name'], $new_image_path)) {
