@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handling the username change
     if (isset($_POST['username'])) {
         $username = $_POST['username'];
-        $stmt = $mysqli->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $stmt->bind_result($count);
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($count > 0) {
             $error = 'Username already taken.';
         } else {
-            $stmt = $mysqli->prepare("UPDATE users SET username = ? WHERE user_id = ?");
+            $stmt = $conn->prepare("UPDATE users SET username = ? WHERE user_id = ?");
             $stmt->bind_param('si', $username, $_SESSION['user_id']);
             $stmt->execute();
             $stmt->close();
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handling the name change
     if (isset($_POST['name'])) {
         $name = $_POST['name'];
-        $stmt = $mysqli->prepare("UPDATE users SET name = ? WHERE user_id = ?");
+        $stmt = $conn->prepare("UPDATE users SET name = ? WHERE user_id = ?");
         $stmt->bind_param('si', $name, $_SESSION['user_id']);
         $stmt->execute();
         $stmt->close();
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             imagedestroy($resized_image);
 
                             // Update the database with the new image path
-                            $stmt = $mysqli->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
+                            $stmt = $conn->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
                             $stmt->bind_param('si', $new_image_path, $_SESSION['user_id']);
                             $stmt->execute();
                             $stmt->close();
