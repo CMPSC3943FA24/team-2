@@ -13,6 +13,7 @@ $error = ''; // Initialize error message
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $name = $_POST['name']
 
     // Check if the username already exists
     $query = "SELECT * FROM users WHERE username = ?";
@@ -29,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         //Insert user into the database
-        $query = "INSERT INTO users (username, password) VALUES (?,?)";
+        $query = "INSERT INTO users (username, password, name) VALUES (?,?,?)";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param('ss', $username, $hashedPassword);
+        $stmt->bind_param('sss', $username, $hashedPassword, $name);
         $stmt->execute();
 
         //Set success message in session and redirect to login
@@ -66,6 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <?php endif; ?>
 
                         <form method="POST">
+                            <div class="field">
+                                <label class="label" for="name">Name:</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="name" id="name" required>
+                                </div>
+                            </div>
                             <div class="field">
                                 <label class="label" for="username">Username:</label>
                                 <div class="control">
