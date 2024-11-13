@@ -108,8 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php
-//echo session
-echo($_SESSION[]);
+echo "<pre>";
+print_r($array);
+echo "</pre>";
 ?>
 
 <!-- HTML Form with the file input and error display -->
