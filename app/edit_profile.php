@@ -2,6 +2,10 @@
 // Database connection
 require_once 'config.php';
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start a new session if one is not already started
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handling the username change
     if (isset($_POST['username'])) {
