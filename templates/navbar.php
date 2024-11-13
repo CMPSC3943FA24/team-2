@@ -22,7 +22,6 @@ if (isset($_SESSION['user_id'])){
 		$_SESSION['profile_picture'] = $profilePicture; // Set session variable
 	}
 }
-echo($_SESSION['profile_picture']);
 ?>
 
 <!-- Navbar Section -->
@@ -59,7 +58,7 @@ echo($_SESSION['profile_picture']);
 
 		<div class="navbar-item">
         <a href="/app/account_page.php" class="navbar-item" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-            <img src="/<?php echo $profilePicture; ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+            <img src="/<?php htmlspecialchars($_SESSION['profile_picture']); ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
         </a>
 
 
