@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php
 //echo session
-echo($_SESSION);
+echo($_SESSION[]);
 ?>
 
 <!-- HTML Form with the file input and error display -->
