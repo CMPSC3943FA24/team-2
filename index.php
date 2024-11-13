@@ -133,7 +133,7 @@ $bg = rand(1, 9);
 
 <style>
   body {
-    background-image: url('images/dash/<?php echo $bg; ?>.jpg') !important; <!-- I want this to switch between preset and custom backgrounds-->
+    background-image: url('images/dash/<?php echo $bg; ?>.jpg') !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
