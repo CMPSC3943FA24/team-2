@@ -2,34 +2,25 @@
 // Database connection
 require_once 'config.php';
 
-$error = $success = '';  // Initialize error and success messages
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handling the username change
     if (isset($_POST['username'])) {
         $username = $_POST['username'];
         $stmt = $mysqli->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
         $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
         
-        if ($stmt->execute()) {
-            $stmt->bind_result($count);
-            $stmt->fetch();
-            $stmt->close();
-            
-            if ($count > 0) {
-                $error = 'Username already taken.';
-            } else {
-                $stmt = $mysqli->prepare("UPDATE users SET username = ? WHERE user_id = ?");
-                $stmt->bind_param('si', $username, $_SESSION['user_id']);
-                if ($stmt->execute()) {
-                    $success = 'Username updated successfully.';
-                } else {
-                    $error = 'Error updating username.';
-                }
-                $stmt->close();
-            }
+        if ($count > 0) {
+            $error = 'Username already taken.';
         } else {
-            $error = 'Error checking username availability.';
+            $stmt = $mysqli->prepare("UPDATE users SET username = ? WHERE user_id = ?");
+            $stmt->bind_param('si', $username, $_SESSION['user_id']);
+            $stmt->execute();
+            $stmt->close();
+            $success = 'Username updated successfully.';
         }
     }
 
@@ -38,56 +29,81 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $name = $_POST['name'];
         $stmt = $mysqli->prepare("UPDATE users SET name = ? WHERE user_id = ?");
         $stmt->bind_param('si', $name, $_SESSION['user_id']);
-        
-        if ($stmt->execute()) {
-            $success = 'Name updated successfully.';
-        } else {
-            $error = 'Error updating name.';
-        }
+        $stmt->execute();
         $stmt->close();
+        $success = 'Name updated successfully.';
     }
 
-    // Handling image upload and resizing
+    // Handling image upload with error handling
     if (isset($_FILES['profile_picture'])) {
         $file = $_FILES['profile_picture'];
-
-        // Validate file size and type
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        if ($file['error'] == 0 && in_array($file['type'], $allowedTypes) && $file['size'] <= 2 * 1024 * 1024) {
-            $image = imagecreatefromstring(file_get_contents($file['tmp_name']));
-            if ($image) {
-                // Resize and save the image
-                $resized_image = imagescale($image, 128, 128);
-                $new_image_path = $_SERVER['DOCUMENT_ROOT'] . '/uploads/' . $_SESSION['user_id'] . '_profile.jpg';
-                
-                if (imagejpeg($resized_image, $new_image_path)) {
-                    imagedestroy($image);
-                    imagedestroy($resized_image);
-                    
-                    // Update the database with the new profile picture path
-                    $relative_path = '/uploads/' . $_SESSION['user_id'] . '_profile.jpg';
-                    $stmt = $mysqli->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
-                    $stmt->bind_param('si', $relative_path, $_SESSION['user_id']);
-                    
-                    if ($stmt->execute()) {
-                        $success = 'Profile picture updated successfully.';
-                    } else {
-                        $error = 'Error updating profile picture in database.';
-                    }
-                    $stmt->close();
-                } else {
-                    $error = 'Error saving resized image.';
-                }
-            } else {
-                $error = 'Error processing image file.';
+        
+        // Check for upload errors
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            switch ($file['error']) {
+                case UPLOAD_ERR_INI_SIZE:
+                case UPLOAD_ERR_FORM_SIZE:
+                    $error = 'The uploaded file exceeds the maximum allowed size.';
+                    break;
+                case UPLOAD_ERR_PARTIAL:
+                    $error = 'The uploaded file was only partially uploaded.';
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    $error = 'No file was uploaded.';
+                    break;
+                case UPLOAD_ERR_NO_TMP_DIR:
+                    $error = 'Missing a temporary folder on the server.';
+                    break;
+                case UPLOAD_ERR_CANT_WRITE:
+                    $error = 'Failed to write the uploaded file to disk.';
+                    break;
+                case UPLOAD_ERR_EXTENSION:
+                    $error = 'A PHP extension stopped the file upload.';
+                    break;
+                default:
+                    $error = 'Unknown error occurred during file upload.';
+                    break;
             }
         } else {
-            $error = 'Invalid file type or file too large (max 2MB).';
+            // Check if file type is valid
+            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!in_array($file['type'], $allowed_types)) {
+                $error = 'Invalid file type. Only JPG, PNG, and GIF are allowed.';
+            } else {
+                // Check file size (for example, limit to 2MB)
+                $max_size = 2 * 1024 * 1024; // 2MB
+                if ($file['size'] > $max_size) {
+                    $error = 'File size exceeds the 2MB limit.';
+                } else {
+                    // Move the uploaded file to the desired directory
+                    $upload_dir = 'uploads/';
+                    $new_image_path = $upload_dir . $_SESSION['user_id'] . '_profile.jpg';
+                    
+                    if (!move_uploaded_file($file['tmp_name'], $new_image_path)) {
+                        $error = 'Failed to move the uploaded file.';
+                    } else {
+                        // Resize the image (optional)
+                        $image = imagecreatefromstring(file_get_contents($new_image_path));
+                        $resized_image = imagescale($image, 128, 128);
+                        imagejpeg($resized_image, $new_image_path);
+                        imagedestroy($image);
+                        imagedestroy($resized_image);
+
+                        // Update the database with the new image path
+                        $stmt = $mysqli->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
+                        $stmt->bind_param('si', $new_image_path, $_SESSION['user_id']);
+                        $stmt->execute();
+                        $stmt->close();
+                        $success = 'Profile picture updated successfully.';
+                    }
+                }
+            }
         }
     }
 }
 ?>
 
+<!-- HTML Form with the file input and error display -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,14 +118,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="column is-half">
                 <h1 class="title is-3 has-text-centered">Edit Profile</h1>
 
-                <?php if ($error): ?>
+                <?php if (isset($error)): ?>
                     <div class="notification is-danger is-light">
                         <button class="delete"></button>
                         <?= htmlspecialchars($error) ?>
                     </div>
                 <?php endif; ?>
 
-                <?php if ($success): ?>
+                <?php if (isset($success)): ?>
                     <div class="notification is-success is-light">
                         <button class="delete"></button>
                         <?= htmlspecialchars($success) ?>
@@ -124,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="field">
                             <label class="label">Username</label>
                             <div class="control">
-                                <input class="input" type="text" name="username" value="<?= htmlspecialchars($current_username) ?>">
+                                <input class="input" type="text" name="username" value="<?= htmlspecialchars($current_username) ?>" required>
                             </div>
                         </div>
 
@@ -132,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="field">
                             <label class="label">Name</label>
                             <div class="control">
-                                <input class="input" type="text" name="name" value="<?= htmlspecialchars($current_name) ?>">
+                                <input class="input" type="text" name="name" value="<?= htmlspecialchars($current_name) ?>" required>
                             </div>
                         </div>
 
@@ -141,13 +157,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label class="label">Profile Picture</label>
                             <div class="file has-name is-fullwidth">
                                 <label class="file-label">
-                                    <input class="file-input" type="file" name="profile_picture" accept="image/*">
+                                    <input class="file-input" type="file" name="profile_picture" accept="image/*" id="profilePictureInput" required>
                                     <span class="file-cta">
                                         <span>Choose a file…</span>
                                     </span>
-                                    <span class="file-name">
-                                        <?= isset($file['name']) ? htmlspecialchars($file['name']) : 'No file uploaded' ?>
-                                    </span>
+                                    <span class="file-name" id="fileNameDisplay">No file uploaded</span>
                                 </label>
                             </div>
                         </div>
@@ -168,5 +182,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
+
+    <script>
+        // Display selected file name
+        document.getElementById('profilePictureInput').addEventListener('change', function() {
+            const fileName = this.files.length ? this.files[0].name : 'No file uploaded';
+            document.getElementById('fileNameDisplay').textContent = fileName;
+        });
+    </script>
 </body>
 </html>
