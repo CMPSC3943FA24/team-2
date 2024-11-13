@@ -3,24 +3,24 @@ require __DIR__ . '/../app/config.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start(); // Start a new session if one is not already started
 }
-$profilePicture = '/images/account.png'; //default account image
+$profilePicture = '/images/account.png'; // Default account image
 
-//Check if user is logged in
+// Check if user is logged in
 if (isset($_SESSION['user_id'])){
-	$user_id = $_SESSION['user_id'];
+    $user_id = $_SESSION['user_id'];
 
-	//query to get profile picture link
-	$userQuery = "SELECT profile_picture FROM users WHERE user_id = ?";
-	$stmtUser = $conn->prepare($userQuery);
-	$stmtUser->bind_param("i", $user_id);
-	$stmtUser->execute();
-	$userResult = $stmtUser->get_result();
+    // Query to get profile picture link
+    $userQuery = "SELECT profile_picture FROM users WHERE user_id = ?";
+    $stmtUser = $conn->prepare($userQuery);
+    $stmtUser->bind_param("i", $user_id);
+    $stmtUser->execute();
+    $userResult = $stmtUser->get_result();
 
-	if ($userResult->num_rows > 0){
-		$userData = $userResult->fetch_assoc();
-		$profilePicture = htmlspecialchars($userData['profile_picture']);
-		$_SESSION['profile_picture'] = $profilePicture; // Set session variable
-	}
+    if ($userResult->num_rows > 0){
+        $userData = $userResult->fetch_assoc();
+        $profilePicture = htmlspecialchars($userData['profile_picture']);
+        $_SESSION['profile_picture'] = $profilePicture; // Set session variable
+    }
 }
 ?>
 
@@ -44,6 +44,7 @@ if (isset($_SESSION['user_id'])){
             <a href="/app/insert_form.php" class="navbar-item">Card Input Form</a>
             <a href="/app/print_card.php" class="navbar-item">Card Print</a>
         </div>
+        
         <!-- Search Box -->
         <form action="/app/search_page.php" method="GET" class="navbar-item">
             <div class="field has-addons">
@@ -56,11 +57,13 @@ if (isset($_SESSION['user_id'])){
             </div>
         </form>
 
-        <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-            <a href="/app/account_page.php" style="width: 100%; height: 100%; display: block; position: relative;">
-                <img src="<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center; position: absolute;">
+        <!-- Profile Picture -->
+        <div class="navbar-item" style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px;">
+            <a href="/app/account_page.php" style="display: block; width: 100%; height: 100%; overflow: hidden;">
+                <img src="<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
             </a>
         </div>
+
         <div class="navbar-item">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <a href="/app/account_page.php">Account</a>
@@ -69,9 +72,5 @@ if (isset($_SESSION['user_id'])){
                 <a href="/app/login.php">Log In</a>
             <?php endif; ?>
         </div>
-
     </div>
 </nav>
-
-</body>
-</html>
