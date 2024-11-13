@@ -3,7 +3,7 @@
 require_once 'config.php';
 
 if (session_status() === PHP_SESSION_NONE) {
-    session_start(); // Start a new session if one is not already started
+    session_start();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $success = 'Name updated successfully.';
     }
 
-    // Handling image upload with error handling
+    // Handling image upload with enhanced error handling
     if (isset($_FILES['profile_picture'])) {
         $file = $_FILES['profile_picture'];
         
@@ -79,36 +79,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($file['size'] > $max_size) {
                     $error = 'File size exceeds the 2MB limit.';
                 } else {
-                    // Move the uploaded file to the desired directory
+                    // Set the target directory and file path
                     $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/';
-                    $new_image_path = $upload_dir . $_SESSION['user_id'] . '_profile.jpg';                    
-                    
+                    if (!is_dir($upload_dir)) {
+                        mkdir($upload_dir, 0755, true);
+                    }
+                    $new_image_path = $upload_dir . $_SESSION['user_id'] . '_profile.jpg';
+
+                    // Move the uploaded file
                     if (!move_uploaded_file($file['tmp_name'], $new_image_path)) {
                         $error = 'Failed to move the uploaded file.';
                     } else {
-                        // Resize the image (optional)
+                        // Resize the image to 128x128
                         $image = imagecreatefromstring(file_get_contents($new_image_path));
-                        $resized_image = imagescale($image, 128, 128);
-                        imagejpeg($resized_image, $new_image_path);
-                        imagedestroy($image);
-                        imagedestroy($resized_image);
+                        if ($image !== false) {
+                            $resized_image = imagescale($image, 128, 128);
+                            imagejpeg($resized_image, $new_image_path);
+                            imagedestroy($image);
+                            imagedestroy($resized_image);
 
-                        // Update the database with the new image path
-                        $stmt = $mysqli->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
-                        $stmt->bind_param('si', $new_image_path, $_SESSION['user_id']);
-                        $stmt->execute();
-                        $stmt->close();
-                        $success = 'Profile picture updated successfully.';
+                            // Update the database with the new image path
+                            $stmt = $mysqli->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
+                            $stmt->bind_param('si', $new_image_path, $_SESSION['user_id']);
+                            $stmt->execute();
+                            $stmt->close();
+                            $success = 'Profile picture updated successfully.';
+                        } else {
+                            $error = 'Failed to process the uploaded image.';
+                        }
                     }
                 }
             }
         }
     }
 }
-?>
-
-<?php
-print_r($array);
 ?>
 
 <!-- HTML Form with the file input and error display -->
