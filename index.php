@@ -20,19 +20,19 @@ require 'app/config.php';
 // Determine user ID
 $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null; // Use null if no user is logged in
 
-//pull user name
-$name = null;
+// Pull user name
 if ($userId !== null) {
-    $stmt = $conn->prepare("SELECT name FROM users WHERE user_id = ?");
-    $stmt->bind_param('i', $userId);
-    $stmt->execute();
-    $stmt->bind_result($userName);
-    $stmt->fetch();
-    $stmt->close();
+  $stmt = $conn->prepare("SELECT name FROM users WHERE user_id = ?");
+  $stmt->bind_param('i', $userId);
+  $stmt->execute();
+  $stmt->bind_result($name);
+  $stmt->fetch();
+  $stmt->close();
 
-    // Store user's name in session if needed
-    $_SESSION['name'] = $name;
+  // Store user's name in session
+  $_SESSION['name'] = $name;  // Store $name in the session
 }
+
 
 // Fetch total cards
 $totalCardsQuery = "SELECT COUNT(*) AS total FROM cards" . ($userId !== null ? " WHERE owner = ?" : "");
@@ -148,8 +148,8 @@ $bg = rand(1, 9);
     <div class="container">
       <h1 class="title"> 
         <?php 
-          if (isset($_SESSION['username'])) {
-            echo "Welcome back, " . htmlspecialchars($_SESSION['username']);
+          if (isset($_SESSION['name'])) {
+            echo "Welcome back, " . htmlspecialchars($_SESSION['name']);
           } else {
             echo "Welcome! Log in to see personal stats.";
           }
