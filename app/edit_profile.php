@@ -121,6 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+<?php include "templates/navbar.php";?>
+
 <!-- HTML Form with the file input and error display -->
 <!DOCTYPE html>
 <html lang="en">
