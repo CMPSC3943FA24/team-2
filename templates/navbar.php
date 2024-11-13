@@ -66,7 +66,7 @@ if (isset($_SESSION['user_id'])){
             echo('<img src="' . $profilePicture . '" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">');
         } else {
             // Default image if no profile picture is found
-            echo('<img src="/image/account.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">');
+            echo('<img src="/images/account.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">');
         }
         ?>
     </a>
