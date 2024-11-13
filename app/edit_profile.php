@@ -88,9 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         } else {
             // Check if file type is valid
-            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+            $allowed_types = ['image/jpeg'];
             if (!in_array($file['type'], $allowed_types)) {
-                $error = 'Invalid file type. Only JPG, PNG, and GIF are allowed.';
+                $error = 'Invalid file type. Only JPG are allowed.';
             } else {
                 // Check file size (for example, limit to 2MB)
                 $max_size = 2 * 1024 * 1024; // 2MB
