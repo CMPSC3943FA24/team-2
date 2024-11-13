@@ -13,8 +13,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handling the username change
-    if (isset($_POST['username'])) {
-        $username = $_POST['username'];
+    if (isset($_POST['username']) && trim($_POST['username']) != "") {
+        $username = trim($_POST['username']);
+        
+        // Check if the username is already taken
         $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
@@ -25,22 +27,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($count > 0) {
             $error = 'Username already taken.';
         } else {
-            $stmt = $conn->prepare("UPDATE users SET username = ? WHERE user_id = ?");
-            $stmt->bind_param('si', $username, $_SESSION['user_id']);
-            $stmt->execute();
-            $stmt->close();
-            $success = 'Username updated successfully.';
+            // Update the username
+            if (isset($_SESSION['user_id'])) {
+                $stmt = $conn->prepare("UPDATE users SET username = ? WHERE user_id = ?");
+                $stmt->bind_param('si', $username, $_SESSION['user_id']);
+                $stmt->execute();
+                $stmt->close();
+                $success = 'Username updated successfully.';
+            } else {
+                $error = 'User is not logged in.';
+            }
         }
     }
 
     // Handling the name change
-    if (isset($_POST['name'])) {
-        $name = $_POST['name'];
-        $stmt = $conn->prepare("UPDATE users SET name = ? WHERE user_id = ?");
-        $stmt->bind_param('si', $name, $_SESSION['user_id']);
-        $stmt->execute();
-        $stmt->close();
-        $success = 'Name updated successfully.';
+    if (isset($_POST['name']) && trim($_POST['name']) != "") {
+        $name = trim($_POST['name']);
+        
+        // Update the name
+        if (isset($_SESSION['user_id'])) {
+            $stmt = $conn->prepare("UPDATE users SET name = ? WHERE user_id = ?");
+            $stmt->bind_param('si', $name, $_SESSION['user_id']);
+            $stmt->execute();
+            $stmt->close();
+            $success = 'Name updated successfully.';
+        } else {
+            $error = 'User is not logged in.';
+        }
     }
 
     // Handling image upload with enhanced error handling
@@ -105,11 +118,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             imagedestroy($resized_image);
 
                             // Update the database with the new image path
-                            $stmt = $conn->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
-                            $stmt->bind_param('si', $correct_image_path, $_SESSION['user_id']);
-                            $stmt->execute();
-                            $stmt->close();
-                            $success = 'Profile picture updated successfully.';
+                            if (isset($_SESSION['user_id'])) {
+                                $stmt = $conn->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
+                                $stmt->bind_param('si', $correct_image_path, $_SESSION['user_id']);
+                                $stmt->execute();
+                                $stmt->close();
+                                $success = 'Profile picture updated successfully.';
+                            }
                         } else {
                             $error = 'Failed to process the uploaded image.';
                         }
@@ -121,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<?php include "../templates/navbar.php";?>
+<?php include "../templates/navbar.php"; ?>
 
 <!-- HTML Form with the file input and error display -->
 <!DOCTYPE html>
@@ -160,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="field">
                             <label class="label">New Username</label>
                             <div class="control">
-                                <input class="input" type="text" name="username" >
+                                <input class="input" type="text" name="username">
                             </div>
                         </div>
 
