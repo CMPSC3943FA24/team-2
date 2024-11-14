@@ -41,8 +41,7 @@ if (isset($_SESSION['user_id'])){
         <div class="navbar-start">
             <a href="/app/inventory.php" class="navbar-item">Inventory</a>
             <a href="/app/decks.php" class="navbar-item">Decks</a>
-            <a href="/app/add_card.php" class="navbar-item">Card Input Form</a>
-            <a href="/app/print_card.php" class="navbar-item">Card Print</a>
+            <a href="/app/add_card.php" class="navbar-item">Add Card</a>
         </div>
         <!-- Search Box -->
         <form action="/app/search_page.php" method="GET" class="navbar-item">
