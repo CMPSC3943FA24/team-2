@@ -285,7 +285,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <!--Preview Card Image-->
                             <div>
-                                <img class="image" id="cardImage" style="max-width: 100%; height: auto;">
+                                <img class="image" id="cardImage" style="max-width: 25%; height: auto;">
                             </div>
                             <script>
                                 //Display Image Preview
