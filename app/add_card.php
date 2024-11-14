@@ -284,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </script>
 
                             <!--Preview Card Image-->
-                            <div class="box is-flex is-justify-content-center">
+                            <div class="is-flex is-justify-content-center">
                                 <img class="image" id="cardImage" style="max-width: 25%; height: auto;">
                             </div>
                             <script>
