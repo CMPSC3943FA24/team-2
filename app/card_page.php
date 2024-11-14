@@ -1,8 +1,12 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
+// Start session (if not already started)
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// Enable error reporting for debugging purposes
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // Enable debugging mode
 define('DEBUG_MODE', true);
 
@@ -63,7 +67,7 @@ try {
 </head>
 <body>
 
-<?php include "navbar.php"; ?>
+<?php include "../templates/navbar.php"; ?>
 
 <section class="section">
     <div class="container card-info-wrapper">
