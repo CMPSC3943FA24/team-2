@@ -1,10 +1,26 @@
 <?php
 require_once 'config.php';
 
+// Start session (if not already started)
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Enable error reporting for debugging purposes
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // User is not logged in, redirect to the login page
+    header('Location: login.php');
+    exit();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $set_id = $_POST['set_id'];
-    $owner = $_POST['owner'];
+    $owner = $_SESSION['user_id'];
     $number_owned = $_POST['number_owned'];
     $mana_cost = $_POST['mana_cost'] ?? null;
     $mana_type = $_POST['mana_type'] ?? null;
@@ -76,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         mkdir($upload_dir, 0755, true);
                     }
                     $new_image_path = $upload_dir . $card_id . '.jpg';
-                    $correct_image_path = "/uploads/card/" . $card_id . '.jpg';
+                    $correct_image_path = "/uploads/cards/" . $card_id . '.jpg';
 
                     // Move the uploaded file
                     if (!move_uploaded_file($file['tmp_name'], $new_image_path)) {
@@ -90,13 +106,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             imagedestroy($image);
                             imagedestroy($resized_image);
 
-                            // Update the database with the new image path
-                            if (isset($_SESSION['user_id'])) {
-                                $stmt = $conn->prepare("UPDATE cards SET images = ? WHERE card_id = ?");
-                                $stmt->bind_param('si', $correct_image_path, $card_id);
-                                $stmt->execute();
-                                $stmt->close();
-                                $success = 'Profile picture updated successfully.';
+                            $stmt = $conn->prepare("UPDATE cards SET images = ? WHERE card_id = ?");
+                            $stmt->bind_param('si', $correct_image_path, $card_id);
+                            $stmt->execute();
+                            $stmt->close();
+                            $success = 'Profile picture updated successfully.';
                             }
                         } else {
                             $error = 'Failed to process the uploaded image.';
@@ -158,14 +172,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label class="label">Set ID</label>
                             <div class="control">
                                 <input class="input" type="number" name="set_id" required>
-                            </div>
-                        </div>
-
-                        <!-- Owner -->
-                        <div class="field">
-                            <label class="label">Owner</label>
-                            <div class="control">
-                                <input class="input" type="number" name="owner" required>
                             </div>
                         </div>
 
