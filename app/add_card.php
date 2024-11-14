@@ -245,10 +245,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </script>
 
                             <!--Preview Card Image-->
-                            <div class="column is-half">
+                            <div>
                                 <img class="image" id="cardImage" style="max-width: 100%; height: auto;">
                             </div>
                             <script>
+                                //Display Image Preview
                                 document.getElementById('cardImageInput').addEventListener('change', function(event) {
                                     const file = event.target.files[0];
                                     if (file) {
