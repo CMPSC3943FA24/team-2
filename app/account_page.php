@@ -83,7 +83,19 @@ $decksResult = $stmtDecks->get_result();
             <!-- User Info Column -->
             <div class="column is-one-third">
                 <h1 class="title">User Information</h1>
-                <img src="<?php echo htmlspecialchars("../" . ($profilePicture ?? 'default.jpg')); ?>" alt="Profile Picture" class="image is-128x128">
+                
+                <?php
+                    // Check if the session variable is set and not null
+                    if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
+                        $profilePicture = htmlspecialchars($_SESSION['profile_picture']);
+                        echo '<img src="' . htmlspecialchars($_SESSION['profile_picture']) . '?' . time() . '" alt="Profile Picture" style="width: auto%; height: 15%%">';
+
+                    } else {
+                        // Default image if no profile picture is found
+                        echo('<img src="/images/account.jpg" alt="Profile Picture" style="width: auto; height: 15%;">');
+                    }
+                ?>
+
                 <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
                 <p><strong>Total Cards:</strong> <?php echo htmlspecialchars($totalCards); ?></p>
                 <p><strong>Total Decks:</strong> <?php echo htmlspecialchars($totalDecks); ?></p>
