@@ -23,11 +23,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $owner = $_SESSION['user_id'];
     $number_owned = $_POST['number_owned'];
     $mana_cost = $_POST['mana_cost'] ?? null;
+    $mana_value = $_POST['mana_value'] ?? null;
     $mana_type = $_POST['mana_type'] ?? null;
     $power = $_POST['power'] ?? null;
     $toughness = $_POST['toughness'] ?? null;
     $expansion = $_POST['expansion'] ?? null;
     $rarity = $_POST['rarity'] ?? null;
+    $card_number = $_POST['card_number'] ?? null;
+    $artist = $_POST['artist'] ?? null;
 
     // Insert into `cards` table
     $stmt = $conn->prepare("INSERT INTO cards (name, set_id, owner, number_owned) VALUES (?, ?, ?, ?)");
@@ -37,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     // Insert into `magic_criteria` table
-    $stmt = $conn->prepare("INSERT INTO magic_criteria (name_of_card, card_id, mana_cost, mana_type, power, toughness, expansion, rarity) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('siisssss', $name, $card_id, $mana_cost, $mana_type, $power, $toughness, $expansion, $rarity);
+    $stmt = $conn->prepare("INSERT INTO magic_criteria (name_of_card, card_id, mana_cost, mana_type, mana_value power, toughness, expansion, rarity, card_number, artist) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('siisssss', $name, $card_id, $mana_cost, $mana_type, $mana_value, $power, $toughness, $expansion, $rarity, $card_number, $artist);
     $stmt->execute();
     $stmt->close();
 
@@ -202,6 +205,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         </div>
 
+                        <!-- Mana Value -->
+                        <div class="field">
+                            <label class="label">Mana Value</label>
+                            <div class="control">
+                                <input class="input" type="number" name="mana_value">
+                            </div>
+                        </div>
+
                         <!-- Power -->
                         <div class="field">
                             <label class="label">Power</label>
@@ -231,6 +242,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label class="label">Rarity</label>
                             <div class="control">
                                 <input class="input" type="text" name="rarity">
+                            </div>
+                        </div>
+
+                        <!-- Card Number -->
+                        <div class="field">
+                            <label class="label">Card Number</label>
+                            <div class="control">
+                                <input class="input" type="number" name="card_number">
+                            </div>
+                        </div>
+
+                        <!-- Artist -->
+                        <div class="field">
+                            <label class="label">Artist</label>
+                            <div class="control">
+                                <input class="input" type="text" name="artist">
                             </div>
                         </div>
 
