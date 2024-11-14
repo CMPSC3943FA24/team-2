@@ -44,79 +44,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $success = 'Card and criteria added successfully!';
         
-  // Handling image upload with enhanced error handling
-if (isset($_FILES['card_image'])) {
-    $file = $_FILES['card_image'];
-    
-    // Check for upload errors
-    if ($file['error'] !== UPLOAD_ERR_OK) {
-        switch ($file['error']) {
-            case UPLOAD_ERR_INI_SIZE:
-            case UPLOAD_ERR_FORM_SIZE:
-                $error = 'The uploaded file exceeds the maximum allowed size.';
-                break;
-            case UPLOAD_ERR_PARTIAL:
-                $error = 'The uploaded file was only partially uploaded.';
-                break;
-            case UPLOAD_ERR_NO_FILE:
-                $error = 'No file was uploaded.';
-                break;
-            case UPLOAD_ERR_NO_TMP_DIR:
-                $error = 'Missing a temporary folder on the server.';
-                break;
-            case UPLOAD_ERR_CANT_WRITE:
-                $error = 'Failed to write the uploaded file to disk.';
-                break;
-            case UPLOAD_ERR_EXTENSION:
-                $error = 'A PHP extension stopped the file upload.';
-                break;
-            default:
-                $error = 'Unknown error occurred during file upload.';
-                break;
-        }
-    } else {
-        // Validate file type
-        $allowed_types = ['image/jpeg', 'image/pjpeg'];
-        if (!in_array($file['type'], $allowed_types)) {
-            $error = 'Invalid file type. Only JPEG images are allowed.';
+  // Handling image upload: now with error handling
+    if (isset($_FILES['card_image'])) {
+        $file = $_FILES['card_image'];
+        
+        // Check for upload errors
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            switch ($file['error']) {
+                case UPLOAD_ERR_INI_SIZE:
+                case UPLOAD_ERR_FORM_SIZE:
+                    $error = 'The uploaded file exceeds the maximum allowed size.';
+                    break;
+                case UPLOAD_ERR_PARTIAL:
+                    $error = 'The uploaded file was only partially uploaded.';
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    $error = 'No file was uploaded.';
+                    break;
+                case UPLOAD_ERR_NO_TMP_DIR:
+                    $error = 'Missing a temporary folder on the server.';
+                    break;
+                case UPLOAD_ERR_CANT_WRITE:
+                    $error = 'Failed to write the uploaded file to disk.';
+                    break;
+                case UPLOAD_ERR_EXTENSION:
+                    $error = 'A PHP extension stopped the file upload.';
+                    break;
+                default:
+                    $error = 'Unknown error occurred during file upload.';
+                    break;
+            }
         } else {
-            // Validate file size (limit to 8MB)
-            $max_size = 8 * 1024 * 1024;
-            if ($file['size'] > $max_size) {
-                $error = 'File size exceeds the 8MB limit.';
+            // Validate file type
+            $allowed_types = ['image/jpeg', 'image/pjpeg'];
+            if (!in_array($file['type'], $allowed_types)) {
+                $error = 'Invalid file type. Only JPEG images are allowed.';
             } else {
-                // Set target directory and file path
-                $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/cards/';
-                if (!is_dir($upload_dir)) {
-                    mkdir($upload_dir, 0755, true);
-                }
-                $new_image_path = $upload_dir . $card_id . '.jpg';
-                $correct_image_path = "/uploads/cards/" . $card_id . '.jpg';
-
-                // Move the uploaded file
-                if (!move_uploaded_file($file['tmp_name'], $new_image_path)) {
-                    $error = 'Failed to move the uploaded file.';
+                // Validate file size (limit to 8MB)
+                $max_size = 8 * 1024 * 1024;
+                if ($file['size'] > $max_size) {
+                    $error = 'File size exceeds the 8MB limit.';
                 } else {
-                    // Resize the image to 490x684
-                    $image = imagecreatefromjpeg($new_image_path);
-                    if ($image !== false) {
-                        $resized_image = imagescale($image, 490, 684);
-                        if ($resized_image !== false) {
-                            imagejpeg($resized_image, $new_image_path);
-                            imagedestroy($image);
-                            imagedestroy($resized_image);
+                    // Set target directory and file path
+                    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/cards/';
+                    if (!is_dir($upload_dir)) {
+                        mkdir($upload_dir, 0755, true);
+                    }
+                    $new_image_path = $upload_dir . $card_id . '.jpg';
+                    $correct_image_path = "/uploads/cards/" . $card_id . '.jpg';
 
-                            // Update database with the new image path
-                            $stmt = $conn->prepare("UPDATE cards SET images = ? WHERE card_id = ?");
-                            $stmt->bind_param('si', $correct_image_path, $card_id);
-                            $stmt->execute();
-                            $stmt->close();
-                            $success = 'Card image updated successfully.';
-                        } else {
-                            $error = 'Failed to resize the uploaded image.';
-                        }
+                    // Move the uploaded file
+                    if (!move_uploaded_file($file['tmp_name'], $new_image_path)) {
+                        $error = 'Failed to move the uploaded file.';
                     } else {
-                        $error = 'Failed to process the uploaded image.';
+                        // Resize the image to 490x684
+                        $image = imagecreatefromjpeg($new_image_path);
+                        if ($image !== false) {
+                            $resized_image = imagescale($image, 490, 684);
+                            if ($resized_image !== false) {
+                                imagejpeg($resized_image, $new_image_path);
+                                imagedestroy($image);
+                                imagedestroy($resized_image);
+
+                                // Update database with the new image path
+                                $stmt = $conn->prepare("UPDATE cards SET images = ? WHERE card_id = ?");
+                                $stmt->bind_param('si', $correct_image_path, $card_id);
+                                $stmt->execute();
+                                $stmt->close();
+                                $success = 'Card image updated successfully.';
+                            } else {
+                                $error = 'Failed to resize the uploaded image.';
+                            }
+                        } else {
+                            $error = 'Failed to process the uploaded image.';
+                        }
                     }
                 }
             }
