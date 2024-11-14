@@ -222,19 +222,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         </div>
 
-                        <!-- Profile Picture Upload -->
+                        <!-- Image File Upload -->
                         <div class="field">
-                            <label class="label">Card Picture</label>
+                            <label class="label">Card Image</label>
                             <div class="file has-name is-fullwidth">
                                 <label class="file-label">
-                                    <input class="file-input" type="file" name="card_picture" accept="image/*" id="cardPictureInput" required>
+                                    <input class="file-input" type="file" name="card_image" accept="image/*" id="cardImageInput" required>
                                     <span class="file-cta">
-                                        <span>Choose a file…</span>
+                                        <span>Choose an image...</span>
                                     </span>
                                     <span class="file-name" id="fileNameDisplay">No file uploaded</span>
                                 </label>
                             </div>
                         </div>
+
                         <script>
                             // Display selected file name
                             document.getElementById('cardPictureInput').addEventListener('change', function() {
