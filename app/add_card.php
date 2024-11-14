@@ -244,6 +244,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             });
                         </script>
 
+                            <!--Preview Card Image-->
+                            <div class="column is-half">
+                                <img class="image" id="cardImage" style="max-width: 100%; height: auto;">
+                            </div>
+                            <script>
+                                document.getElementById('cardImageInput').addEventListener('change', function(event) {
+                                    const file = event.target.files[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        
+                                        reader.onload = function(e) {
+                                            document.getElementById('cardImage').src = e.target.result;
+                                        };
+
+                                        reader.readAsDataURL(file);
+                                        document.getElementById('fileNameDisplay').textContent = file.name;
+                                    }
+                                });
+                            </script>
+                        </div>
 
                         <!-- Submit Button -->
                         <div class="field">
@@ -255,26 +275,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
             
-            <!--Preview Card Image-->
-            <div class="column is-half">
-                <img class="image" id="cardImage" style="max-width: 100%; height: auto;">
-            </div>
-            <script>
-                document.getElementById('cardImageInput').addEventListener('change', function(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        
-                        reader.onload = function(e) {
-                            document.getElementById('cardImage').src = e.target.result;
-                        };
-
-                        reader.readAsDataURL(file);
-                        document.getElementById('fileNameDisplay').textContent = file.name;
-                    }
-                });
-            </script>
-        </div>
     </div>
 </body>
 </html>
