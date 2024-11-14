@@ -284,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </script>
 
                             <!--Preview Card Image-->
-                            <div class = "is-centered">
+                            <div class = "box is-centered">
                                 <img class="image is-centered" id="cardImage" style="max-width: 25%; height: auto;">
                             </div>
                             <script>
