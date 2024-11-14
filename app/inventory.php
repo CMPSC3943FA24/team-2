@@ -131,7 +131,7 @@ $inventoryResult = $stmtInventory->get_result();
                         
                         <?php while ($row = $inventoryResult->fetch_assoc()): ?>
                         <tr>
-                            <td><img src="<?php echo htmlspecialchars($row['card_image']); ?>" alt="Card Image" width="50"></td>
+                            <td><img src="<?php echo htmlspecialchars($row['images']); ?>" alt="Card Image" width="50"></td>
                             <td>
                                 <a href="card_page.php?card_id=<?php echo htmlspecialchars($row['card_id']); ?>">
                                     <?php echo htmlspecialchars($row['card_name']); ?>
