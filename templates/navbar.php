@@ -63,7 +63,7 @@ if (isset($_SESSION['user_id'])){
         // Check if the session variable is set and not null
         if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
             $profilePicture = htmlspecialchars($_SESSION['profile_picture']);
-            echo('<img src="<?= htmlspecialchars($correct_image_path) ?>?<?= time() ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">');
+            echo('<img src="<?htmlspecialchars($correct_image_path)?>?<?= time() ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">');
         } else {
             // Default image if no profile picture is found
             echo('<img src="/images/account.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">');
@@ -75,7 +75,6 @@ if (isset($_SESSION['user_id'])){
 
     <div class="navbar-item">
         <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="/app/account_page.php">Account</a>
             <a href="/Scripts/logout.php">Log Out</a>
         <?php else: ?>
             <a href="/app/login.php">Log In</a>
