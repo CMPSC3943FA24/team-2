@@ -118,6 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Add New Card</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
+
+<?php include "../templates/navbar.php"; ?>
+
 <body>
     <div class="container">
         <div class="columns is-centered">
