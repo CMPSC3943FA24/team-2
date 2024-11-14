@@ -1,51 +1,37 @@
 <?php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Database connection
 require_once 'config.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = $_POST['name'];
+    $set_id = $_POST['set_id'];
+    $owner = $_POST['owner'];
+    $number_owned = $_POST['number_owned'];
+    $mana_cost = $_POST['mana_cost'] ?? null;
+    $mana_type = $_POST['mana_type'] ?? null;
+    $power = $_POST['power'] ?? null;
+    $toughness = $_POST['toughness'] ?? null;
+    $expansion = $_POST['expansion'] ?? null;
+    $rarity = $_POST['rarity'] ?? null;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Handling the username change
-    if (isset($_POST['username'])) {
-        $username = $_POST['username'];
-        $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
-        $stmt->bind_result($count);
-        $stmt->fetch();
-        $stmt->close();
+    // Insert into `cards` table
+    $stmt = $conn->prepare("INSERT INTO cards (name, set_id, owner, number_owned) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param('siii', $name, $set_id, $owner, $number_owned);
+    $stmt->execute();
+    $card_id = $stmt->insert_id; // Get the ID of the inserted card
+    $stmt->close();
+
+    // Insert into `magic_criteria` table
+    $stmt = $conn->prepare("INSERT INTO magic_criteria (name_of_card, card_id, mana_cost, mana_type, power, toughness, expansion, rarity) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('siisssss', $name, $card_id, $mana_cost, $mana_type, $power, $toughness, $expansion, $rarity);
+    $stmt->execute();
+    $stmt->close();
+
+    $success = 'Card and criteria added successfully!';
         
-        if ($count > 0) {
-            $error = 'Username already taken.';
-        } else {
-            $stmt = $conn->prepare("UPDATE users SET username = ? WHERE user_id = ?");
-            $stmt->bind_param('si', $username, $_SESSION['user_id']);
-            $stmt->execute();
-            $stmt->close();
-            $success = 'Username updated successfully.';
-        }
-    }
-
-    // Handling the name change
-    if (isset($_POST['name'])) {
-        $name = $_POST['name'];
-        $stmt = $conn->prepare("UPDATE users SET name = ? WHERE user_id = ?");
-        $stmt->bind_param('si', $name, $_SESSION['user_id']);
-        $stmt->execute();
-        $stmt->close();
-        $success = 'Name updated successfully.';
-    }
-
     // Handling image upload with enhanced error handling
-    if (isset($_FILES['profile_picture'])) {
-        $file = $_FILES['profile_picture'];
+    //what a freakin code block eh?
+    if (isset($_FILES['card_picture'])) {
+        $file = $_FILES['card_picture'];
         
         // Check for upload errors
         if ($file['error'] !== UPLOAD_ERR_OK) {
@@ -75,41 +61,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         } else {
             // Check if file type is valid
-            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+            $allowed_types = ['image/jpeg'];
             if (!in_array($file['type'], $allowed_types)) {
-                $error = 'Invalid file type. Only JPG, PNG, and GIF are allowed.';
+                $error = 'Invalid file type. Only JPG are allowed.';
             } else {
                 // Check file size (for example, limit to 2MB)
-                $max_size = 2 * 1024 * 1024; // 2MB
+                $max_size = 2 * 4096 * 4096; // 8MBish??
                 if ($file['size'] > $max_size) {
-                    $error = 'File size exceeds the 2MB limit.';
+                    $error = 'File size exceeds the 8MB limit.';
                 } else {
                     // Set the target directory and file path
-                    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/';
+                    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/cards/';
                     if (!is_dir($upload_dir)) {
                         mkdir($upload_dir, 0755, true);
                     }
-                    $new_image_path = $upload_dir . $_SESSION['user_id'] . '_profile.jpg';
-                    $correct_image_path = "/uploads/" . $_SESSION['user_id'] . '_profile.jpg';
+                    $new_image_path = $upload_dir . $card_id . '.jpg';
+                    $correct_image_path = "/uploads/card/" . $card_id . '.jpg';
 
                     // Move the uploaded file
                     if (!move_uploaded_file($file['tmp_name'], $new_image_path)) {
                         $error = 'Failed to move the uploaded file.';
                     } else {
-                        // Resize the image to 128x128
+                        // Resize the image to 490 × 684
                         $image = imagecreatefromstring(file_get_contents($new_image_path));
                         if ($image !== false) {
-                            $resized_image = imagescale($image, 128, 128);
+                            $resized_image = imagescale($image, 490, 684);
                             imagejpeg($resized_image, $new_image_path);
                             imagedestroy($image);
                             imagedestroy($resized_image);
 
                             // Update the database with the new image path
-                            $stmt = $conn->prepare("UPDATE users SET profile_picture = ? WHERE user_id = ?");
-                            $stmt->bind_param('si', $correct_image_path, $_SESSION['user_id']);
-                            $stmt->execute();
-                            $stmt->close();
-                            $success = 'Profile picture updated successfully.';
+                            if (isset($_SESSION['user_id'])) {
+                                $stmt = $conn->prepare("UPDATE cards SET images = ? WHERE card_id = ?");
+                                $stmt->bind_param('si', $correct_image_path, $card_id);
+                                $stmt->execute();
+                                $stmt->close();
+                                $success = 'Profile picture updated successfully.';
+                            }
                         } else {
                             $error = 'Failed to process the uploaded image.';
                         }
@@ -121,22 +109,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<?php include "../templates/navbar.php";?>
 
-<!-- HTML Form with the file input and error display -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
+    <title>Add New Card</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <div class="container">
         <div class="columns is-centered">
             <div class="column is-half">
-                <h1 class="title is-3 has-text-centered">Edit Profile</h1>
+                <h1 class="title is-3 has-text-centered">Add New Card</h1>
 
                 <?php if (isset($error)): ?>
                     <div class="notification is-danger is-light">
@@ -152,32 +138,96 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 <?php endif; ?>
 
-                <!-- Profile Edit Form -->
+                <!-- New Card Input Form -->
                 <div class="box">
-                    <form action="edit_profile.php" method="post" enctype="multipart/form-data">
+                    <form action="add_card.php" method="post" enctype="multipart/form-data">
                         
-                        <!-- Username Field -->
+                        <!-- Card Name -->
                         <div class="field">
-                            <label class="label">New Username</label>
+                            <label class="label">Card Name</label>
                             <div class="control">
-                                <input class="input" type="text" name="username" >
+                                <input class="input" type="text" name="name" required>
                             </div>
                         </div>
 
-                        <!-- Name Field -->
+                        <!-- Set ID -->
                         <div class="field">
-                            <label class="label">New Name</label>
+                            <label class="label">Set ID</label>
                             <div class="control">
-                                <input class="input" type="text" name="name">
+                                <input class="input" type="number" name="set_id" required>
+                            </div>
+                        </div>
+
+                        <!-- Owner -->
+                        <div class="field">
+                            <label class="label">Owner</label>
+                            <div class="control">
+                                <input class="input" type="number" name="owner" required>
+                            </div>
+                        </div>
+
+                        <!-- Number Owned -->
+                        <div class="field">
+                            <label class="label">Number Owned</label>
+                            <div class="control">
+                                <input class="input" type="number" name="number_owned" value="1" required>
+                            </div>
+                        </div>
+
+                        <!-- Mana Cost -->
+                        <div class="field">
+                            <label class="label">Mana Cost</label>
+                            <div class="control">
+                                <input class="input" type="number" name="mana_cost">
+                            </div>
+                        </div>
+
+                        <!-- Mana Type -->
+                        <div class="field">
+                            <label class="label">Mana Type</label>
+                            <div class="control">
+                                <input class="input" type="text" name="mana_type">
+                            </div>
+                        </div>
+
+                        <!-- Power -->
+                        <div class="field">
+                            <label class="label">Power</label>
+                            <div class="control">
+                                <input class="input" type="number" name="power">
+                            </div>
+                        </div>
+
+                        <!-- Toughness -->
+                        <div class="field">
+                            <label class="label">Toughness</label>
+                            <div class="control">
+                                <input class="input" type="number" name="toughness">
+                            </div>
+                        </div>
+
+                        <!-- Expansion -->
+                        <div class="field">
+                            <label class="label">Expansion</label>
+                            <div class="control">
+                                <input class="input" type="text" name="expansion">
+                            </div>
+                        </div>
+
+                        <!-- Rarity -->
+                        <div class="field">
+                            <label class="label">Rarity</label>
+                            <div class="control">
+                                <input class="input" type="text" name="rarity">
                             </div>
                         </div>
 
                         <!-- Profile Picture Upload -->
                         <div class="field">
-                            <label class="label">Profile Picture</label>
+                            <label class="label">Card Picture</label>
                             <div class="file has-name is-fullwidth">
                                 <label class="file-label">
-                                    <input class="file-input" type="file" name="profile_picture" accept="image/*" id="profilePictureInput" required>
+                                    <input class="file-input" type="file" name="card_picture" accept="image/*" id="cardPictureInput" required>
                                     <span class="file-cta">
                                         <span>Choose a file…</span>
                                     </span>
@@ -185,30 +235,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </label>
                             </div>
                         </div>
+                        <script>
+                            // Display selected file name
+                            document.getElementById('cardPictureInput').addEventListener('change', function() {
+                                const fileName = this.files.length ? this.files[0].name : 'No file uploaded';
+                                document.getElementById('fileNameDisplay').textContent = fileName;
+                            });
+                        </script>
+
 
                         <!-- Submit Button -->
                         <div class="field">
                             <div class="control">
-                                <button class="button is-primary is-fullwidth" type="submit">Save Changes</button>
+                                <button class="button is-primary is-fullwidth" type="submit">Add Card</button>
                             </div>
                         </div>
                     </form>
                 </div>
-
-                <!-- Password Reset Link -->
-                <div class="field has-text-centered">
-                    <a href="/app/account_recovery.php" class="button is-link is-light">Reset Password</a>
-                </div>
             </div>
+            
+            <!--Preview Card Image-->
+            <div class="column is-half">
+                <img class="image" id="cardImage" style="max-width: 100%; height: auto;">
+            </div>
+            <script>
+                document.getElementById('cardImageInput').addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            document.getElementById('cardImage').src = e.target.result;
+                        };
+
+                        reader.readAsDataURL(file);
+                        document.getElementById('fileNameDisplay').textContent = file.name;
+                    }
+                });
+            </script>
         </div>
     </div>
-
-    <script>
-        // Display selected file name
-        document.getElementById('profilePictureInput').addEventListener('change', function() {
-            const fileName = this.files.length ? this.files[0].name : 'No file uploaded';
-            document.getElementById('fileNameDisplay').textContent = fileName;
-        });
-    </script>
 </body>
 </html>
