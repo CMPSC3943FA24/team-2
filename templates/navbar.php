@@ -19,7 +19,7 @@ if (isset($_SESSION['user_id'])){
 	if ($userResult->num_rows > 0){
 		$userData = $userResult->fetch_assoc();
 		$profilePicture = htmlspecialchars($userData['profile_picture']);
-		$_SESSION['profile_picture'] = $profilePicture; // Set session variable
+		$_SESSION['profile_picture'] = $profilePicture; // Set session variable ####ADD CHECK FOR NULL AND POINT TO DEFAULT IMAGE IF PFP IS NOT SET
 	}
 }
 ?>
