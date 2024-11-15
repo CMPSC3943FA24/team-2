@@ -19,7 +19,7 @@ if (!isset($_SESSION['user_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
-    $set_id = $_POST['set_id'];
+    $set_id = 1;
     $owner = $_SESSION['user_id'];
     $number_owned = $_POST['number_owned'];
     $mana_cost = $_POST['mana_cost'] ?? null;
@@ -172,15 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input class="input" type="text" name="name" required>
                             </div>
                         </div>
-
-                        <!-- Set ID -->
-                        <div class="field">
-                            <label class="label">Set ID</label>
-                            <div class="control">
-                                <input class="input" type="number" name="set_id" required>
-                            </div>
-                        </div>
-
+                        
                         <!-- Number Owned -->
                         <div class="field">
                             <label class="label">Number Owned</label>
