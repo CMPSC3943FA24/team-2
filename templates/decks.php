@@ -31,6 +31,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rarity = $_POST['rarity'] ?? null;
     $card_number = $_POST['card_number'] ?? null;
     $artist = $_POST['artist'] ?? null;
+
+    // Insert into `cards` table
+    $stmt = $conn->prepare("INSERT INTO cards (name, set_id, owner, number_owned) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param('siii', $name, $set_id, $owner, $number_owned);
+    $stmt->execute();
+    $card_id = $stmt->insert_id; // Get the ID of the inserted card
+    $stmt->close();
+
+    // Insert into `magic_criteria` table
+    $stmt = $conn->prepare("INSERT INTO magic_criteria (name_of_card, card_id, mana_cost, mana_type, mana_value, power, toughness, expansion, rarity, card_number, artist) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('siisiiissis', $name, $card_id, $mana_cost, $mana_type, $mana_value, $power, $toughness, $expansion, $rarity, $card_number, $artist);
+    $stmt->execute();
+    $stmt->close();
+
+    $success = 'Card and criteria added successfully!';
         
   // Handling image upload: now with error handling
     if (isset($_FILES['card_image'])) {
@@ -93,7 +108,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 imagejpeg($resized_image, $new_image_path);
                                 imagedestroy($image);
                                 imagedestroy($resized_image);
-                                $image_upload_success = true;
+
+                                // Update database with the new image path
+                                $stmt = $conn->prepare("UPDATE cards SET images = ? WHERE card_id = ?");
+                                $stmt->bind_param('si', $correct_image_path, $card_id);
+                                $stmt->execute();
+                                $stmt->close();
+                                $success = 'Card image updated successfully.';
                             } else {
                                 $error = 'Failed to resize the uploaded image.';
                             }
@@ -104,46 +125,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
         }
-    }
-    
-    //UPDATE DATABASE IF IMAGE IS UPLOADED SUCCESSFULLY
-    if($image_upload_success){
-        try{
-            $conn->begin_transation();
-
-            // Insert into `cards` table
-            $stmt = $conn->prepare("INSERT INTO cards (name, set_id, owner, number_owned) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param('siii', $name, $set_id, $owner, $number_owned);
-            $stmt->execute();
-            $card_id = $stmt->insert_id; // Get the ID of the inserted card
-            $stmt->close();
-        
-            // Insert into `magic_criteria` table
-            $stmt = $conn->prepare("INSERT INTO magic_criteria (name_of_card, card_id, mana_cost, mana_type, mana_value, power, toughness, expansion, rarity, card_number, artist) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param('siisiiissis', $name, $card_id, $mana_cost, $mana_type, $mana_value, $power, $toughness, $expansion, $rarity, $card_number, $artist);
-            $stmt->execute();
-            $stmt->close();
-
-            // Update database with the new image path
-            $stmt = $conn->prepare("UPDATE cards SET images = ? WHERE card_id = ?");
-            $stmt->bind_param('si', $correct_image_path, $card_id);
-            $stmt->execute();
-            $stmt->close();
-
-            //commit the transaction
-            $conn->commit();
-        }
-        catch (mysqli_sql_exception $e) {
-            $conn->rollback();
-            // Handle the exception
-            $error = "Updating filepath in 'cards' failed. MYSQLI: " . $e->getMessage();
-            if (file_exists($new_image_path)){
-                unlink($new_image_path)
-            }
-        }
-        $success = 'Card image updated successfully.';
-    }else{
-        $error = "Card not created - upload to database failed"
     }
 }
 ?>
