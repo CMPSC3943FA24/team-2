@@ -16,8 +16,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$error = '';
-$success = '';
 $image_upload_success = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
