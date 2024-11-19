@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deck Builder</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma/css/bulma.min.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
 <div class="container">
@@ -127,34 +127,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
                 <button class="button is-primary" type="submit">Add Cards</button>
             </div>
         </form>
-    </div>
-
-    <!-- View Deck -->
-    <?php if (isset($_GET['view_deck'])): ?>
-        <?php
-        $deck_id = (int)$_GET['view_deck'];
-        $deck_result = $conn->query("SELECT * FROM decks WHERE deck_id = $deck_id"); //This needs cleaned up - vulnerable to SQL injection
-        $deck = $deck_result->fetch_assoc();
-
-        $cards_result = $conn->query("SELECT c.card_id, c.card_name FROM cards c
-                                        JOIN deck_cards dc ON c.card_id = dc.card_id
-                                        WHERE dc.deck_id = $deck_id");
-        ?>
         <div class="box">
-            <h2 class="title"><?= htmlspecialchars($deck['deck_name']) ?></h2>
-            <p><?= nl2br(htmlspecialchars($deck['description'])) ?></p>
+            <h2 class="subtitle">View Deck</h2>
+            <div class="select">
+                <select name="deck_id" id="deck_id" required>
+                    <option value="">Select a Deck</option>
+                    <?php
+                    // Fetch all decks from the database
+                    $result = $conn->query("SELECT deck_id, deck_name FROM decks");
+                    while ($deck = $result->fetch_assoc()) {
+                        echo "<option value=\"{$deck['deck_id']}\">{$deck['deck_name']}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-            <h3 class="subtitle">Cards</h3>
-            <ul>
-                <?php while ($card = $cards_result->fetch_assoc()): ?>
-                    <li>
-                        <?= htmlspecialchars($card['card_name']) ?>
-                        <a href="?action=remove_card&deck_id=<?= $deck_id ?>&card_id=<?= $card['card_id'] ?>" class="button is-small is-danger">Remove</a>
-                    </li>
-                <?php endwhile; ?>
-            </ul>
+            <div id="card_list">
+                <!-- The card list will be dynamically updated here -->
+            </div>
         </div>
-    <?php endif; ?>
+
+        <script>
+        // JavaScript to handle AJAX request
+        document.getElementById('deck_id').addEventListener('change', function() {
+            var deck_id = this.value;
+
+            if (deck_id) {
+                // Send AJAX request to fetch cards based on the selected deck
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'fetch_cards.php?deck_id=' + deck_id, true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Update the card list with the response
+                        document.getElementById('card_list').innerHTML = xhr.responseText;
+                    }
+                };
+                xhr.send();
+            } else {
+                document.getElementById('card_list').innerHTML = ''; // Clear card list if no deck is selected
+            }
+        });
+        </script>
+
+
+    </div>
 </div>
 </body>
 </html>
