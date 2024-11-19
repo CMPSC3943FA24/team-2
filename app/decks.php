@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
                 <label class="label">Select Cards</label>
                 <div class="control">
                     <?php
-                    $result = $conn->query("SELECT card_id, card_name FROM cards");
+                    $result = $conn->query("SELECT card_id, name FROM cards");
                     while ($card = $result->fetch_assoc()) {
                         echo "<label class='checkbox'><input type='checkbox' name='card_ids[]' value='{$card['card_id']}'> {$card['card_name']}</label><br>";
                     }
