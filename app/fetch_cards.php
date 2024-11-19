@@ -1,6 +1,5 @@
 <?php
 require_once 'config.php';
-// Fetch cards based on the deck_id
 if (isset($_GET['deck_id']) && is_numeric($_GET['deck_id'])) {
     $deck_id = (int)$_GET['deck_id'];
 
@@ -8,8 +7,18 @@ if (isset($_GET['deck_id']) && is_numeric($_GET['deck_id'])) {
     $stmt = $conn->prepare("SELECT c.card_id, c.card_name FROM cards c
                             JOIN deck_cards dc ON c.card_id = dc.card_id
                             WHERE dc.deck_id = ?");
+    
+    if ($stmt === false) {
+        die('MySQL prepare error: ' . $conn->error); // Check if statement preparation failed
+    }
+
     $stmt->bind_param("i", $deck_id);
-    $stmt->execute();
+
+    // Check for bind_param errors
+    if (!$stmt->execute()) {
+        die('Execute error: ' . $stmt->error);
+    }
+
     $cards_result = $stmt->get_result();
 
     // Return the list of cards
@@ -25,4 +34,5 @@ if (isset($_GET['deck_id']) && is_numeric($_GET['deck_id'])) {
 } else {
     echo "<p>Invalid deck selected.</p>";
 }
+
 ?>
