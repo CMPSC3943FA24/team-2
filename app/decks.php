@@ -17,26 +17,22 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
-
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['action'])) {
         if ($_POST['action'] === 'create_deck') {
-            $deck_name = $mysqli->real_escape_string($_POST['deck_name']);
-            $description = $mysqli->real_escape_string($_POST['description']);
+            $deck_name = $conn->real_escape_string($_POST['deck_name']);
+            $description = $conn->real_escape_string($_POST['description']);
             $is_active = isset($_POST['is_active']) ? 1 : 0;
 
-            $mysqli->query("INSERT INTO decks (deck_name, description, is_active) VALUES ('$deck_name', '$description', $is_active)");
+            $conn->query("INSERT INTO decks (deck_name, description, is_active) VALUES ('$deck_name', '$description', $is_active)");
         } elseif ($_POST['action'] === 'add_cards') {
             $deck_id = (int)$_POST['deck_id'];
             $card_ids = $_POST['card_ids'] ?? [];
 
             foreach ($card_ids as $card_id) {
                 $card_id = (int)$card_id;
-                $mysqli->query("INSERT IGNORE INTO deck_cards (deck_id, card_id) VALUES ($deck_id, $card_id)");
+                $conn->query("INSERT IGNORE INTO deck_cards (deck_id, card_id) VALUES ($deck_id, $card_id)");
             }
         }
     }
@@ -47,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
     $deck_id = (int)$_GET['deck_id'];
     $card_id = (int)$_GET['card_id'];
 
-    $mysqli->query("DELETE FROM deck_cards WHERE deck_id = $deck_id AND card_id = $card_id");
+    $conn->query("DELETE FROM deck_cards WHERE deck_id = $deck_id AND card_id = $card_id");
     header("Location: ?view_deck=$deck_id");
     exit;
 }
@@ -105,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
                 <div class="select">
                     <select name="deck_id" required>
                         <?php
-                        $result = $mysqli->query("SELECT deck_id, deck_name FROM decks");
+                        $result = $conn->query("SELECT deck_id, deck_name FROM decks");
                         while ($deck = $result->fetch_assoc()) {
                             echo "<option value=\"{$deck['deck_id']}\">{$deck['deck_name']}</option>";
                         }
@@ -117,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
                 <label class="label">Select Cards</label>
                 <div class="control">
                     <?php
-                    $result = $mysqli->query("SELECT card_id, card_name FROM cards");
+                    $result = $conn->query("SELECT card_id, card_name FROM cards");
                     while ($card = $result->fetch_assoc()) {
                         echo "<label class='checkbox'><input type='checkbox' name='card_ids[]' value='{$card['card_id']}'> {$card['card_name']}</label><br>";
                     }
@@ -134,10 +130,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
     <?php if (isset($_GET['view_deck'])): ?>
         <?php
         $deck_id = (int)$_GET['view_deck'];
-        $deck_result = $mysqli->query("SELECT * FROM decks WHERE deck_id = $deck_id");
+        $deck_result = $conn->query("SELECT * FROM decks WHERE deck_id = $deck_id");
         $deck = $deck_result->fetch_assoc();
 
-        $cards_result = $mysqli->query("SELECT c.card_id, c.card_name FROM cards c
+        $cards_result = $conn->query("SELECT c.card_id, c.card_name FROM cards c
                                         JOIN deck_cards dc ON c.card_id = dc.card_id
                                         WHERE dc.deck_id = $deck_id");
         ?>
