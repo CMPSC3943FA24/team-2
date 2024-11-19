@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //UPDATE DATABASE IF IMAGE IS UPLOADED SUCCESSFULLY
     if($image_upload_success){
         try{
-            $conn->begin_transation();
+            $conn->begin_transaction();
 
             // Insert into `cards` table
             $stmt = $conn->prepare("INSERT INTO cards (name, set_id, owner, number_owned) VALUES (?, ?, ?, ?)");
@@ -137,8 +137,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conn->rollback();
             // Handle the exception
             $error = "Updating filepath in 'cards' failed. MYSQLI: " . $e->getMessage();
-            if (file_exists($new_image_path)){
-                unlink($new_image_path)
+            if (file_exists($new_image_path)) {
+                unlink($new_image_path);
             }
         }
         $success = 'Card image updated successfully.';
@@ -288,7 +288,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <script>
                             // Display selected file name
-                            document.getElementById('cardPictureInput').addEventListener('change', function() {
+                            document.getElementById('cardImageInput').addEventListener('change', function() {
                                 const fileName = this.files.length ? this.files[0].name : 'No file uploaded';
                                 document.getElementById('fileNameDisplay').textContent = fileName;
                             });
