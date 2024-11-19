@@ -168,3 +168,183 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 echo "26: Script finished.<br>";
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Card</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<?php include "../templates/navbar.php"; ?>
+
+<body>
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <h1 class="title is-3 has-text-centered">Add New Card</h1>
+
+                <?php if (isset($error)): ?>
+                    <div class="notification is-danger is-light">
+                        <button class="delete"></button>
+                        <?= htmlspecialchars($error) ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (isset($success)): ?>
+                    <div class="notification is-success is-light">
+                        <button class="delete"></button>
+                        <?= htmlspecialchars($success) ?>
+                    </div>
+                <?php endif; ?>
+
+                <!-- New Card Input Form -->
+                <div class="box">
+                    <form action="add_card.php" method="post" enctype="multipart/form-data">
+                        
+                        <!-- Card Name -->
+                        <div class="field">
+                            <label class="label">Card Name</label>
+                            <div class="control">
+                                <input class="input" type="text" name="name" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Number Owned -->
+                        <div class="field">
+                            <label class="label">Number Owned</label>
+                            <div class="control">
+                                <input class="input" type="number" name="number_owned" value="1" required>
+                            </div>
+                        </div>
+
+                        <!-- Mana Cost -->
+                        <div class="field">
+                            <label class="label">Mana Cost</label>
+                            <div class="control">
+                                <input class="input" type="number" name="mana_cost">
+                            </div>
+                        </div>
+
+                        <!-- Mana Type -->
+                        <div class="field">
+                            <label class="label">Mana Type</label>
+                            <div class="control">
+                                <input class="input" type="text" name="mana_type">
+                            </div>
+                        </div>
+
+                        <!-- Mana Value -->
+                        <div class="field">
+                            <label class="label">Mana Value</label>
+                            <div class="control">
+                                <input class="input" type="number" name="mana_value">
+                            </div>
+                        </div>
+
+                        <!-- Power -->
+                        <div class="field">
+                            <label class="label">Power</label> <!-- CAN BE EMPTY - FIX -->
+                            <div class="control">
+                                <input class="input" type="number" name="power">
+                            </div>
+                        </div>
+
+                        <!-- Toughness -->
+                        <div class="field">
+                            <label class="label">Toughness</label>
+                            <div class="control">
+                                <input class="input" type="number" name="toughness">
+                            </div>
+                        </div>
+
+                        <!-- Expansion -->
+                        <div class="field">
+                            <label class="label">Expansion</label>
+                            <div class="control">
+                                <input class="input" type="text" name="expansion">
+                            </div>
+                        </div>
+
+                        <!-- Rarity -->
+                        <div class="field">
+                            <label class="label">Rarity</label>
+                            <div class="control">
+                                <input class="input" type="text" name="rarity">
+                            </div>
+                        </div>
+
+                        <!-- Card Number -->
+                        <div class="field">
+                            <label class="label">Card Number</label>
+                            <div class="control">
+                                <input class="input" type="number" name="card_number">
+                            </div>
+                        </div>
+
+                        <!-- Artist -->
+                        <div class="field">
+                            <label class="label">Artist</label>
+                            <div class="control">
+                                <input class="input" type="text" name="artist">
+                            </div>
+                        </div>
+
+                        <!-- Image File Upload -->
+                        <div class="field">
+                            <label class="label">Card Image</label>
+                            <div class="file has-name is-fullwidth">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" name="card_image" accept="image/*" id="cardImageInput" required>
+                                    <span class="file-cta">
+                                        <span>Choose an image...</span>
+                                    </span>
+                                    <span class="file-name" id="fileNameDisplay">No file uploaded</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <script>
+                            // Display selected file name
+                            document.getElementById('cardPictureInput').addEventListener('change', function() {
+                                const fileName = this.files.length ? this.files[0].name : 'No file uploaded';
+                                document.getElementById('fileNameDisplay').textContent = fileName;
+                            });
+                        </script>
+
+                            <!--Preview Card Image-->
+                            <div class="is-flex is-justify-content-center">
+                                <img class="image" id="cardImage" style="max-width: 25%; height: auto;">
+                            </div>
+                            <script>
+                                //Display Image Preview
+                                document.getElementById('cardImageInput').addEventListener('change', function(event) {
+                                    const file = event.target.files[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        
+                                        reader.onload = function(e) {
+                                            document.getElementById('cardImage').src = e.target.result;
+                                        };
+
+                                        reader.readAsDataURL(file);
+                                        document.getElementById('fileNameDisplay').textContent = file.name;
+                                    }
+                                });
+                            </script>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-primary is-fullwidth" type="submit">Add Card</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+    </div>
+</body>
+</html>
