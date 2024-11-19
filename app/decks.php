@@ -24,7 +24,7 @@ ini_set('display_errors', 1);
 <body>
 <div class="container">
     <h1 class="title">Decks</h1>
-    <a href="decks.php" class="button is-primary">Edit Decks</a>
+    <a href="edit_decks.php" class="button is-primary">Edit Decks</a>
         <div class="box">
             <h2 class="subtitle">View Deck</h2>
             <div class="select">
