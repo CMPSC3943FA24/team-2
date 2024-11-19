@@ -4,7 +4,7 @@ if (isset($_GET['deck_id']) && is_numeric($_GET['deck_id'])) {
     $deck_id = (int)$_GET['deck_id'];
 
     // Use prepared statements to prevent SQL injection
-    $stmt = $conn->prepare("SELECT c.card_id, c.card_name FROM cards c
+    $stmt = $conn->prepare("SELECT c.card_id, c.name FROM cards c
                             JOIN deck_cards dc ON c.card_id = dc.card_id
                             WHERE dc.deck_id = ?");
     
