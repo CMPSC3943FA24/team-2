@@ -113,7 +113,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
                 <label class="label">Select Cards</label>
                 <div class="control">
                     <?php
-                    $result = $conn->query("SELECT card_id, name FROM cards WHERE owner = $_SESSION['user_id']");
+                    $stmt = $conn->prepare("SELECT card_id, name FROM cards WHERE owner = ?");
+                    $stmt->bind_param("i", $_SESSION['user_id']); // Bind user_id as an integer
+                    $stmt->execute();
+                    $result = $stmt->get_result();
                     while ($card = $result->fetch_assoc()) {
                         echo "<label class='checkbox'><input type='checkbox' name='card_ids[]' value='{$card['card_id']}'> {$card['name']}</label><br>";
                     }
@@ -130,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
     <?php if (isset($_GET['view_deck'])): ?>
         <?php
         $deck_id = (int)$_GET['view_deck'];
-        $deck_result = $conn->query("SELECT * FROM decks WHERE deck_id = $deck_id");
+        $deck_result = $conn->query("SELECT * FROM decks WHERE deck_id = $deck_id"); //This needs cleaned up - vulnerable to SQL injection
         $deck = $deck_result->fetch_assoc();
 
         $cards_result = $conn->query("SELECT c.card_id, c.card_name FROM cards c
