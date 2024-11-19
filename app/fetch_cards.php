@@ -25,7 +25,7 @@ if (isset($_GET['deck_id']) && is_numeric($_GET['deck_id'])) {
     if ($cards_result->num_rows > 0) {
         echo "<ul>";
         while ($card = $cards_result->fetch_assoc()) {
-            echo "<li>{$card['card_name']}</li>";
+            echo "<li>{$card['name']}</li>";
         }
         echo "</ul>";
     } else {
