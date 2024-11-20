@@ -20,6 +20,14 @@
     max-height: 55%; /* Optional: Set a maximum height for the image */
 }
 
+.label {
+    color: black;
+}
+
+.title {
+    color: black;
+}
+
 /* Restrict the size of the div to 2 inches
 .card-image {
     width: 3in;
