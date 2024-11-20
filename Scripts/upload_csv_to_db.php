@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "dev";
-$password = 'dsVZ"^78/7S';
+$password = '**********';
 $dbname = "cardstock_dev_0";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
