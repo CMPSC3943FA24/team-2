@@ -12,39 +12,22 @@ include "../templates/navbar.php";
 
 $search_results = [];
 $search_term = '';
-$game_filter = '';
 $name_filter = '';
-$games = [];
-
-// Fetch games for filtering
-$games_query = "SELECT game_id, game_name FROM games";
-$games_result = $conn->query($games_query);
-if ($games_result && $games_result->num_rows > 0) {
-    while ($game = $games_result->fetch_assoc()) {
-        $games[] = $game;
-    }
-}
 
 try {
     if (isset($_GET['search_term'])) {
         $search_term = $conn->real_escape_string($_GET['search_term']);
-        $game_filter = isset($_GET['game_filter']) ? $conn->real_escape_string($_GET['game_filter']) : '';
         $name_filter = isset($_GET['name_filter']) ? $conn->real_escape_string($_GET['name_filter']) : '';
 
         // Query the database
         $query = "
-            SELECT c.card_id, c.images, c.name, g.game_name 
+            SELECT c.card_id, c.images, c.name 
             FROM cards c
-            LEFT JOIN games g ON c.set_id = g.game_id
             WHERE 1=1
         ";
 
         if (!empty($search_term)) {
             $query .= " AND c.name LIKE '%$search_term%'";
-        }
-
-        if (!empty($game_filter)) {
-            $query .= " AND c.set_id = '$game_filter'";
         }
 
         if (!empty($name_filter)) {
@@ -99,22 +82,6 @@ try {
                                         </button>
                                     </div>
                                 </div>
-                                <!-- Filter By Game Dropdown -->
-                                <div class="field">
-                                    <label class="label">Filter by Game:</label>
-                                    <div class="control">
-                                        <div class="select">
-                                            <select name="game_filter">
-                                                <option value="">All Games</option>
-                                                <?php foreach ($games as $game): ?>
-                                                    <option value="<?php echo htmlspecialchars($game['game_id']); ?>" <?php echo $game_filter == $game['game_id'] ? 'selected' : ''; ?>>
-                                                        <?php echo htmlspecialchars($game['game_name']); ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <!-- Filter By Card Name -->
                                 <div class="field">
@@ -144,7 +111,6 @@ try {
                             <th>ID</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Game</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -159,7 +125,6 @@ try {
                                         <?php echo htmlspecialchars($result['name']); ?>
                                     </a>
                                 </td>
-                                <td><?php echo htmlspecialchars($result['game_name']); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
