@@ -17,6 +17,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $image_upload_success = false;
+$error = NULL;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate required fields
