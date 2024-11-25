@@ -178,7 +178,7 @@ $bg = rand(1, 9);
       <div class="column is-one-quarter">
         <div class="card">
           <div class="card-content">
-            <p class="title">Unique Cards</p>
+            <p class="title is-4 has-text-current">Unique Cards</p>
             <p class="subtitle"><?= $uniqueCards; // PHP variable for unique cards ?></p>
           </div>
         </div>
@@ -186,7 +186,7 @@ $bg = rand(1, 9);
       <div class="column is-one-quarter">
         <div class="card">
           <div class="card-content">
-            <p class="title">Total Decks</p>
+            <p class="title is-4 has-text-current">Total Decks</p>
             <p class="subtitle"><?= $totalDecks; // PHP variable for total decks ?></p>
           </div>
         </div>
@@ -194,7 +194,7 @@ $bg = rand(1, 9);
       <div class="column is-one-quarter">
         <div class="card">
           <div class="card-content">
-            <p class="title">Active Decks</p>
+            <p class="title is-4 has-text-current">Active Decks</p>
             <p class="subtitle"><?= $activeDecks; // PHP variable for active decks ?></p>
           </div>
         </div>
