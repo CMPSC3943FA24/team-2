@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <div class="columns is-centered">
             <div class="column is-half">
-                <h1 class="title is-3 has-text-centered">Add New Card</h1>
+                <h1 class="title is-3 has-text-centered has-text-current">Add New Card</h1>
 
                 <?php if (isset($error)): ?>
                     <div class="notification is-danger is-light">
@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <!-- Card Name -->
                         <div class="field">
-                            <label class="label">Card Name</label>
+                            <label class="label has-text-current">Card Name</label>
                             <div class="control">
                                 <input class="input" type="text" name="name" required>
                             </div>
@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <!-- Number Owned -->
                         <div class="field">
-                            <label class="label">Number Owned</label>
+                            <label class="label has-text-current">Number Owned</label>
                             <div class="control">
                                 <input class="input" type="number" name="number_owned" value="1" required>
                             </div>
@@ -190,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Mana Cost -->
                         <div class="field">
-                            <label class="label">Mana Cost</label>
+                            <label class="label has-text-current">Mana Cost</label>
                             <div class="control">
                                 <input class="input" type="number" name="mana_cost">
                             </div>
@@ -198,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Mana Type -->
                         <div class="field">
-                            <label class="label">Mana Type</label>
+                            <label class="label has-text-current">Mana Type</label>
                             <div class="control">
                                 <input class="input" type="text" name="mana_type">
                             </div>
@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Mana Value -->
                         <div class="field">
-                            <label class="label">Mana Value</label>
+                            <label class="label has-text-current">Mana Value</label>
                             <div class="control">
                                 <input class="input" type="number" name="mana_value">
                             </div>
@@ -214,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Power -->
                         <div class="field">
-                            <label class="label">Power</label> <!-- CAN BE EMPTY - FIX -->
+                            <label class="label has-text-current">Power</label> <!-- CAN BE EMPTY - FIX -->
                             <div class="control">
                                 <input class="input" type="number" name="power">
                             </div>
@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Toughness -->
                         <div class="field">
-                            <label class="label">Toughness</label>
+                            <label class="label has-text-current">Toughness</label>
                             <div class="control">
                                 <input class="input" type="number" name="toughness">
                             </div>
@@ -230,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Expansion -->
                         <div class="field">
-                            <label class="label">Expansion</label>
+                            <label class="label has-text-current">Expansion</label>
                             <div class="control">
                                 <input class="input" type="text" name="expansion">
                             </div>
@@ -238,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Rarity -->
                         <div class="field">
-                            <label class="label">Rarity</label>
+                            <label class="label has-text-current">Rarity</label>
                             <div class="control">
                                 <input class="input" type="text" name="rarity">
                             </div>
@@ -246,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Card Number -->
                         <div class="field">
-                            <label class="label">Card Number</label>
+                            <label class="label has-text-current">Card Number</label>
                             <div class="control">
                                 <input class="input" type="number" name="card_number">
                             </div>
@@ -254,7 +254,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Artist -->
                         <div class="field">
-                            <label class="label">Artist</label>
+                            <label class="label has-text-current">Artist</label>
                             <div class="control">
                                 <input class="input" type="text" name="artist">
                             </div>
@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Image File Upload -->
                         <div class="field">
-                            <label class="label">Card Image</label>
+                            <label class="label has-text-current">Card Image</label>
                             <div class="file has-name is-fullwidth">
                                 <label class="file-label">
                                     <input class="file-input" type="file" name="card_image" accept="image/*" id="cardImageInput" required>
