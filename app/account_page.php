@@ -82,7 +82,7 @@ $decksResult = $stmtDecks->get_result();
         <div class="columns">
             <!-- User Info Column -->
             <div class="column is-one-third">
-                <h1 class="title">User Information</h1>
+                <h1 class="title has-text-current">User Information</h1>
                 
                 <?php
                     // Check if the session variable is set and not null
