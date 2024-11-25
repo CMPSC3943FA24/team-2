@@ -225,7 +225,7 @@ $bg = rand(1, 9);
               <tbody>
                 <?php foreach($recentCards as $card): ?>
                   <tr>
-                    <td><?= $card['card_name']; ?></td>
+                    <td><a href="card_page.php?card_id=<?php echo htmlspecialchars($row['card_id']); ?>"> <?php echo htmlspecialchars($row['card_name']); ?></a></td>
                     <td><?= $card['created_at']; ?></td>
                     <td><?= $card['game_name']; ?></td>
                   </tr>
