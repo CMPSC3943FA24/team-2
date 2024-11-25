@@ -21,7 +21,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id']; // Get user ID from the session
 
 // Query to get the total cards, unique cards, and total decks
-$totalCardsQuery = "SELECT COUNT(*) AS total_cards FROM cards WHERE owner = ?";
+$totalCardsQuery = "SELECT SUM(number_owned) AS total_cards FROM cards WHERE owner = ?";
 $uniqueCardsQuery = "SELECT COUNT(DISTINCT name) AS unique_cards FROM cards WHERE owner = ?";
 $totalDecksQuery = "SELECT COUNT(*) AS total_decks FROM decks WHERE owner = ?";
 
