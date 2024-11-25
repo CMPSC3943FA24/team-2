@@ -170,7 +170,7 @@ $bg = rand(1, 9);
       <div class="column is-one-quarter">
         <div class="card">
           <div class="card-content">
-            <p class="title is-4">Total Cards</p>
+            <p class="title is-4 has-text-current">Total Cards</p>
             <p class="card-subtitle"><?= $totalCards; // PHP variable for total cards ?></p>
           </div>
         </div>
