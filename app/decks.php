@@ -23,7 +23,7 @@ ini_set('display_errors', 1);
 </head>
 <body>
 <div class="container">
-    <h1 class="title">Decks</h1>
+    <h1 class="title has-text-current">Decks</h1>
     <a href="edit_decks.php" class="button is-primary">Edit Decks</a>
         <div class="box">
             <h2 class="subtitle">View Deck</h2>
