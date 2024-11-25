@@ -26,8 +26,10 @@ if (isset($_SESSION['user_id'])){
 
 <style>
   .navbar-item .image img {
+    width: 48px !important;
+    height: 48px !important;
     object-fit: contain;
-  }
+}
 </style>
 
 <!-- Navbar Section -->
@@ -92,6 +94,3 @@ if (isset($_SESSION['user_id'])){
     });
 
 </script>
-
-</body>
-</html>
