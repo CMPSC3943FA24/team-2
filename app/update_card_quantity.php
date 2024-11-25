@@ -24,9 +24,9 @@ if (isset($_POST['card_id']) && isset($_POST['new_quantity'])) {
         // Execute the query and check if successful
         if ($stmt->execute()) {
             echo "Quantity updated successfully";  // Return success message
-            echo $cardId;
-            echo $newQuantity;
-            echo $user_id;
+            echo "card id : $cardId";
+            echo "new quan: $newQuantity";
+            echo "uid: $user_id";
         } else {
             echo "Error updating quantity";  // Return error message
         }
