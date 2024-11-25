@@ -63,7 +63,7 @@ if (isset($_SESSION['user_id'])){
             </a>
         </div>
 
-        <div class="navbar-item"><img src="/uploads/2_profile.jpg"></img></figure></div>
+        <div class="navbar-item"><img class="image" src="/uploads/2_profile.jpg"></img></figure></div>
 
 
 
