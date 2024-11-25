@@ -126,7 +126,7 @@ $inventoryResult = $stmtInventory->get_result();
                             <th>Card Image</th>
                             <th>Card Name</th>
                             <th>Number Owned</th>
-                            <th>Game</th>
+                            <th>Update Quantity</th>
                         </tr>
                         
                         <?php while ($row = $inventoryResult->fetch_assoc()): ?>
@@ -137,7 +137,7 @@ $inventoryResult = $stmtInventory->get_result();
                                     <?php echo htmlspecialchars($row['card_name']); ?>
                                 </a>
                             </td>
-                            <td><?php echo htmlspecialchars($row['number_owned']); ?></td>
+                            <td id="old-quantity"><?php echo htmlspecialchars($row['number_owned']); ?></td>
                             <td>
                                 <button class="button is-small" onclick="updateCardQuantity(<?php echo $row['card_id']; ?>, -1)">-</button>
                                 <span id="quantity-<?php echo $row['card_id']; ?>"><?php echo $row['number_owned']; ?></span>
@@ -160,7 +160,7 @@ $inventoryResult = $stmtInventory->get_result();
         var currentQuantityElement = document.getElementById("quantity-" + cardId);
         var currentQuantity = parseInt(currentQuantityElement.innerText);
 
-        // Update the quantity based on the button clicked
+        // Calculate the new quantity
         var newQuantity = currentQuantity + change;
 
         // Don't allow the number of owned cards to go below zero
@@ -169,19 +169,31 @@ $inventoryResult = $stmtInventory->get_result();
             return;
         }
 
-        // Update the quantity in the DOM
+        // Update the quantity in the DOM temporarily
         currentQuantityElement.innerText = newQuantity;
 
         // Send the new quantity to the server via AJAX
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "update_card_quantity.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        // Handle the response from the server
         xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Optionally handle success or failure
-                console.log(xhr.responseText); // You can display a success message if needed
+            if (xhr.readyState === 4) {  // Once the request is complete
+                if (xhr.status === 200) {  // If the request was successful
+                    // If successful, update the old quantity in the DOM
+                    var oldQuantityElement = document.getElementById("old-quantity");
+                    var oldQuantity = parseInt(oldQuantityElement.innerText);
+                    oldQuantityElement.innerText = newQuantity;  // Update old quantity with the new one
+                } else {
+                    // If there's an error, reset the quantity to the old value
+                    alert("Failed to update quantity. Please try again.");
+                    currentQuantityElement.innerText = oldQuantity;
+                }
             }
         };
+
+        // Send the AJAX request with the necessary parameters
         xhr.send("card_id=" + cardId + "&new_quantity=" + newQuantity);
     }
 </script>
