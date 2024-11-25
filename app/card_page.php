@@ -86,7 +86,7 @@ try {
                 </div>
                 <!-- Card Details -->
                 <div class="column">
-                    <h1 class="title"><?php echo htmlspecialchars($card['card_name']); ?></h1>
+                    <h1 class="title has-current-color"><?php echo htmlspecialchars($card['card_name']); ?></h1>
                     <table class="table is-bordered is-striped is-narrow is-fullwidth">
                         <tbody>
                             <tr>
