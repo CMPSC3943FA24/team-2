@@ -37,6 +37,11 @@ if (isset($_SESSION['user_id'])){
     width: 48px !important;
     height: 48px !important;
 }
+
+img {
+    height: 100% !important;
+    max-width: 100% !important;
+}
 </style>
 
 <!-- Navbar Section -->
