@@ -138,7 +138,11 @@ $inventoryResult = $stmtInventory->get_result();
                                 </a>
                             </td>
                             <td><?php echo htmlspecialchars($row['number_owned']); ?></td>
-                            <td><?php echo htmlspecialchars($row['game']); ?></td>
+                            <td>
+                                <button class="button is-small" onclick="updateCardQuantity(<?php echo $row['card_id']; ?>, -1)">-</button>
+                                <span id="quantity-<?php echo $row['card_id']; ?>"><?php echo $row['number_owned']; ?></span>
+                                <button class="button is-small" onclick="updateCardQuantity(<?php echo $row['card_id']; ?>, 1)">+</button>
+                            </td>
                         </tr>
                         <?php endwhile; ?>
                     </tbody>
@@ -149,6 +153,39 @@ $inventoryResult = $stmtInventory->get_result();
 
 </body>
 </html>
+
+<script>
+    function updateCardQuantity(cardId, change) {
+        // Get the current quantity from the span element
+        var currentQuantityElement = document.getElementById("quantity-" + cardId);
+        var currentQuantity = parseInt(currentQuantityElement.innerText);
+
+        // Update the quantity based on the button clicked
+        var newQuantity = currentQuantity + change;
+
+        // Don't allow the number of owned cards to go below zero
+        if (newQuantity < 0) {
+            alert("You cannot have less than 0 cards.");
+            return;
+        }
+
+        // Update the quantity in the DOM
+        currentQuantityElement.innerText = newQuantity;
+
+        // Send the new quantity to the server via AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "update_card_quantity.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Optionally handle success or failure
+                console.log(xhr.responseText); // You can display a success message if needed
+            }
+        };
+        xhr.send("card_id=" + cardId + "&new_quantity=" + newQuantity);
+    }
+</script>
+
 
 <?php
 // Close the database connection
