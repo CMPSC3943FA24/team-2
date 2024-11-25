@@ -48,18 +48,12 @@ if (isset($_SESSION['user_id'])){
         <div class="navbar-item">
             <a href="/app/account_page.php">
                 <?php
-                // Check if the session variable is set and not null
-                if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
-                    $profilePicture = htmlspecialchars($_SESSION['profile_picture']);
-                    echo '<figure class="image is-48x48 is-rounded"><img src="' . $profilePicture . '?' . time() . '" alt="Profile Picture"></figure>';
-                } else {
-                    // Default image if no profile picture is found
-                    echo '<figure class="image is-48x48 is-rounded"><img src="/images/account.jpg" alt="Default Profile Picture"></figure>';
-                }
+                // Ensure profile picture is displayed
+                $profilePicture = isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : '/images/account.jpg';
+                echo '<figure class="image is-48x48 is-rounded"><img src="' . $profilePicture . '?' . time() . '" alt="Profile Picture" style="width: 48px; height: 48px;"></figure>';
                 ?>
             </a>
         </div>
-
 
 
 
