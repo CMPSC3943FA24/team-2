@@ -24,6 +24,12 @@ if (isset($_SESSION['user_id'])){
 }
 ?>
 
+<style>
+  .navbar-item .image img {
+    object-fit: contain;
+  }
+</style>
+
 <!-- Navbar Section -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
