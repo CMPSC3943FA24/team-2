@@ -19,25 +19,31 @@ if (isset($_POST['card_id']) && isset($_POST['new_quantity'])) {
     
     // Update the card quantity in the database
     $updateQuery = "UPDATE cards SET number_owned = ? WHERE card_id = ? AND owner = ?";
+    
     // Prepare the query
     if ($stmt = $conn->prepare($updateQuery)) {
         $stmt->bind_param("iii", $newQuantity, $cardId, $user_id);
 
         // Execute the query and check if successful
         if ($stmt->execute()) {
-            echo "Quantity updated successfully";  // Return success message
-            echo "card id : $cardId";
-            echo "new quan: $newQuantity";
-            echo "uid: $user_id";
+            // Set session variable for success
+            $_SESSION['update_status'] = 'success'; 
         } else {
-            echo "Error updating quantity";  // Return error message
+            // Set session variable for failure
+            $_SESSION['update_status'] = 'failure';
         }
 
         $stmt->close();
     } else {
-        echo "Failed to prepare query";  // Handle query preparation failure
+        // Set session variable for failure in case of query preparation error
+        $_SESSION['update_status'] = 'failure';
     }
 } else {
-    echo "Missing data";  // Handle missing POST data
+    // Set session variable for failure if data is missing
+    $_SESSION['update_status'] = 'failure';
 }
+
+// Redirect back to the previous page
+header("Location: " . $_SERVER['HTTP_REFERER']);
+exit;
 ?>

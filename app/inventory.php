@@ -156,6 +156,40 @@ $inventoryResult = $stmtInventory->get_result();
 </body>
 </html>
 
+<div id="notification-container"></div> <!-- Container for the notification -->
+<script>
+window.onload = function() {
+    <?php if (isset($_SESSION['update_status'])): ?>
+        var status = '<?php echo $_SESSION['update_status']; ?>';
+        var notificationContainer = document.getElementById('notification-container');
+
+        // Create a Bulma notification
+        var notification = document.createElement('div');
+        notification.classList.add('notification', 'is-large');
+        
+        // If success, style it as a success message
+        if (status === 'success') {
+            notification.classList.add('is-success');
+            notification.textContent = 'Quantity updated successfully!';
+        } else {
+            // If failure, style it as a danger message
+            notification.classList.add('is-danger');
+            notification.textContent = 'Error updating quantity.';
+        }
+
+        // Append the notification to the container
+        notificationContainer.appendChild(notification);
+
+        // Optionally, remove the notification after 5 seconds
+        setTimeout(function() {
+            notification.remove();
+        }, 5000);
+
+        <?php unset($_SESSION['update_status']); ?>
+    <?php endif; ?>
+};
+</script>
+
 <?php
 // Close the database connection
 $conn->close();
