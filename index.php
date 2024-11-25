@@ -36,16 +36,19 @@ if ($userId !== null) {
 //Grab Users Background
 
 
-// Fetch total cards
-$totalCardsQuery = "SELECT COUNT(*) AS total FROM cards" . ($userId !== null ? " WHERE owner = ?" : "");
+// Fetch sum for total cards
+$totalCardsQuery = "SELECT SUM(number_owned) AS total FROM cards" . ($userId !== null ? " WHERE owner_id = ?" : "");
 $stmt = $conn->prepare($totalCardsQuery);
+
 if ($userId !== null) {
     $stmt->bind_param('i', $userId); // Bind user ID if it exists
 }
+
 $stmt->execute();
 $result = $stmt->get_result();
 $totalCards = $result->fetch_assoc()['total'];
 $stmt->close();
+
 
 // Fetch unique cards
 $uniqueCardsQuery = "SELECT COUNT(DISTINCT name) AS unique_count FROM cards" . ($userId !== null ? " WHERE owner = ?" : "");
