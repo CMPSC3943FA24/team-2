@@ -25,7 +25,7 @@ if (isset($_SESSION['user_id'])){
 ?>
 
 <!-- Navbar Section -->
-<nav class="navbar is-light">
+<nav class="navbar">
     <div class="navbar-brand">
         <a href="/" class="navbar-item" id="main">
             <strong>CARDSTOCK</strong>
