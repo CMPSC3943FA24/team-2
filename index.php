@@ -36,8 +36,8 @@ if ($userId !== null) {
 //Grab Users Background
 
 
-// Fetch sum for total cards
-$totalCardsQuery = "SELECT SUM(number_owned) AS total FROM cards" . ($userId !== null ? " WHERE owner_id = ?" : "");
+// Fetch total cards
+$totalCardsQuery = "SELECT SUM(number_owned) AS total FROM cards" . ($userId !== null ? " WHERE owner = ?" : "");
 $stmt = $conn->prepare($totalCardsQuery);
 
 if ($userId !== null) {
