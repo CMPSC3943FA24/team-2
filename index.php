@@ -82,7 +82,8 @@ $stmt->close();
 
 // Fetch recent cards
 $recentCardsQuery = "
-    SELECT c.name AS card_name, 
+    SELECT c.card_id,
+           c.name AS card_name,
            c.created_at, 
            g.game_name AS game_name 
     FROM cards c
