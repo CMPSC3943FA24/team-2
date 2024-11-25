@@ -14,7 +14,9 @@ $user_id = $_SESSION['user_id']; // Get user ID from the session
 
 // Check if required data is present
 if (isset($_POST['card_id']) && isset($_POST['new_quantity'])) {
-
+    $cardId = $_POST['card_id'];
+    $newQuantity = $_POST['new_quantity'];
+    
     // Update the card quantity in the database
     $updateQuery = "UPDATE cards SET number_owned = ? WHERE card_id = ? AND owner = ?";
     // Prepare the query
