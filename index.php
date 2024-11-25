@@ -170,8 +170,8 @@ $bg = rand(1, 9);
       <div class="column is-one-quarter">
         <div class="card">
           <div class="card-content">
-            <p class="title">Total Cards</p>
-            <p class="subtitle"><?= $totalCards; // PHP variable for total cards ?></p>
+            <p class="card-header-title">Total Cards</p>
+            <p class="card-subtitle"><?= $totalCards; // PHP variable for total cards ?></p>
           </div>
         </div>
       </div>
