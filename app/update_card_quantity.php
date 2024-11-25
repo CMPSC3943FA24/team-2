@@ -1,6 +1,9 @@
 <?php
 // Include your database connection file
 require "config.php"; // adjust the path to your database connection file
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -16,7 +19,8 @@ if (isset($_POST['card_id']) && isset($_POST['new_quantity'])) {
 
     // Update the card quantity in the database
     $updateQuery = "UPDATE cards SET number_owned = ? WHERE card_id = ? AND owner = ?";
-
+    $cardId = 52465;
+    $newQuantity = 4;
     // Prepare the query
     if ($stmt = $conn->prepare($updateQuery)) {
         $stmt->bind_param("iii", $newQuantity, $cardId, $user_id);
