@@ -25,10 +25,17 @@ if (isset($_SESSION['user_id'])){
 ?>
 
 <style>
-  .navbar-item .image img {
+.navbar-item .image img {
     width: 48px !important;
     height: 48px !important;
+    max-width: none !important;
+    max-height: none !important;
     object-fit: contain;
+}
+
+.navbar-item .image {
+    width: 48px !important;
+    height: 48px !important;
 }
 </style>
 
