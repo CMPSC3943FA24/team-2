@@ -139,9 +139,11 @@ $inventoryResult = $stmtInventory->get_result();
                             </td>
                             <td id="old-quantity"><?php echo htmlspecialchars($row['number_owned']); ?></td>
                             <td>
-                                <button class="button is-small" onclick="updateCardQuantity(<?php echo $row['card_id']; ?>, -1)">-</button>
-                                <span id="quantity-<?php echo $row['card_id']; ?>"><?php echo $row['number_owned']; ?></span>
-                                <button class="button is-small" onclick="updateCardQuantity(<?php echo $row['card_id']; ?>, 1)">+</button>
+                                <form action="update_card_quantity.php" method="POST">
+                                    <input type="hidden" name="card_id" value="<?php echo $row['card_id']; ?>">
+                                    <input type="number" name="new_quantity" value="<?php echo $row['number_owned']; ?>" min="0" class="input is-small" style="width: 60px;">
+                                    <button type="submit" class="button is-small">Submit</button>
+                                </form>
                             </td>
                         </tr>
                         <?php endwhile; ?>
@@ -153,53 +155,6 @@ $inventoryResult = $stmtInventory->get_result();
 
 </body>
 </html>
-
-<script>
-    function updateCardQuantity(cardId, change) {
-        // Get the current quantity from the span element
-        var currentQuantityElement = document.getElementById("quantity-" + cardId);
-        var currentQuantity = parseInt(currentQuantityElement.innerText);
-        
-        // Store the current quantity in a temporary variable to restore in case of error
-        var oldQuantity = currentQuantity;
-
-        // Calculate the new quantity
-        var newQuantity = currentQuantity + change;
-
-        // Don't allow the number of owned cards to go below zero
-        if (newQuantity < 0) {
-            alert("You cannot have less than 0 cards.");
-            return;
-        }
-
-        // Update the quantity in the DOM temporarily
-        currentQuantityElement.innerText = newQuantity;
-
-        // Send the new quantity to the server via AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "update_card_quantity.php", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        // Handle the response from the server
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4) {  // Once the request is complete
-                if (xhr.status === 200) {  // If the request was successful
-                    // The server response could be "success", meaning we can proceed
-                    // Optionally, you can use JSON for better response handling
-                    console.log(xhr.responseText);
-                } else {
-                    // If there's an error, reset the quantity to the old value
-                    alert("Failed to update quantity. Please try again.");
-                    currentQuantityElement.innerText = oldQuantity;  // Restore to old quantity
-                }
-            }
-        };
-
-        // Send the AJAX request with the necessary parameters
-        xhr.send("card_id=" + cardId + "&new_quantity=" + newQuantity);
-    }
-</script>
-
 
 <?php
 // Close the database connection
