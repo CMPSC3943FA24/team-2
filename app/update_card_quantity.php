@@ -17,8 +17,6 @@ if (isset($_POST['card_id']) && isset($_POST['new_quantity'])) {
 
     // Update the card quantity in the database
     $updateQuery = "UPDATE cards SET number_owned = ? WHERE card_id = ? AND owner = ?";
-    $cardId = 52465;
-    $newQuantity = 4;
     // Prepare the query
     if ($stmt = $conn->prepare($updateQuery)) {
         $stmt->bind_param("iii", $newQuantity, $cardId, $user_id);
@@ -26,6 +24,9 @@ if (isset($_POST['card_id']) && isset($_POST['new_quantity'])) {
         // Execute the query and check if successful
         if ($stmt->execute()) {
             echo "Quantity updated successfully";  // Return success message
+            echo $cardId;
+            echo $newQuantity;
+            echo $user_id;
         } else {
             echo "Error updating quantity";  // Return error message
         }
