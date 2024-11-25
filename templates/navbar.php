@@ -46,19 +46,20 @@ if (isset($_SESSION['user_id'])){
 
         <!-- Profile Picture and Logout Button -->
         <div class="navbar-item" style="display: flex; align-items: center; justify-content: center;">
-            <a href="/app/account_page.php" style="display: block; width: 48px; height: 48px; overflow: hidden;">
+            <a href="/app/account_page.php" style="display: block; width: 48px !important; height: 48px !important; overflow: hidden;">
                 <?php
                 // Check if the session variable is set and not null
                 if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
                     $profilePicture = htmlspecialchars($_SESSION['profile_picture']);
-                    echo '<img src="' . $profilePicture . '?' . time() . '" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">';
+                    echo '<img src="' . $profilePicture . '?' . time() . '" alt="Profile Picture" style="width: 100% !important; height: 100% !important; object-fit: cover !important;">';
                 } else {
                     // Default image if no profile picture is found
-                    echo '<img src="/images/account.jpg" alt="Default Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">';
+                    echo '<img src="/images/account.jpg" alt="Default Profile Picture" style="width: 100% !important; height: 100% !important; object-fit: cover !important;">';
                 }
                 ?>
             </a>
         </div>
+
 
 
 
