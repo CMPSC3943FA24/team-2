@@ -159,6 +159,9 @@ $inventoryResult = $stmtInventory->get_result();
         // Get the current quantity from the span element
         var currentQuantityElement = document.getElementById("quantity-" + cardId);
         var currentQuantity = parseInt(currentQuantityElement.innerText);
+        
+        // Store the current quantity in a temporary variable to restore in case of error
+        var oldQuantity = currentQuantity;
 
         // Calculate the new quantity
         var newQuantity = currentQuantity + change;
@@ -181,14 +184,13 @@ $inventoryResult = $stmtInventory->get_result();
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {  // Once the request is complete
                 if (xhr.status === 200) {  // If the request was successful
-                    // If successful, update the old quantity in the DOM
-                    var oldQuantityElement = document.getElementById("old-quantity");
-                    var oldQuantity = parseInt(oldQuantityElement.innerText);
-                    oldQuantityElement.innerText = newQuantity;  // Update old quantity with the new one
+                    // The server response could be "success", meaning we can proceed
+                    // Optionally, you can use JSON for better response handling
+                    console.log(xhr.responseText);
                 } else {
                     // If there's an error, reset the quantity to the old value
-                    alert("Failed to update quantity. Please try again." xhr);
-                    currentQuantityElement.innerText = oldQuantity;
+                    alert("Failed to update quantity. Please try again.");
+                    currentQuantityElement.innerText = oldQuantity;  // Restore to old quantity
                 }
             }
         };
