@@ -47,7 +47,7 @@ if (isset($_SESSION['user_id'])){
         <!-- Profile Picture and Logout Button -->
         <div class="navbar-end">
             <!-- Profile Picture -->
-            <div class="navbar-item" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; padding-top: 5px; height: 100%">
+            <div class="navbar-item" style="width: 48px; height: 100%; display: flex; align-items: center; justify-content: center; padding-top: 5px;">
                 <a href="/app/account_page.php" style="width: 100%; height: 100%; display: block;">
                     <?php
                     // Check if the session variable is set and not null
