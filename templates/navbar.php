@@ -55,6 +55,8 @@ if (isset($_SESSION['user_id'])){
             </a>
         </div>
 
+        <div class="navbar-item"><figure class = "image is-48x48"><img src="/uploads/2_profile.jpg"></img></figure></div>
+
 
 
 
