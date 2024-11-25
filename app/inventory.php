@@ -187,7 +187,7 @@ $inventoryResult = $stmtInventory->get_result();
                     oldQuantityElement.innerText = newQuantity;  // Update old quantity with the new one
                 } else {
                     // If there's an error, reset the quantity to the old value
-                    alert("Failed to update quantity. Please try again.");
+                    alert("Failed to update quantity. Please try again." xhr);
                     currentQuantityElement.innerText = oldQuantity;
                 }
             }
