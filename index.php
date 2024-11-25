@@ -148,7 +148,7 @@ $bg = rand(1, 9);
 <section class="hero is-small has-background-danger-dark">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title"> 
+      <h1 class="title has-text-current"> 
         <?php 
           if (isset($_SESSION['name'])) {
             echo "Welcome back, " . htmlspecialchars($_SESSION['name']);
