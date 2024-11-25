@@ -75,11 +75,6 @@ img {
             </a>
         </div>
 
-        <div class="navbar-item"><img class="image" src="/uploads/2_profile.jpg"></img></figure></div>
-
-
-
-
             <!-- Logout Button -->
             <div class="navbar-item is-hidden-touch">
                 <?php if (isset($_SESSION['user_id'])): ?>
