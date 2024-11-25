@@ -145,7 +145,7 @@ $bg = rand(1, 9);
 <?php include "templates/navbar.php";?>
 
 <!-- Header Section -->
-<section class="hero is-primary">
+<section class="hero is-small has-background-danger-dark">
   <div class="hero-body">
     <div class="container">
       <h1 class="title"> 
