@@ -64,8 +64,23 @@ img {
             <a href="/app/add_card.php" class="navbar-item">Add Card</a>
         </div>
 
-        <!-- Profile Picture and Logout Button -->
+        <!-- Search, Profile Picture, and Logout Button -->
         <div class="navbar-item">
+            <!-- Search Bar -->
+            <form action="/app/search_page.php" method="GET" style="margin-right: 1rem;">
+                <div class="field has-addons">
+                    <div class="control">
+                        <input class="input is-small" type="text" name="query" placeholder="Search...">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-info is-small">
+                            <span class="icon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
             <a href="/app/account_page.php">
                 <?php
                 // Ensure profile picture is displayed
