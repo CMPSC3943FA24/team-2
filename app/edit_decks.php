@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
 </head>
 <body>
 <div class="container">
-    <h1 class="title">Deck Builder</h1>
+    <h1 class="title has-current-text">Deck Builder</h1>
 
     <!-- Deck Creation Form -->
     <div class="box">
@@ -69,13 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'], $_GET['deck_id
         <form method="POST">
             <input type="hidden" name="action" value="create_deck">
             <div class="field">
-                <label class="label">Deck Name</label>
+                <label class="label has-current-text">Deck Name</label>
                 <div class="control">
                     <input class="input" type="text" name="deck_name" required>
                 </div>
             </div>
             <div class="field">
-                <label class="label">Description</label>
+                <label class="label has-current-text">Description</label>
                 <div class="control">
                     <textarea class="textarea" name="description"></textarea>
                 </div>
