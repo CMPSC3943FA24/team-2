@@ -1,7 +1,11 @@
 <?php
-// Fetch card sets from the database
-require '../db.php'; // Use this to connect to the database
-session_start();
+// Include the database connection file
+require 'config.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start a new session if one is not already started
+}
+
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -9,14 +13,18 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
-$cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
+
+// Fetch card sets from the database
+$query = "SELECT game_id, game_name FROM games";
+$result = $conn->query($query);
+$cardSets = $result->fetch_all(MYSQLI_ASSOC); // Fetch all results as an associative array
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Insert Card</title>
 </head>
@@ -32,7 +40,7 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
             <!-- Main form column -->
             <div class="column">
                 <h1 class="title">Insert New Card</h1>
-                <h2 class="Subtitle">Only Pokemon is implemented atm!</h2>
+                <h2 class="subtitle">Only Pokemon is implemented atm!</h2>
                 <form action="../Scripts/insert_card.php" method="POST">
                     <label class="label" for="card_set">Game:</label>
                     <select class="select" id="card_set" name="card_game" required>
@@ -83,6 +91,9 @@ $cardSets = $pdo->query("SELECT game_id, game_name FROM games")->fetchAll();
 
                     <label class="label" for="artists">Artists:</label>
                     <input class="input" type="text" id="artists" name="artists" required><br><br>
+
+                    <label class="label" for="owner">Owner user_id:</label>
+                    <input class="input" type="number" id="owner" name="owner" required><br><br>
 
                     <input class="button" type="submit" value="Submit">
                 </form>
