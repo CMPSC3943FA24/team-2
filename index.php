@@ -161,7 +161,7 @@ $bg = rand(1, 9);
           }
         ?>
       </h1>
-      <h2 class="subtitle">Here’s an overview of your card collection.</h2>
+      <h2 class="subtitle has-text-white">Here’s an overview of your card collection.</h2>
     </div>
   </div>
 </section>
