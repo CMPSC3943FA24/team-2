@@ -70,10 +70,10 @@ img {
             <form action="/app/search_page.php" method="GET" style="margin-right: 1rem;">
                 <div class="field has-addons">
                     <div class="control">
-                        <input class="input is-small" type="text" name="query" placeholder="Search...">
+                        <input class="input" type="text" name="search_term" placeholder="Search...">
                     </div>
                     <div class="control">
-                        <button type="submit" class="button is-info is-small">
+                        <button type="submit" class="button is-info">
                             <span class="icon">
                                 <i class="fas fa-search"></i>
                             </span>
