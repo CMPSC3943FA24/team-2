@@ -74,9 +74,7 @@ img {
                     </div>
                     <div class="control">
                         <button type="submit" class="button is-info">
-                            <span class="icon">
-                                <i class="fas fa-search"></i>
-                            </span>
+                            <p>Search</p>
                         </button>
                     </div>
                 </div>
